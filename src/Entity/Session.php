@@ -19,9 +19,6 @@ class Session
     #[ORM\Column(length: 255)]
     private ?string $intitule = null;
 
-    #[ORM\Column]
-    private ?bool $statut = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDebut = null;
 
@@ -63,18 +60,6 @@ class Session
     public function setIntitule(string $intitule): self
     {
         $this->intitule = $intitule;
-
-        return $this;
-    }
-
-    public function isStatut(): ?bool
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(bool $statut): self
-    {
-        $this->statut = $statut;
 
         return $this;
     }
