@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail Session{% endblock %}
+
+{% block body %}
+
+    <h1> Détail Session {{ session }} </h1>
+
+    <p>Inscrire un stagiaire</p>
+    <p>Ajouter module</p>
+
+
+    <h2>Programme :</h2>
+    {% for programme in session.programmes %}
+        <p>
+            {{ programme.module }} {{ programme.duree }} jours
+        </p>
+        <a href="#">Supprimer module</a>        
+    {% endfor %}
+
+
+
+{% endblock %}
