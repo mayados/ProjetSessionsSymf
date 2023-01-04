@@ -13,17 +13,32 @@
 
     <h2>Sessions en cours</h2>
     {% for session in progressSessions %}   
-        <p>{{ session.intitule }} {{ session.dateDebut | date("d-m-Y") }} {{ session.dateFin | date("d-m-Y") }} {{ session.formation }}</p>
+        <p>
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> 
+            {{ session.dateDebut | date("d-m-Y") }}
+            {{ session.dateFin | date("d-m-Y") }} 
+            {{ session.formation }}
+        </p>
     {% endfor %}
 
     <h2>Sessions à venir</h2>
     {% for session in futureSessions %}   
-        <p>{{ session.intitule }} {{ session.dateDebut | date("d-m-Y") }} {{ session.dateFin | date("d-m-Y") }} {{ session.formation }}</p>
+        <p>
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a>
+            {{ session.dateDebut | date("d-m-Y") }}
+            {{ session.dateFin | date("d-m-Y") }}
+            {{ session.formation }}
+        </p>
     {% endfor %}
 
     <h2>Sessions passées</h2>
     {% for session in pastSessions %}   
-        <p>{{ session.intitule }} {{ session.dateDebut | date("d-m-Y") }} {{ session.dateFin | date("d-m-Y") }} {{ session.formation }}</p>
+        <p>
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a>
+            {{ session.dateDebut | date("d-m-Y") }}
+            {{ session.dateFin | date("d-m-Y") }} 
+            {{ session.formation }}
+        </p>
     {% endfor %}
 
 
