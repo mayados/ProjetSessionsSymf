@@ -63,4 +63,51 @@ class SessionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findPastSessions(){
+
+        //Récupérer la date du jour 
+        //class native php, on met donc un antislash
+        $now = new \DateTime();
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateFin < :val')
+            -> setParameter('val',$now)
+            ->orderBy('s.dateDebut', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function findFutureSessions(){
+
+        //Récupérer la date du jour 
+        //class native php, on met donc un antislash
+        $now = new \DateTime();
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateDebut > :val')
+            -> setParameter('val',$now)
+            ->orderBy('s.dateFin', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function findProgressSessions(){
+
+        //Récupérer la date du jour 
+        //class native php, on met donc un antislash
+        $now = new \DateTime();
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateDebut <= :val AND s.dateFin >= :val')
+            -> setParameter('val',$now)
+            ->orderBy('s.dateFin', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+
 }
