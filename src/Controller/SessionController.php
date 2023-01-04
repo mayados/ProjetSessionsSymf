@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,13 +12,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(SessionRepository $sr): Response
     {
-
-        $sessions = $doctrine->getRepository(Session::class)->findAll();
+        $pastSessions = $sr->findPastSessions();
+        $futureSessions = $sr->findFutureSessions();
+        $progressSessions = $sr->findProgressSessions();
 
         return $this->render('session/index.html.twig', [
-            'sessions' => $sessions,
+            'pastSessions' => $pastSessions,
+            'futureSessions' => $futureSessions,
+            'progressSessions' => $progressSessions,
         ]);
     }
 }
