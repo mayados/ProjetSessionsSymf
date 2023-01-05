@@ -17,9 +17,16 @@
 
     <h4>Sessions Prévues</h4>
 
-    {% for session in stagiaire.sessions %}
-        <p>{{ session.dateDebut }}</p>
-    {% endfor %}
+    <ul>
+        {% if stagiaire.sessions == NULL %}
+            {% for session in stagiaire.sessions %}
+                <li><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> (du {{ session.dateDebut | date('d-m-Y') }} au {{ session.dateFin | date('d-m-Y') }})</li>
+            {% endfor %}   
+        {% else %}
+            <p>Pas de sessions prévues</p>  
+        {% endif %}
+    </ul>
+
 
 
 
