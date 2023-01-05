@@ -19,5 +19,11 @@
     {% endfor %}
 
 
+    <h3>STAGIAIRES</h3>
+    {% for stagiaire in session.stagiaires %}
+        <p>
+            {{ stagiaire.nom }} {{ stagiaire.prenom }} jours
+        </p>   
+    {% endfor %}
 
 {% endblock %}
