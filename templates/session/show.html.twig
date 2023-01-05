@@ -7,23 +7,42 @@
     <h1> Détail Session {{ session }} </h1>
 
     <p>Inscrire un stagiaire</p>
-    <p>Ajouter module</p>
+    <a href="{{ path('add_programme') }}">Ajouter module</a>
+
+    {# {{ form(formAddProgramme) }} #}
 
 
     <h2>Programme :</h2>
-    {% for programme in session.programmes %}
-        <p>
-            {{ programme.module }} {{ programme.duree }} jours
-        </p>
-        <a href="#">Supprimer module</a>        
-    {% endfor %}
 
+    <table>
+        <tr>
+            <th>Module</th>
+            <th>Durée (jours)</th>
+        </tr>
+        {% for programme in session.programmes %}
+        <tr>
+            <td>{{ programme.module }}</td> 
+            <td>{{ programme.duree }} jours</td>
+            <td><a href="#">Supprimer le module</a> </td>              
+        </tr>
+        {% endfor %}        
+    </table>
 
     <h3>STAGIAIRES</h3>
-    {% for stagiaire in session.stagiaires %}
-        <p>
-            {{ stagiaire.nom }} {{ stagiaire.prenom }} jours
-        </p>   
-    {% endfor %}
+
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+        </tr>
+        {% for stagiaire in session.stagiaires %}
+            <tr>
+                <td>{{ stagiaire.nom }}</td>
+                <td>{{ stagiaire.prenom }}</td>     
+                <td><a href="#">Désinscrire</a></td>         
+            </tr>
+        {% endfor %}        
+    </table>
+
 
 {% endblock %}
