@@ -20,10 +20,10 @@
             <th>Durée (jours)</th>
         </tr>
         {% for programme in session.programmes %}
-        <tr>
+        <tr>   
             <td>{{ programme.module }}</td> 
             <td>{{ programme.duree }} jours</td>
-            <td><a href="#">Supprimer le module</a> </td>              
+            <td><a href="{{ path('delete_programme', {'id': programme.id}) }}">Supprimer le module</a> </td>              
         </tr>
         {% endfor %}        
     </table>
