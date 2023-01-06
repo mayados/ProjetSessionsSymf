@@ -53,6 +53,8 @@ class ProgrammeController extends AbstractController
         /* flush() sauvegarde les changements effectués en base de données */
         $entityManager->flush();
 
+
+        //Voir comment rediriger sur une vue précise. Par exemple la session où l'on était
         return $this->redirectToRoute('app_session');
 
     }
