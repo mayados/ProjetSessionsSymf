@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Programme;
 use App\Form\ProgrammeType;
+use App\Repository\ProgrammeRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,5 +41,22 @@ class ProgrammeController extends AbstractController
             'formAddProgramme' => $form->createView() 
         ]);
     }
+
+    #[Route('/programme/delete/{id}', name: 'delete_programme')]
+    public function deleteProgramme(ManagerRegistry $doctrine , int $id): Response
+    {
+
+        /* Ici, on fait appel à deux fonctions présentes de base dans le ProgrammeRepository : fin() et remove() */
+        $entityManager = $doctrine->getManager();
+        $programme = $entityManager->getRepository(Programme::class)->find($id);
+        $entityManager->remove($programme);
+        /* flush() sauvegarde les changements effectués en base de données */
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_session');
+
+    }
+
+
 
 }
