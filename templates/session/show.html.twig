@@ -18,11 +18,14 @@
         <tr>
             <th>Module</th>
             <th>Durée (jours)</th>
+            <th>Catégorie</th>
         </tr>
         {% for programme in session.programmes %}
         <tr>   
+
             <td>{{ programme.module }}</td> 
             <td>{{ programme.duree }} jours</td>
+            <td>{{ programme.module.categorie }}</td>             
             <td><a href="{{ path('delete_programme', {'id': programme.id}) }}">Supprimer le module</a> </td>              
         </tr>
         {% endfor %}        
@@ -39,7 +42,7 @@
             <tr>
                 <td>{{ stagiaire.nom }}</td>
                 <td>{{ stagiaire.prenom }}</td>     
-                <td><a href="#">Désinscrire</a></td>         
+                <td><a href="{{ path('remove_stagiaire', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>         
             </tr>
         {% endfor %}        
     </table>
