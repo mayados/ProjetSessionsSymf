@@ -18,16 +18,13 @@
     <h4>Sessions Prévues</h4>
 
     <ul>
-        {% if stagiaire.sessions == NULL %}
+        {% if (stagiaire.sessions | length) > 0 %}
             {% for session in stagiaire.sessions %}
-                <li><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> (du {{ session.dateDebut | date('d-m-Y') }} au {{ session.dateFin | date('d-m-Y') }})</li>
+                    <li><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> (du {{ session.dateDebut | date('d-m-Y') }} au {{ session.dateFin | date('d-m-Y') }})</li>
             {% endfor %}   
         {% else %}
-            <p>Pas de sessions prévues</p>  
+            <li>Pas de sessions prévues</li>  
         {% endif %}
     </ul>
-
-
-
 
 {% endblock %}
