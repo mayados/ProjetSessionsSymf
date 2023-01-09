@@ -9,9 +9,9 @@
     {% for stagiaire in stagiaires %}
     <div>
         <p>{{ stagiaire }}</p>  
+        {# On renvoie vers la page détail du stagiaire ciblé #}
         <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a>      
     </div>
-
     {% endfor %}
 
 
