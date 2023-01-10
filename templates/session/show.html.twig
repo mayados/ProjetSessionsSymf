@@ -6,7 +6,6 @@
 
     <h1> Détail Session {{ session }} </h1>
 
-    <p>Inscrire un stagiaire</p>
     <a href="{{ path('add_programme') }}">Ajouter module</a>
 
     {# {{ form(formAddProgramme) }} #}
@@ -47,5 +46,20 @@
         {% endfor %}        
     </table>
 
+    <h3>STAGIAIRES NON INSCRITS</h3>
+
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+        </tr>
+        {# {% for stagiaire in session.stagiaires %}
+            <tr>
+                <td>{{ stagiaire.nom }}</td>
+                <td>{{ stagiaire.prenom }}</td>     
+                <td><a href="#">Inscrire</a></td>         
+            </tr>
+        {% endfor %}         #}
+    </table>
 
 {% endblock %}
