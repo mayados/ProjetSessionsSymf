@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Entity\Programme;
 use App\Entity\Stagiaire;
+use App\Form\SessionType;
 use App\Form\SessionStagiaireType;
 use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,6 +30,27 @@ class SessionController extends AbstractController
         ]);
     }
 
+    #[Route('/session/add', name: 'add_session')]
+    public function add(ManagerRegistry $doctrine, Session $session = null, Request $request): Response
+    {
+
+        $form = $this->createForm(SessionType::class, $session);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $programme = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($programme);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_session');
+        }
+
+        return $this->render('session/add.html.twig', [
+            'formAddSession' => $form->createView() 
+        ]);
+    }
+
     #[Route('/session/removeStagiaire/{id}/{idStagiaire}', name: 'remove_stagiaire')]
     public function removeStagiaire(ManagerRegistry $doctrine , Session $session, Stagiaire $stagiaire, int $idStagiaire): Response
     {
@@ -44,30 +66,13 @@ class SessionController extends AbstractController
         $entityManager->flush();
 
 
-        //Voir comment rediriger sur une vue précise. Par exemple la session où l'on était
-        return $this->redirectToRoute('app_session');
+        //Redirige sur la session sur laquelle on se trouvait
+        //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)
+        return $this->redirectToRoute('show_session',
+    ['id' => $session->getId()]);
 
     }
 
-    #[Route('/session/addStagiaire', name: 'add_stagiaire')]
-    public function addStagiaireToSession(ManagerRegistry $doctrine, Session $session = null, Request $request)
-    {
-        $form = $this->createForm(SessionStagiaireType::class, $session);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $newStagiaire = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($newStagiaire);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_session');
-        }
-
-        return $this->render('session/addStagiaire.html.twig', [
-            'formAddStagiaire' => $form->createView() 
-        ]);
-    }
 
     #[Route('/session/{id}', name: 'show_session')]
     public function show(Session $session): Response
