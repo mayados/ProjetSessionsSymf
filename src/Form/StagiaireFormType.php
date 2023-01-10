@@ -26,7 +26,10 @@ class StagiaireFormType extends AbstractType
                 ],
 
             ])
-            ->add('dateNaissance', DateType::class)
+            ->add('dateNaissance', DateType::class, [
+                // Pour avoir un mini calendrier à l'affichage
+                'widget' => 'single_text',
+            ])
             ->add('ville', TextType::class)
             ->add('mail', TextType::class)
             ->add('telephone', IntegerType::class)
