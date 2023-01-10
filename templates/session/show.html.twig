@@ -6,7 +6,7 @@
 
     <h1> Détail Session {{ session }} </h1>
 
-    <a href="{{ path('add_programme') }}">Ajouter module</a>
+    <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter module</a>
 
     {# {{ form(formAddProgramme) }} #}
 
