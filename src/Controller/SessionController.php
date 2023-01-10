@@ -73,13 +73,38 @@ class SessionController extends AbstractController
 
     }
 
+    #[Route('/session/addStagiaire/{id}/{idStagiaire}', name: 'add_stagiaireSession')]
+    public function addtagiaire(ManagerRegistry $doctrine , Session $session, Stagiaire $stagiaire, int $idStagiaire): Response
+    {
+
+        /* Des choses vont être changées en base de données session_stagiaire, il faut donc doctrine */
+        $entityManager = $doctrine->getManager();
+        /* On cherche de quelle instance de class il s'agit grâce à l'id du stagiaire envoyée en url */
+        $stagiaire = $entityManager->getRepository(Stagiaire::class)->find($idStagiaire);        
+        /* On appelle une méthode de la Class, pas une méthode du repository */
+        /* On dit que le stagiaire concerné est celui que la méthode find() renvoie  */
+        $session->addStagiaire($stagiaire);
+        /* flush() sauvegarde les changements effectués en base de données */
+        $entityManager->flush();
+
+
+        //Redirige sur la session sur laquelle on se trouvait
+        //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)
+        return $this->redirectToRoute('show_session',
+    ['id' => $session->getId()]);
+
+    }
+
 
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session): Response
+    public function show(Session $session, SessionRepository $sr, int $id): Response
     {
+        //Indiquer le chemin vers la méthode pour display les stagiaires non-inscrits
+        $stagiairesNonInscrits = $sr->findNonInscrits($id);
 
         return $this->render('session/show.html.twig', [
             'session' => $session,
+            'stagiairesNonInscrits' => $stagiairesNonInscrits,
         ]);
     }
 
