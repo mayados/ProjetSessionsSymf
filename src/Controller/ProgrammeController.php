@@ -33,6 +33,7 @@ class ProgrammeController extends AbstractController
             $programme = $form->getData();
             $entityManager = $doctrine->getManager();
             $session = $entityManager->getRepository(Session::class)->find($idSession);  
+            /* On utilise la méthode créée de base dans Session grâce au ManyToMany */
             $session->addProgramme($programme);
             $entityManager->persist($programme);
             // $entityManager->persist($programme);
@@ -47,8 +48,8 @@ class ProgrammeController extends AbstractController
         ]);
     }
 
-    #[Route('/programme/delete/{id}', name: 'delete_programme')]
-    public function deleteProgramme(ManagerRegistry $doctrine , int $id): Response
+    #[Route('/programme/delete/{id}/{idSession}', name: 'delete_programme')]
+    public function deleteProgramme(ManagerRegistry $doctrine , int $id, int $idSession): Response
     {
 
         /* Ici, on fait appel à deux fonctions présentes de base dans le ProgrammeRepository : find() et remove() */
@@ -58,9 +59,8 @@ class ProgrammeController extends AbstractController
         /* flush() sauvegarde les changements effectués en base de données */
         $entityManager->flush();
 
-
-        //Voir comment rediriger sur une vue précise. Par exemple la session où l'on était
-        return $this->redirectToRoute('app_session');
+        return $this->redirectToRoute('show_session',
+    ['id' => $idSession]);
 
     }
 
