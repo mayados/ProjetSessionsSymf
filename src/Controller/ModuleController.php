@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Module;
+use App\Form\ModuleType;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModuleController extends AbstractController
 {
@@ -15,4 +19,26 @@ class ModuleController extends AbstractController
             'controller_name' => 'ModuleController',
         ]);
     }
+
+    #[Route('/module/add', name: 'add_module')]
+    public function add(ManagerRegistry $doctrine, Module $module = null, Request $request): Response
+    {
+
+        $form = $this->createForm(ModuleType::class, $module);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $module = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($module);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_session');
+        }
+
+        return $this->render('module/add.html.twig', [
+            'formAddModule' => $form->createView() 
+        ]);
+    }
+
 }
