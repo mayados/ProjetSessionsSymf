@@ -46,7 +46,7 @@ class ProgrammeController extends AbstractController
     public function deleteProgramme(ManagerRegistry $doctrine , int $id): Response
     {
 
-        /* Ici, on fait appel à deux fonctions présentes de base dans le ProgrammeRepository : fin() et remove() */
+        /* Ici, on fait appel à deux fonctions présentes de base dans le ProgrammeRepository : find() et remove() */
         $entityManager = $doctrine->getManager();
         $programme = $entityManager->getRepository(Programme::class)->find($id);
         $entityManager->remove($programme);
