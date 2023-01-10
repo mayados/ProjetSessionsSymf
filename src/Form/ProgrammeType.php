@@ -16,7 +16,6 @@ class ProgrammeType extends AbstractType
     {
         $builder
             ->add('duree', TextType::class)
-            ->add('session')
             ->add('module')
             ->add('submit', SubmitType::class)
         ;
