@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Entity\Programme;
 use App\Form\ProgrammeType;
 use App\Repository\ProgrammeRepository;
@@ -21,8 +22,8 @@ class ProgrammeController extends AbstractController
         ]);
     }
 
-    #[Route('/programme/add', name: 'add_programme')]
-    public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request): Response
+    #[Route('/programme/add/{idSession}', name: 'add_programme')]
+    public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, int $idSession): Response
     {
 
         $form = $this->createForm(ProgrammeType::class, $programme);
@@ -31,10 +32,14 @@ class ProgrammeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $programme = $form->getData();
             $entityManager = $doctrine->getManager();
+            $session = $entityManager->getRepository(Session::class)->find($idSession);  
+            $session->addProgramme($programme);
             $entityManager->persist($programme);
+            // $entityManager->persist($programme);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_session');
+            return $this->redirectToRoute('show_session',
+            ['id' => $session->getId()]);
         }
 
         return $this->render('programme/add.html.twig', [
