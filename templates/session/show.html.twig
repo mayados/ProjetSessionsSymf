@@ -6,6 +6,8 @@
 
     <h1> Détail Session {{ session }} </h1>
 
+    <p><a href="{{ path('app_session') }}">Retour</a></p>
+
     <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter module</a>
 
     {# {{ form(formAddProgramme) }} #}
@@ -25,7 +27,7 @@
             <td>{{ programme.module }}</td> 
             <td>{{ programme.duree }} jours</td>
             <td>{{ programme.module.categorie }}</td>             
-            <td><a href="{{ path('delete_programme', {'id': programme.id}) }}">Supprimer le module</a> </td>              
+            <td><a href="{{ path('delete_programme', {'id': programme.id, 'idSession': session.id}) }}">Supprimer le module</a> </td>              
         </tr>
         {% endfor %}        
     </table>
@@ -53,13 +55,13 @@
             <th>Nom</th>
             <th>Prénom</th>
         </tr>
-        {# {% for stagiaire in session.stagiaires %}
+        {% for stagiaire in stagiairesNonInscrits %}
             <tr>
                 <td>{{ stagiaire.nom }}</td>
                 <td>{{ stagiaire.prenom }}</td>     
-                <td><a href="#">Inscrire</a></td>         
+                <td><a href="{{ path('add_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>         
             </tr>
-        {% endfor %}         #}
+        {% endfor %}        
     </table>
 
 {% endblock %}
