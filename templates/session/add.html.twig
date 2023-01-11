@@ -4,7 +4,12 @@
 
 {% block body %}
 
-    <h1> Ajouter une session </h1>
+    {% if edit %}
+        <h1>Editer la session</h1>
+    {% else %}
+        <h1> Ajouter une session </h1>    
+    {% endif %}
+
 
     {{ form(formAddSession) }}
 
