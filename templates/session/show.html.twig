@@ -8,7 +8,6 @@
 
     <p><a href="{{ path('app_session') }}">Retour</a></p>
 
-    <p><a href=''>Modifier la session</a></p>
 
     <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter module</a>
 
@@ -60,8 +59,12 @@
         {% for stagiaire in stagiairesNonInscrits %}
             <tr>
                 <td>{{ stagiaire.nom }}</td>
-                <td>{{ stagiaire.prenom }}</td>     
-                <td><a href="{{ path('add_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>         
+                <td>{{ stagiaire.prenom }}</td>    
+                {% if session.stagiaires | length < session.nbPlaces %}
+                    <td><a href="{{ path('add_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>         
+                {% else %}  
+ 
+                {% endif %}        
             </tr>
         {% endfor %}        
     </table>
