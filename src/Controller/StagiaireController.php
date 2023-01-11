@@ -25,8 +25,12 @@ class StagiaireController extends AbstractController
     }
 
     #[Route('/stagiaires/add', name: 'add_stagiaire')]
+    #[Route('/stagiaires/edit/{id}', name: 'edit_stagiaire')]
     public function add(ManagerRegistry $doctrine, Stagiaire $stagiaire = null, Request $request): Response
     {
+        if(!$stagiaire){
+            $stagiaire = new Stagiaire();
+        }
 
         $form = $this->createForm(StagiaireFormType::class, $stagiaire);
         $form->handleRequest($request);
@@ -41,7 +45,8 @@ class StagiaireController extends AbstractController
         }
 
         return $this->render('stagiaire/add.html.twig', [
-            'formAddStagiaire' => $form->createView() 
+            'formAddStagiaire' => $form->createView(),
+            'edit' => $stagiaire->getId(),
         ]);
     }
 
