@@ -12,7 +12,8 @@
     <div>
         <p>{{ stagiaire }}</p>  
         {# On renvoie vers la page détail du stagiaire ciblé #}
-        <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a>      
+        <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a>  
+        <a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}">Edit</a>
     </div>
     {% endfor %}
 
