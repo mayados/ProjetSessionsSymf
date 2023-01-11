@@ -20,8 +20,14 @@ class SessionType extends AbstractType
     {
         $builder
             ->add('intitule', TextType::class)
-            ->add('dateDebut', DateType::class)
-            ->add('dateFin', DateType::class)
+            ->add('dateDebut', DateType::class, [
+                // Pour avoir un mini calendrier à l'affichage
+                'widget' => 'single_text',
+            ])
+            ->add('dateFin', DateType::class, [
+                // Pour avoir un mini calendrier à l'affichage
+                'widget' => 'single_text',
+            ])
             ->add('nbPlaces', IntegerType::class)
             ->add('referent', EntityType::class, [
                 'class' => Formateur::class,
