@@ -32,7 +32,7 @@ class StagiaireFormType extends AbstractType
             ])
             ->add('ville', TextType::class)
             ->add('mail', TextType::class)
-            ->add('telephone', IntegerType::class)
+            ->add('telephone', TextType::class)
             ->add('submit', SubmitType::class)
         ;
     }
