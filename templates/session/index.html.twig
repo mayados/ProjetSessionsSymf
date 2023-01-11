@@ -32,9 +32,9 @@
                 <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                 <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                 <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                <td>Actions</td>
+                <td><p><a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a></p></td>
                 {% if session.stagiaires | length == session.nbPlaces %}
-                <td>Complet</td>      
+                    <td>Complet</td>      
                 {% else %}  
                     <td>Ouvert</td>     
                 {% endif %}                     
