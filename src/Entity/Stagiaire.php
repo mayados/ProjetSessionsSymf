@@ -34,8 +34,8 @@ class Stagiaire
     #[ORM\Column(length: 255)]
     private ?string $mail = null;
 
-    #[ORM\Column]
-    private ?int $telephone = null;
+    #[ORM\Column(length: 10)]
+    private ?string $telephone = null;
 
     #[ORM\ManyToMany(targetEntity: Session::class, mappedBy: 'stagiaires')]
     private Collection $sessions;
@@ -122,12 +122,12 @@ class Stagiaire
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
 
