@@ -67,10 +67,12 @@ class SessionController extends AbstractController
     {
         //Indiquer le chemin vers la méthode pour display les stagiaires non-inscrits
         $stagiairesNonInscrits = $sr->findNonInscrits($session->getId());
+        $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());
 
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'stagiairesNonInscrits' => $stagiairesNonInscrits,
+            'modulesNonProgrammes' => $modulesNonProgrammes,
         ]);
     }
 
