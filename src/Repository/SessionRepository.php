@@ -239,10 +239,22 @@ class SessionRepository extends ServiceEntityRepository
         $sub->select('pr')
         // On donne l'allias pr à l'entité Programme
         ->from('App\Entity\Programme', 'pr')
+        ->join('App\Entity\Module', 'm') 
         // Où expr() est un expressionBuilder (sert à utiliser les conditions comme notIn)  les programmes dont l'id n'est pas dans la requête précédente 
-        ->where($sub->expr()->notIn('pr.session', $qb->getDQL()))
+        ->where('pr.module = m.id')
+        ->andwhere($sub->expr()->notIn('pr.session', $qb->getDQL()))
         // Requête préparée -> on protège contre l'injection SQL
         ->setParameter('id', $id);
+
+        // //On veut afficher les modules présents DANS (IN) le résultat précédent
+        // $sub = $em->createQueryBuilder();
+        // $sub->select('pro')
+        // ->from('App\Entity\Programme', 'pro')
+        // ->join('App\Entity\Module', 'm')     
+        // ->where('pro.module = m.id')   
+        // ->andwhere($sub->expr()->notIn('pro.session', $qb->getDQL()))
+        // ->setParameter('id', $id);
+
 
 
         //renvoyer le résultat
