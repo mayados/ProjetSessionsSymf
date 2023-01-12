@@ -6,20 +6,30 @@ use App\Entity\Session;
 use App\Entity\Programme;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
+use App\Form\ProgrammeType;
 use App\Form\SessionStagiaireType;
 use App\Repository\SessionRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 class SessionController extends AbstractController
 {
     #[Route('/home', name: 'app_session')]
     public function index(SessionRepository $sr): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         $pastSessions = $sr->findPastSessions();
         $futureSessions = $sr->findFutureSessions();
         $progressSessions = $sr->findProgressSessions();
@@ -37,6 +47,13 @@ class SessionController extends AbstractController
     #[Route('/session/add', name: 'add_session')]
     public function add(ManagerRegistry $doctrine, Session $session = null, Request $request): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
 
         //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
         // Si ca existe ça passe par les datas edit (voir plus bas)
@@ -62,9 +79,35 @@ class SessionController extends AbstractController
         ]);
     }
 
+    // #[Route('/session/add/{id}', name: 'add_programme')]
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session, SessionRepository $sr): Response
+    public function show(Session $session, SessionRepository $sr, ManagerRegistry $doctrine, Programme $programme = null, Request $request, int $id): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
+        $form = $this->createForm(ProgrammeType::class, $programme);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $programme = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $session = $entityManager->getRepository(Session::class)->find($id);  
+            /* On utilise la méthode créée de base dans Session grâce au ManyToMany */
+            $session->addProgramme($programme);
+            $entityManager->persist($programme);
+            // $entityManager->persist($programme);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_session',
+            ['id' => $session->getId()]);
+        }
+
         //Indiquer le chemin vers la méthode pour display les stagiaires non-inscrits
         $stagiairesNonInscrits = $sr->findNonInscrits($session->getId());
         $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());
@@ -73,6 +116,7 @@ class SessionController extends AbstractController
             'session' => $session,
             'stagiairesNonInscrits' => $stagiairesNonInscrits,
             'modulesNonProgrammes' => $modulesNonProgrammes,
+            'formAddProgramme' => $form->createView(),
         ]);
     }
 
@@ -115,6 +159,13 @@ class SessionController extends AbstractController
     #[ParamConverter("stagiaire", options:["mapping" => ["idStagiaire" => "id"]])]
     public function removeStagiaire(ManagerRegistry $doctrine , Session $session, Stagiaire $stagiaire): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
 
         /* Des choses vont être changées en base de données session_stagiaire, il faut donc doctrine */
         $entityManager = $doctrine->getManager();
