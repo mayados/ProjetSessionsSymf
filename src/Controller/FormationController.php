@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Form\FormationType;
+use Doctrine\ORM\EntityManager;
+use App\Repository\SessionRepository;
+use App\Repository\FormationRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +16,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormationController extends AbstractController
 {
     #[Route('/formation', name: 'app_formation')]
-    public function index(): Response
+    public function index(FormationRepository $fr): Response
     {
+
+        $listeFormations = $fr->findAll();
+
         return $this->render('formation/index.html.twig', [
-            'controller_name' => 'FormationController',
+            'listeFormations' => $listeFormations,
         ]);
     }
 
@@ -38,6 +44,22 @@ class FormationController extends AbstractController
 
         return $this->render('formation/add.html.twig', [
             'formAddFormation' => $form->createView() 
+        ]);
+    }
+
+    #[Route('/formation/{id}', name: 'show_formation')]
+    public function show(Formation $formation, SessionRepository $sr, FormationRepository $fr): Response
+    {
+        $formation = $fr->find($formation->getId());
+        $pastSessions = $sr->findPastSessionsByFormation($formation->getId());
+        $futureSessions = $sr->findFutureSessionsByFormation($formation->getId());
+        $progressSessions = $sr->findProgressSessionsByFormation($formation->getId());        
+
+        return $this->render('formation/show.html.twig', [
+            'formation' => $formation,
+            'pastSessions' => $pastSessions,
+            'futureSessions' => $futureSessions,
+            'progressSessions' => $progressSessions,
         ]);
     }
 
