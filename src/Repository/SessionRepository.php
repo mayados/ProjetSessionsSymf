@@ -150,5 +150,67 @@ class SessionRepository extends ServiceEntityRepository
 
     }
 
+    public function findProgressSessionsByFormation($id){
+
+        //Récupérer la date du jour 
+        //class native php, on met donc un antislash
+        $now = new \DateTime();
+
+        $parameters = array(
+            'id' => $id,
+            'now' => $now
+        );
+
+        return $this->createQueryBuilder('s')
+            ->where('s.formation = :id')
+            ->andWhere('s.dateDebut <= :now AND s.dateFin >= :now')
+            -> setParameters($parameters)
+            ->orderBy('s.dateFin', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function findPastSessionsByFormation($id){
+
+        //Récupérer la date du jour 
+        //class native php, on met donc un antislash
+        $now = new \DateTime();
+
+        $parameters = array(
+            'id' => $id,
+            'now' => $now
+        );
+
+        return $this->createQueryBuilder('s')
+            ->where('s.formation = :id')
+            ->andWhere('s.dateFin < :now')
+            -> setParameters($parameters)
+            ->orderBy('s.dateFin', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function findFutureSessionsByFormation($id){
+
+        //Récupérer la date du jour 
+        //class native php, on met donc un antislash
+        $now = new \DateTime();
+
+        $parameters = array(
+            'id' => $id,
+            'now' => $now
+        );
+
+        return $this->createQueryBuilder('s')
+            ->where('s.formation = :id')
+            ->andWhere('s.dateDebut > :now')
+            -> setParameters($parameters)
+            ->orderBy('s.dateFin', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
 
 }
