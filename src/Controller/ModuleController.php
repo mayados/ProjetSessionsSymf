@@ -24,6 +24,13 @@ class ModuleController extends AbstractController
     public function add(ManagerRegistry $doctrine, Module $module = null, Request $request): Response
     {
 
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         $form = $this->createForm(ModuleType::class, $module);
         $form->handleRequest($request);
 

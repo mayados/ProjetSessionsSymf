@@ -19,6 +19,13 @@ class FormationController extends AbstractController
     public function index(FormationRepository $fr): Response
     {
 
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         $listeFormations = $fr->findAll();
 
         return $this->render('formation/index.html.twig', [
@@ -29,6 +36,13 @@ class FormationController extends AbstractController
     #[Route('/formation/add', name: 'add_formation')]
     public function add(ManagerRegistry $doctrine, Formation $formation = null, Request $request): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
 
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
@@ -50,6 +64,14 @@ class FormationController extends AbstractController
     #[Route('/formation/{id}', name: 'show_formation')]
     public function show(Formation $formation, SessionRepository $sr, FormationRepository $fr): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         $formation = $fr->find($formation->getId());
         $pastSessions = $sr->findPastSessionsByFormation($formation->getId());
         $futureSessions = $sr->findFutureSessionsByFormation($formation->getId());
