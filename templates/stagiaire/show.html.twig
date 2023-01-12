@@ -20,14 +20,43 @@
 
     <h4>Sessions Prévues</h4>
 
-    <ul>
-        {% if (stagiaire.sessions | length) > 0 %}
+
+    {% if (stagiaire.sessions | length) > 0 %}
+    <table>
+        <tr>
+            <th>Intitule</th>
+            <th>Formation</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Inscrits</th>
+            <th>Action</th>
+            <th>Statut</th>
+        </tr>
             {% for session in stagiaire.sessions %}
-                    <li><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> (du {{ session.dateDebut | date('d-m-Y') }} au {{ session.dateFin | date('d-m-Y') }})</li>
-            {% endfor %}   
-        {% else %}
-            <li>Pas de sessions prévues</li>  
-        {% endif %}
-    </ul>
+        <tr>
+                <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                <td>{{ session.formation }}</td>
+                <td>{{ session.dateDebut | date('d-m-Y') }}</td>
+                <td>{{ session.dateFin | date('d-m-Y') }}</td>
+                <td>{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
+                <td><a href="{{ path('remove_stagiaire', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
+                {% if session.stagiaires | length == session.nbPlaces %}
+                <td>Complet</td>      
+                {% else %}  
+                <td>Ouvert</td>     
+                {% endif %}        
+            {% endfor %}           
+        </tr>
+ 
+    </table>
+    {% else %}
+        <p>Pas de sessions prévues</p>  
+    {% endif %}
+
+
+
+
 
 {% endblock %}
+
+
