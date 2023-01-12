@@ -14,6 +14,22 @@
     {# {{ form(formAddProgramme) }} #}
 
 
+    <h2>Récapitulatif :</h2>
+    <ul>
+        {% if session.referent != NULL %}
+        <li>Formateur référent : {{ session.referent }}</li>
+        {% else%}
+        <li> Pas de formateur référent </li>
+        {% endif %}
+
+        <li>Date de début : {{ session.dateDebut | date("d-m-Y") }}</li>
+        <li>Date de fin : {{ session.dateFin | date("d-m-Y") }}</li>
+        <li>Nombre de places : {{ session.nbPlaces }}</li>
+        <li>Places disponibles : {{ session.nbPlaces - session.stagiaires | length }}</li>
+        <li>Nombre de modules : {{ session.programmes | length }} </li>
+    </ul>
+    
+
     <h2>Programme :</h2>
 
     <table>
@@ -28,7 +44,26 @@
             <td>{{ programme.module }}</td> 
             <td>{{ programme.duree }} jours</td>
             <td>{{ programme.module.categorie }}</td>             
-            <td><a href="{{ path('delete_programme', {'id': programme.id, 'idSession': session.id}) }}">Supprimer le module</a> </td>              
+            <td><a href="{{ path('delete_programme', {'id': programme.id, 'idSession': session.id}) }}">Déprogrammer</a> </td>              
+        </tr>
+        {% endfor %}        
+    </table>
+
+        <h2> Modules non programmés :</h2>
+
+    <table>
+        <tr>
+            <th>Module</th>
+            <th>Durée (jours)</th>
+            <th>Catégorie</th>
+        </tr>
+        {% for programme in modulesNonProgrammes %}
+        <tr>   
+
+            <td>{{ programme.module }}</td> 
+            <td>{{ programme.duree }} jours</td>
+            <td>{{ programme.module.categorie }}</td>             
+            <td><a href="#">Programmer</a> </td>              
         </tr>
         {% endfor %}        
     </table>
