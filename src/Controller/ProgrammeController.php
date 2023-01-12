@@ -26,6 +26,13 @@ class ProgrammeController extends AbstractController
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, int $idSession): Response
     {
 
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         $form = $this->createForm(ProgrammeType::class, $programme);
         $form->handleRequest($request);
 
@@ -43,7 +50,7 @@ class ProgrammeController extends AbstractController
             ['id' => $session->getId()]);
         }
 
-        return $this->render('programme/add.html.twig', [
+        return $this->render('session/show.html.twig', [
             'formAddProgramme' => $form->createView() 
         ]);
     }
@@ -51,6 +58,13 @@ class ProgrammeController extends AbstractController
     #[Route('/programme/delete/{id}/{idSession}', name: 'delete_programme')]
     public function deleteProgramme(ManagerRegistry $doctrine , int $id, int $idSession): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
 
         /* Ici, on fait appel à deux fonctions présentes de base dans le ProgrammeRepository : find() et remove() */
         $entityManager = $doctrine->getManager();
