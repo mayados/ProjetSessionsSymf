@@ -9,7 +9,7 @@
     <p><a href="{{ path('app_session') }}">Retour</a></p>
 
 
-    <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter module</a>
+    {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter module</a> #}
 
     {# {{ form(formAddProgramme) }} #}
 
@@ -57,32 +57,43 @@
             <th>Durée (jours)</th>
             <th>Catégorie</th>
         </tr>
+        {{ form_start(formAddProgramme) }}
+        {{ form_row(formAddProgramme.duree) }}
         {% for programme in modulesNonProgrammes %}
         <tr>   
 
             <td>{{ programme.module }}</td> 
-            <td>{{ programme.duree }} jours</td>
+            {# <td>{{ form_row(formAddProgramme.duree) }} </td> #}
             <td>{{ programme.module.categorie }}</td>             
             <td><a href="#">Programmer</a> </td>              
         </tr>
-        {% endfor %}        
+        {% endfor %}  
+        {{ form_end(formAddProgramme) }}      
     </table>
 
     <h3>STAGIAIRES</h3>
 
+    {% if session.stagiaires | length == 0 %}
+        <p>Pas de stagiaires inscrits</p>
+    {% else %}
     <table>
         <tr>
             <th>Nom</th>
             <th>Prénom</th>
+            <th>Action</th>
+            <th></th>
         </tr>
         {% for stagiaire in session.stagiaires %}
             <tr>
                 <td>{{ stagiaire.nom }}</td>
-                <td>{{ stagiaire.prenom }}</td>     
-                <td><a href="{{ path('remove_stagiaire', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>         
+                <td>{{ stagiaire.prenom }}</td>   
+                <td><a href="{{ path('remove_stagiaire', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>   
+                <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir fiche stagiaire</a></td>       
             </tr>
         {% endfor %}        
     </table>
+    {% endif %}
+
 
     <h3>STAGIAIRES NON INSCRITS</h3>
 
@@ -90,6 +101,7 @@
         <tr>
             <th>Nom</th>
             <th>Prénom</th>
+            <th>Action</th>
         </tr>
         {% for stagiaire in stagiairesNonInscrits %}
             <tr>
@@ -98,10 +110,14 @@
                 {% if session.stagiaires | length < session.nbPlaces %}
                     <td><a href="{{ path('add_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>         
                 {% else %}  
- 
-                {% endif %}        
+                    <td>x</td>
+                {% endif %}   
+                <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir fiche stagiaire</a></td>     
             </tr>
-        {% endfor %}        
+        {% endfor %}   
+          
     </table>
+
+
 
 {% endblock %}
