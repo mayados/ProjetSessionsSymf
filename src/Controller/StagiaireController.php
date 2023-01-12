@@ -17,6 +17,13 @@ class StagiaireController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
 
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         $stagiaires = $doctrine->getRepository(Stagiaire::class)->findAll();
 
         return $this->render('stagiaire/index.html.twig', [
@@ -28,6 +35,14 @@ class StagiaireController extends AbstractController
     #[Route('/stagiaires/edit/{id}', name: 'edit_stagiaire')]
     public function add(ManagerRegistry $doctrine, Stagiaire $stagiaire = null, Request $request): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         if(!$stagiaire){
             $stagiaire = new Stagiaire();
         }
@@ -48,6 +63,7 @@ class StagiaireController extends AbstractController
             'formAddStagiaire' => $form->createView(),
             'edit' => $stagiaire->getId(),
         ]);
+
     }
 
 
@@ -55,6 +71,14 @@ class StagiaireController extends AbstractController
     #[Route('/stagiaire/{id}', name: 'show_stagiaire')]
     public function show(Stagiaire $stagiaire): Response
     {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
         return $this->render('stagiaire/show.html.twig', [
             'stagiaire' => $stagiaire,
         ]);
