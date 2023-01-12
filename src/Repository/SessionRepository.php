@@ -213,4 +213,43 @@ class SessionRepository extends ServiceEntityRepository
 
     }
 
+    public function findModulesNonProgrammes($id)
+    {
+        //em sert à acceder à doctrine
+        $em = $this->getEntityManager();
+        //Sert à créér une requête DQL (déjà lié à doctrine de par $em)
+        $sub = $em->createQueryBuilder();
+
+        //Requête en deux temps
+
+        // $qb est égal à la création d'une requête + la connexion à Doctrine
+        $qb = $sub;
+        /*Sélectionner tous les programmes d'une session dont l'id est passé en paramètre*/
+        //On séléctionne l'objet d'allias 's' avec toutes ses propriétés
+        $qb->select('s')
+        ->from('App\Entity\Session', 's')
+        // On fait un leftJoin sur la collection programmes de l'entité Session
+        ->leftJoin('s.programmes', 'p')
+        // Où l'id de la session est égal à l'id entré en paramètres
+        ->where('p.session = :id');
+
+        // On doit redéfinir sub car ici on fait une autre requête, qui est la suite de la requête
+        $sub = $em->createQueryBuilder();
+        /* Sélectionner tous les stagiaires qui ne sont pas (NOT IN) le résultat précédent */
+        $sub->select('pr')
+        // On donne l'allias pr à l'entité Programme
+        ->from('App\Entity\Programme', 'pr')
+        // Où expr() est un expressionBuilder (sert à utiliser les conditions comme notIn)  les programmes dont l'id n'est pas dans la requête précédente 
+        ->where($sub->expr()->notIn('pr.session', $qb->getDQL()))
+        // Requête préparée -> on protège contre l'injection SQL
+        ->setParameter('id', $id);
+
+
+        //renvoyer le résultat
+        //On attribue à $query les valeurs de sub
+        $query = $sub->getQuery();
+        return $query->getResult();
+
+    }
+
 }
