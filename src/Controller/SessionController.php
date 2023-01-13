@@ -91,6 +91,11 @@ class SessionController extends AbstractController
         //     return $this->redirectToRoute("app_login");
         // }
 
+        //Indiquer le chemin vers la méthode pour display les stagiaires non-inscrits
+        $stagiairesNonInscrits = $sr->findNonInscrits($session->getId());
+        $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());        
+
+        
         $form = $this->createForm(ProgrammeType::class, $programme);
         $form->handleRequest($request);
 
@@ -108,16 +113,13 @@ class SessionController extends AbstractController
             ['id' => $session->getId()]);
         }
 
-        //Indiquer le chemin vers la méthode pour display les stagiaires non-inscrits
-        $stagiairesNonInscrits = $sr->findNonInscrits($session->getId());
-        $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());
-
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'stagiairesNonInscrits' => $stagiairesNonInscrits,
             'modulesNonProgrammes' => $modulesNonProgrammes,
             'formAddProgramme' => $form->createView(),
         ]);
+
     }
 
     #[Route('/session/addStagiaire/{id}/{idStagiaire}', name: 'add_stagiaireSession')]
