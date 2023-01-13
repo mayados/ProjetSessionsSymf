@@ -216,7 +216,7 @@ class SessionRepository extends ServiceEntityRepository
     public function findModulesNonProgrammes($id)
     {
 
-                //em sert à acceder à doctrine
+        //em sert à acceder à doctrine
         $em = $this->getEntityManager();
         //Sert à créér une requête DQL (déjà lié à doctrine de par $em)
         $sub = $em->createQueryBuilder();
@@ -226,35 +226,25 @@ class SessionRepository extends ServiceEntityRepository
         // $qb est égal à la création d'une requête + la connexion à Doctrine
         $qb = $sub;
         /*Sélectionner tous les programmes d'une session dont l'id est passé en paramètre*/
-        //On séléctionne l'objet d'allias 's' avec toutes ses propriétés
+        //On séléctionne l'objet d'allias 'm' avec toutes ses propriétés
         $qb->select('m')
         ->from('App\Entity\Module', 'm')
-        // On fait un leftJoin sur la collection programmes de l'entité Session
+        // On fait un leftJoin sur la collection programmes de l'entité Module
         ->leftJoin('m.programmes', 'pro')
-        // Où l'id de la session est égal à l'id entré en paramètres
+        // Où l'id de la session du programme est égal à l'id entré en paramètres
         ->where('pro.session = :id');
 
         // On doit redéfinir sub car ici on fait une autre requête, qui est la suite de la requête
         $sub = $em->createQueryBuilder();
-        /* Sélectionner tous les stagiaires qui ne sont pas (NOT IN) le résultat précédent */
+        /* Sélectionner tous les modules qui ne sont pas (NOT IN) le résultat précédent */
         $sub->select('mo')
-        // On donne l'allias pr à l'entité Programme
+        // On donne l'allias mo à l'entité Module
         ->from('App\Entity\Module', 'mo')
-        // Où expr() est un expressionBuilder (sert à utiliser les conditions comme notIn)  les programmes dont l'id n'est pas dans la requête précédente 
+        /* Où expr() est un expressionBuilder (sert à utiliser les conditions comme notIn)  
+        les modules dont l'id n'est pas dans la requête précédente */
         ->where($sub->expr()->notIn('mo.id', $qb->getDQL()))
         // Requête préparée -> on protège contre l'injection SQL
         ->setParameter('id', $id);
-
-        // //On veut afficher les modules présents DANS (IN) le résultat précédent
-        // $sub = $em->createQueryBuilder();
-        // $sub->select('pro')
-        // ->from('App\Entity\Programme', 'pro')
-        // ->join('App\Entity\Module', 'm')     
-        // ->where('pro.module = m.id')   
-        // ->andwhere($sub->expr()->notIn('pro.session', $qb->getDQL()))
-        // ->setParameter('id', $id);
-
-
 
         //renvoyer le résultat
         //On attribue à $query les valeurs de sub
