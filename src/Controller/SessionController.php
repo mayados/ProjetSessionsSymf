@@ -25,7 +25,7 @@ class SessionController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         // if($this->getUser()) {
-            
+
         // } else {
         //     return $this->redirectToRoute("app_login");
         // }
@@ -50,21 +50,21 @@ class SessionController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         // if($this->getUser()) {
-            
+
         // } else {
         //     return $this->redirectToRoute("app_login");
         // }
 
         //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
         // Si ca existe ça passe par les datas edit (voir plus bas)
-        if(!$session) {
+        if (!$session) {
             $session = new Session();
         }
 
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $programme = $form->getData();
             $entityManager = $doctrine->getManager();
             $entityManager->persist($programme);
@@ -86,92 +86,127 @@ class SessionController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         // if($this->getUser()) {
-            
+
         // } else {
         //     return $this->redirectToRoute("app_login");
         // }
 
         //Indiquer le chemin vers la méthode pour display les stagiaires non-inscrits
         $stagiairesNonInscrits = $sr->findNonInscrits($session->getId());
-        $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());        
+        $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());
+        $form = [];
+        foreach ($modulesNonProgrammes as $index => $module) {
+            $programme = new Programme();
+            $programme->setModule($module);
+            $programme->setSession($session);
+            $index = $this->createForm(ProgrammeType::class, $programme);
+            $index->handleRequest($request);
+            $form[] = $index->createView();
 
-        
-        $form = $this->createForm(ProgrammeType::class, $programme);
-        $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $programme = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $session = $entityManager->getRepository(Session::class)->find($id);  
-            /* On utilise la méthode créée de base dans Session grâce au ManyToMany */
-            $session->addProgramme($programme);
-            $entityManager->persist($programme);
-            // $entityManager->persist($programme);
-            $entityManager->flush();
+            if ($index->isSubmitted() && $index->isValid()) {
+                $programme = $index->getData();
+                dd($programme);
+                // var_dump($form->get('duree')->getData());die;
+                $entityManager = $doctrine->getManager();
+                $session = $entityManager->getRepository(Session::class)->find($id);
+                /* On utilise la méthode créée de base dans Session grâce au ManyToMany */
+                $session->addProgramme($programme);
+                $entityManager->persist($programme);
+                // $entityManager->persist($programme);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('show_session',
-            ['id' => $session->getId()]);
+                return $this->redirectToRoute(
+                    'show_session',
+                    ['id' => $session->getId()]
+                );
+            }
         }
+        //dd($form);
+        // die;
+
+
+        // $form = $this->createForm(ProgrammeType::class, $programme);
+        // $form->handleRequest($request);
+
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $programme = $form->getData();
+        //     // var_dump($form->get('duree')->getData());die;
+        //     $entityManager = $doctrine->getManager();
+        //     $session = $entityManager->getRepository(Session::class)->find($id);
+        //     /* On utilise la méthode créée de base dans Session grâce au ManyToMany */
+        //     $session->addProgramme($programme);
+        //     $entityManager->persist($programme);
+        //     // $entityManager->persist($programme);
+        //     $entityManager->flush();
+
+        //     return $this->redirectToRoute(
+        //         'show_session',
+        //         ['id' => $session->getId()]
+        //     );
+        // }
 
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'stagiairesNonInscrits' => $stagiairesNonInscrits,
             'modulesNonProgrammes' => $modulesNonProgrammes,
-            'formAddProgramme' => $form->createView(),
+            'formInfos' => $form
         ]);
-
     }
 
     #[Route('/session/addStagiaire/{id}/{idStagiaire}', name: 'add_stagiaireSession')]
     //Pour savoir de quel élément il s'agit dans la route on utilise le paramConverter quand il y a plusieurs éléments à passer
     //  options : 1er paramètre -> le nom de la variable passée / 2-> le nom de la propriété correspondante dans l'Entité concernée
-    #[ParamConverter("session", options:["mapping" => ["id" => "id"]])]
-    #[ParamConverter("stagiaire", options:["mapping" => ["idStagiaire" => "id"]])]
-    public function addtagiaire(ManagerRegistry $doctrine , Session $session, Stagiaire $stagiaire): Response
+    #[ParamConverter("session", options: ["mapping" => ["id" => "id"]])]
+    #[ParamConverter("stagiaire", options: ["mapping" => ["idStagiaire" => "id"]])]
+    public function addtagiaire(ManagerRegistry $doctrine, Session $session, Stagiaire $stagiaire): Response
     {
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         // if($this->getUser()) {
-            // Si une session est complète, on redirige à la même page (=pas d'action possible même direct dans l'url)
-            if(count($session->getStagiaires()) >= $session->getNbPlaces()) {
-                return $this->redirectToRoute("show_session", ["id" => $session->getId()]);
-            } else {
-                /* Des choses vont être changées en base de données session_stagiaire, il faut donc doctrine */
-                $entityManager = $doctrine->getManager();
-                /* On cherche de quelle instance de class il s'agit grâce à l'id du stagiaire envoyée en url */      
-                /* On appelle une méthode de la Class, pas une méthode du repository */
-                /* On dit que le stagiaire concerné est celui que la méthode find() renvoie  */
-                $session->addStagiaire($stagiaire);
-                /* flush() sauvegarde les changements effectués en base de données */
-                $entityManager->flush();
-        
-        
-                //Redirige sur la session sur laquelle on se trouvait
-                //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)
-                return $this->redirectToRoute('show_session',
-                    ['id' => $session->getId()]);
-            }
+        // Si une session est complète, on redirige à la même page (=pas d'action possible même direct dans l'url)
+        if (count($session->getStagiaires()) >= $session->getNbPlaces()) {
+            return $this->redirectToRoute("show_session", ["id" => $session->getId()]);
+        } else {
+            /* Des choses vont être changées en base de données session_stagiaire, il faut donc doctrine */
+            $entityManager = $doctrine->getManager();
+            /* On cherche de quelle instance de class il s'agit grâce à l'id du stagiaire envoyée en url */
+            /* On appelle une méthode de la Class, pas une méthode du repository */
+            /* On dit que le stagiaire concerné est celui que la méthode find() renvoie  */
+            $session->addStagiaire($stagiaire);
+            /* flush() sauvegarde les changements effectués en base de données */
+            $entityManager->flush();
+
+
+            //Redirige sur la session sur laquelle on se trouvait
+            //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)
+            return $this->redirectToRoute(
+                'show_session',
+                ['id' => $session->getId()]
+            );
+        }
         // } else {
         //     return $this->redirectToRoute("app_login");
         // }
-        
-    }    
+
+    }
 
     #[Route('/session/removeStagiaire/{id}/{idStagiaire}', name: 'remove_stagiaire')]
-    #[ParamConverter("session", options:["mapping" => ["id" => "id"]])]
-    #[ParamConverter("stagiaire", options:["mapping" => ["idStagiaire" => "id"]])]
-    public function removeStagiaire(ManagerRegistry $doctrine , Session $session, Stagiaire $stagiaire): Response
+    #[ParamConverter("session", options: ["mapping" => ["id" => "id"]])]
+    #[ParamConverter("stagiaire", options: ["mapping" => ["idStagiaire" => "id"]])]
+    public function removeStagiaire(ManagerRegistry $doctrine, Session $session, Stagiaire $stagiaire): Response
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         // if($this->getUser()) {
-            
+
         // } else {
         //     return $this->redirectToRoute("app_login");
         // }
 
         /* Des choses vont être changées en base de données session_stagiaire, il faut donc doctrine */
         $entityManager = $doctrine->getManager();
-        /* On cherche de quelle instance de class il s'agit grâce à l'id du stagiaire envoyée en url */       
+        /* On cherche de quelle instance de class il s'agit grâce à l'id du stagiaire envoyée en url */
         /* On appelle une méthode de la Class, pas une méthode du repository */
         /* On dit que le stagiaire concerné est celui que la méthode find() renvoie  */
         $session->removeStagiaire($stagiaire);
@@ -181,16 +216,9 @@ class SessionController extends AbstractController
 
         //Redirige sur la session sur laquelle on se trouvait
         //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)
-        return $this->redirectToRoute('show_session',
-    ['id' => $session->getId()]);
-
+        return $this->redirectToRoute(
+            'show_session',
+            ['id' => $session->getId()]
+        );
     }
-
-
-
-
-
-
-
-
 }
