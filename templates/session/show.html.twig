@@ -62,25 +62,26 @@
         <th>Durée (jours)</th>
         <th>Action</th>
     </tr>
-    {% for index in formInfos %}
-    {{dump(index)}}
+    {# On boucle déjà sur les modules non programmés dans le controller, 
+        donc essayer d'avoir un module->getIntitule et autres infos pour qu'elles
+        soient toutes ensemble #}
+     {% for index in formInfos %}
+     {# {{dump(index)}}  #}
     {{ form_start(index) }}
-    {{ form_row(index.duree) }}
+    {{ form_row(index.duree) }} 
 
-    {{ form_end(index) }}
-    {% endfor %}
-    {% for module in modulesNonProgrammes %}
+     {{ form_end(index) }}
+    {% endfor %} 
+    {% for module in modulesNonProgrammes %} 
     <tr>
 
         <td>{{ module.intitule }}</td>
         <td>{{ module.categorie }}</td>
+
         <td></td>
-        <td><a href="#">Programmer</a> </td>
 
+        <td><a href="#"></a> </td>
     </tr>
-
-
-
     {% endfor %}
 
 </table>
