@@ -50,25 +50,28 @@
     </table>
 
         <h2> Modules non programmés :</h2>
-
+  
     <table>
         <tr>
             <th>Module</th>
+            <th>Catégorie</th>            
             <th>Durée (jours)</th>
-            <th>Catégorie</th>
+            <th>Action</th>
         </tr>
-        {{ form_start(formAddProgramme) }}
-        {{ form_row(formAddProgramme.duree) }}
-        {% for programme in modulesNonProgrammes %}
+        {{ form(formAddProgramme) }}   
+        {# {{ form_row(formAddProgramme.duree) }} #}
+        {% for module in modulesNonProgrammes %}
         <tr>   
-
-            <td>{{ programme.module }}</td> 
-            {# <td>{{ form_row(formAddProgramme.duree) }} </td> #}
-            <td>{{ programme.module.categorie }}</td>             
-            <td><a href="#">Programmer</a> </td>              
+       
+            <td>{{ module.intitule }}</td> 
+            <td>{{ module.categorie }}</td>  
+            <td></td>           
+            <td><a href="#">Programmer</a> </td>      
+                           
         </tr>
+   
         {% endfor %}  
-        {{ form_end(formAddProgramme) }}      
+   
     </table>
 
     <h3>STAGIAIRES</h3>
