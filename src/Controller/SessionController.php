@@ -95,6 +95,15 @@ class SessionController extends AbstractController
         $stagiairesNonInscrits = $sr->findNonInscrits($session->getId());
         $modulesNonProgrammes = $sr->findModulesNonProgrammes($session->getId());
         $form = [];
+        /* On fait le tour des modules non programmés, et, pour chaque module on crée un 
+        nouveau Programme, on lui attribue un module (qui est le module courant comme on 
+        est dans un foreach
+        On lui attribue une session (la session courant comme on est dans le détail d'une
+        session))
+        Ensuite, on attribue à $index la création de formulaire avec les éléments de 
+        $programme (module et session set auparavant) 
+        On dit que $form est un tableau dans lequel on ajoute à chaque tour de boucle 
+        la création d'une vue pour le formulaire*/
         foreach ($modulesNonProgrammes as $index => $module) {
             $programme = new Programme();
             $programme->setModule($module);
@@ -105,8 +114,9 @@ class SessionController extends AbstractController
 
 
             if ($index->isSubmitted() && $index->isValid()) {
+                //$index est le formulaire (voir plus haut), on obtient donc les données du form
                 $programme = $index->getData();
-                dd($programme);
+                // dd($programme);
                 // var_dump($form->get('duree')->getData());die;
                 $entityManager = $doctrine->getManager();
                 $session = $entityManager->getRepository(Session::class)->find($id);
