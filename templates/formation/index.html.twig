@@ -4,25 +4,26 @@
 
 {% block body %}
 
-    
-    <h1>Liste des formations</h1>
+    <div class="container-page">
 
-    <p><a href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
+        <h1>Liste des formations</h1>        
 
-    <table>
-        <tr>
-            <th>Formation</th>
-            <th>Nombre de sessions</th>
-        </tr>
-        {% for formation in listeFormations %}   
-            <tr>
-                <td><a href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
-                <td>{{ formation.sessions | length }}</td>
-            </tr>
-        {% endfor %}            
-    </table>
+        <div class="page-elements">
+            <p><a href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
 
-
-
+            <table>
+                <tr>
+                    <th>Formation</th>
+                    <th>Nombre de sessions</th>
+                </tr>
+                {% for formation in listeFormations %}   
+                    <tr>
+                        <td><a href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
+                        <td>{{ formation.sessions | length }}</td>
+                    </tr>
+                {% endfor %}            
+            </table>                    
+        </div>
+    </div>
 
 {% endblock %}

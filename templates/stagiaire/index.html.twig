@@ -4,18 +4,34 @@
 
 {% block body %}
 
-    <h1>Liste des stagiaires</h1>
+    <div class="container-page">
+        <h1>Liste des stagiaires</h1>
 
-    <a href="{{ path('add_stagiaire') }}">Ajouter un stagiaire</a>
+        <div class="page-elements">
+            <a href="{{ path('add_stagiaire') }}">Ajouter un stagiaire</a>
 
-    {% for stagiaire in stagiaires %}
-    <div>
-        <p>{{ stagiaire }}</p>  
-        {# On renvoie vers la page détail du stagiaire ciblé #}
-        <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a>  
-        <a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}">Edit</a>
+            <table>
+                <tr>
+                    <th>Nom / Prénom</th>
+                    <th>Détails</th>
+                    <th>Edit</th>
+                </tr>
+                {% for stagiaire in stagiaires %}
+                <tr>
+                    <td>{{ stagiaire }}</td>
+                    <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a> </td>
+                    <td><a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}">Edit</a></td>
+                </tr>
+                {% endfor %}   
+            </table>            
+        </div>
+
+
+
+ 
     </div>
-    {% endfor %}
+
+
 
 
 {% endblock %}
