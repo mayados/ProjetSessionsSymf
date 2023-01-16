@@ -1,0 +1,101 @@
+                    /* GENERAL */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+li{
+    list-style-type: none;
+}
+
+.container-page{
+    min-height: 92vh;
+    background-color: rgb(129, 144, 160);
+}
+
+h1{
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+}
+
+table{
+    background-color: gray;
+    min-width: 80vw;
+    min-height: 100px;
+    color: white;
+}
+
+table th{
+    height: 50px;
+    border-bottom: 1px solid white;
+}
+
+table td{
+    text-align: center;
+    padding: 10px;
+}
+
+table th{
+    background-color: rgb(53, 53, 53);
+}
+
+table tr:nth-child(even){
+    background-color: rgb(71, 71, 71);
+}
+
+table tr:nth-child(odd){
+    background-color: rgb(53, 53, 53);
+}
+
+table .complet{
+    background-color: red;
+}
+
+table .ouvert{
+    background-color: green;
+}
+
+.page-elements{
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    min-height: 70vh;
+    padding-bottom: 50px;
+}
+
+
+                    /* NAVIGATION MENU */
+
+nav{
+    background-color: rgb(60, 60, 60);
+    height: 8vh;
+}
+
+nav #nav-items{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+nav #nav-items .nav-item a{
+    color: white;
+}
+
+
+                        /* HOME */
+
+
+
+
+                        /* SHOW SESSION */
+#programme_module{
+    background-color: rgb(82, 97, 108);
+    text-align: center;
+}
