@@ -36,7 +36,7 @@
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td><p><a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a></p></td>
+                            <td><a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a></td>
                             {% if session.stagiaires | length == session.nbPlaces %}
                                 <td class="complet">Complet</td>      
                             {% else %}  
@@ -68,7 +68,7 @@
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>Actions</td>
+                            <td><a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a></td>
                             {% if session.stagiaires | length == session.nbPlaces %}
                                 <td class="complet">Complet</td>      
                             {% else %}  
@@ -99,7 +99,7 @@
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>Actions</td>
+                            <td><a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a></td>
                             <td>x</td>                
                         </tr>
                     {% endfor %}            
