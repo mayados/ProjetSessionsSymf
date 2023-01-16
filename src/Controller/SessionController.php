@@ -105,6 +105,7 @@ class SessionController extends AbstractController
         On dit que $form est un tableau dans lequel on ajoute à chaque tour de boucle 
         la création d'une vue pour le formulaire*/
         foreach ($modulesNonProgrammes as $index => $module) {
+            // dd($module->getIntitule());
             $programme = new Programme();
             $programme->setModule($module);
             $programme->setSession($session);
