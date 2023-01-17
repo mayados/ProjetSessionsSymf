@@ -95,7 +95,11 @@ nav #nav-items .nav-item a{
 
 
                         /* SHOW SESSION */
+
+/* On récupère les données du module grâce à un dump dans TWIG sur index. A partir de là on recherche dans 
+ce qu'il faut (exemple : data etc..)
+On cache les select du formulaire ProgrammeType pour ne pas que le user puisse selectionner un autre module
+que celui affiché grâce à la boucle (id du select trouvé grâce à l'inspecteur)  */
 #programme_module{
-    background-color: rgb(82, 97, 108);
-    text-align: center;
+    display: none;
 }
