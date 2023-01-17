@@ -74,12 +74,14 @@
                         donc essayer d'avoir un module->getIntitule et autres infos pour qu'elles
                         soient toutes ensemble #}
                     {% for index in formInfos %}
-                    {# {{  dump(index.module) }} #}
-                        {{ form_start(index) }}  
-                    {# {{ dump(index.module) }}         #}
                     <tr>
-                        <td>{{ form_row(index.module) }} </td>
-                        <td></td>
+                        {# <td>{{ index.module.vars.data.intitule }} </td> #}
+                        {# Avant le début du formulaire, on récupère le module qui se trouve dans 
+                            index grâce à la boucle foreach de sessionController, en faisant un dump de index et en cherchant les datas que l'on souhaite #}
+                        <td>{{ index.vars.data.module.intitule }}</td>
+                        {{ form_start(index) }}    
+                        {# On récupère le nom de la catégorie de la même façon qu'auparavant #}
+                        <td>{{ index.vars.data.module.categorie.intitule }}</td>                      
                         <td>{{ form_row(index.duree) }} </td>
                         <td>{{ form_row(index.submit) }}</td>
                     </tr>
