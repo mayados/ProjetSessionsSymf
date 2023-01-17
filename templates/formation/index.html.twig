@@ -15,11 +15,16 @@
                 <tr>
                     <th>Formation</th>
                     <th>Nombre de sessions</th>
+                    <th>Actions</th>
                 </tr>
                 {% for formation in listeFormations %}   
                     <tr>
                         <td><a href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
                         <td>{{ formation.sessions | length }}</td>
+                        <td>
+                            <a href="{{ path('edit_formation', {'id': formation.id}) }}">Edit</a>
+                            <a href="{{ path('remove_formation', {'id': formation.id}) }}">Supprimer</a>
+                        </td>
                     </tr>
                 {% endfor %}            
             </table>                    

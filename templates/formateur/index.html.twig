@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ formateur }}</td>
                     <td>
+                        <a href="{{ path('edit_formateur', {'id': formateur.id}) }}">Edit</a>                        
                         <a href="{{ path('remove_formateur', {'id': formateur.id}) }}">Supprimer</a>
-                        <a href="#">Edit</a>
                     </td>
                 </tr>
                 {% endfor %}
