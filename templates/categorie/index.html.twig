@@ -4,15 +4,28 @@
 
 {% block body %}
 
-    <h1>Liste des catégories</h1>
+    <div class="container-page">
+        <h1>Liste des catégories</h1>
 
-    <a href="{{ path('add_categorie') }}">Ajouter une Catégorie</a>
+        <div class="page-elements">
+            <a href="{{ path('add_categorie') }}">Ajouter une Catégorie</a>
 
-    {% for categorie in listeCategories %}
-    <div>
-        <p>{{ categorie }}</p>  
+            <table>
+                <tr>
+                    <th>Intitule</th>
+                    <th>Actions</th>
+                </tr>
+                {% for categorie in listeCategories %}        
+                <tr>
+                    <td>{{ categorie }}</td>
+                    <td>
+                        <a href="{{ path('edit_categorie', {'id': categorie.id}) }}">Edit</a>
+                        <a href="{{ path('remove_categorie', {'id': categorie.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}        
+            </table>            
+        </div>
     </div>
-    {% endfor %}
-
 
 {% endblock %}
