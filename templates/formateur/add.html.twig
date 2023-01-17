@@ -4,9 +4,17 @@
 
 {% block body %}
 
-    <h1> Ajouter un formateur </h1>
 
-    {{ form(formAddFormateur) }}
+    {% if edit %}
+        <h1>Editer le formateur</h1>
+    {% else %}
+        <h1> Ajouter un formateur </h1>    
+    {% endif %}
 
+    {{ form_start(formAddFormateur) }}
+        {{ form_row(formAddFormateur.nom) }}
+        {{ form_row(formAddFormateur.prenom) }}
+        {{ form_row(formAddFormateur.submit) }}
+    {{ form_end(formAddFormateur) }}
 
 {% endblock %}

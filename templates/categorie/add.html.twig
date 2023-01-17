@@ -4,9 +4,16 @@
 
 {% block body %}
 
-    <h1> Ajouter une catégorie </h1>
 
-    {{ form(formAddCategorie) }}
+    {% if edit %}
+        <h1>Modifier la catégorie</h1>
+    {% else %}
+        <h1> Ajouter une catégorie </h1>  
+    {% endif %}
 
+    {{ form_start(formAddCategorie) }}
+        {{ form_row(formAddCategorie.intitule) }}
+        {{ form_row(formAddCategorie.submit) }}    
+    {{ form_end(formAddCategorie) }}
 
 {% endblock %}
