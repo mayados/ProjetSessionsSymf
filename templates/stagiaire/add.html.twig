@@ -12,7 +12,15 @@
     {% endif %}
 
 
-    {{ form(formAddStagiaire) }}
-
+    {{ form_start(formAddStagiaire) }}
+        {{ form_row(formAddStagiaire.nom) }}
+        {{ form_row(formAddStagiaire.prenom) }}
+        {{ form_row(formAddStagiaire.sexe) }}
+        {{ form_row(formAddStagiaire.dateNaissance) }}
+        {{ form_row(formAddStagiaire.ville) }}
+        {{ form_row(formAddStagiaire.mail) }}
+        {{ form_row(formAddStagiaire.telephone) }}
+        {{ form_row(formAddStagiaire.submit) }}
+    {{ form_end(formAddStagiaire) }}
 
 {% endblock %}

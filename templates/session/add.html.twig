@@ -11,7 +11,14 @@
     {% endif %}
 
 
-    {{ form(formAddSession) }}
-
+    {{ form_start(formAddSession) }}
+        {{ form_row(formAddSession.intitule) }}
+        {{ form_row(formAddSession.dateDebut) }}
+        {{ form_row(formAddSession.dateFin) }}
+        {{ form_row(formAddSession.nbPlaces) }}
+        {{ form_row(formAddSession.referent) }}
+        {{ form_row(formAddSession.formation) }}
+        {{ form_row(formAddSession.submit) }}       
+    {{ form_end(formAddSession) }}
 
 {% endblock %}
