@@ -108,6 +108,7 @@ class SessionController extends AbstractController
             // dd($module->getIntitule());
             $programme = new Programme();
             $programme->setModule($module);
+            // dd($module->getIntitule());
             $programme->setSession($session);
             $index = $this->createForm(ProgrammeType::class, $programme);
             $index->handleRequest($request);
@@ -164,6 +165,33 @@ class SessionController extends AbstractController
             'modulesNonProgrammes' => $modulesNonProgrammes,
             'formInfos' => $form
         ]);
+    }
+
+    #[Route('/session/removeSession/{id}', name: 'remove_session')]
+    public function removeSession(ManagerRegistry $doctrine, SessionRepository $sr, Session $session): Response
+    {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
+
+        $entityManager = $doctrine->getManager();
+
+        $sessionASupprimer = $sr->find($session->getId());
+
+        $sr->remove($sessionASupprimer);
+        /* flush() sauvegarde les changements effectués en base de données */
+        $entityManager->flush();
+
+
+        //Redirige vers Home
+        return $this->redirectToRoute(
+            'app_session',
+        );
     }
 
     #[Route('/session/addStagiaire/{id}/{idStagiaire}', name: 'add_stagiaireSession')]

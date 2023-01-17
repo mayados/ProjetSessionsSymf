@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Stagiaire;
 use App\Form\StagiaireFormType;
+use App\Repository\StagiaireRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,6 +67,33 @@ class StagiaireController extends AbstractController
 
     }
 
+    #[Route('/removeStagiaire/{id}', name: 'remove_stagiaire')]
+    public function removeStagiaire(ManagerRegistry $doctrine, StagiaireRepository $sr, Stagiaire $stagiaire): Response
+    {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
+
+        $entityManager = $doctrine->getManager();
+
+        $stagiaireASupprimer = $sr->find($stagiaire->getId());
+
+        $sr->remove($stagiaireASupprimer);
+        /* flush() sauvegarde les changements effectués en base de données */
+        $entityManager->flush();
+
+
+        //Redirige vers Home
+        return $this->redirectToRoute(
+            'app_stagiaire',
+        );
+
+    }    
 
 
     #[Route('/stagiaire/{id}', name: 'show_stagiaire')]
