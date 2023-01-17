@@ -33,6 +33,7 @@ class FormationController extends AbstractController
         ]);
     }
 
+    #[Route('/formation/edit/{id}', name: 'edit_formation')]
     #[Route('/formation/add', name: 'add_formation')]
     public function add(ManagerRegistry $doctrine, Formation $formation = null, Request $request): Response
     {
@@ -44,6 +45,11 @@ class FormationController extends AbstractController
         //     return $this->redirectToRoute("app_login");
         // }
 
+        // Dans le cas où il n'y a pas de formation = qu'il n'y a pas d'id, on $formation est égal à une nouvelles instance de classe de Formation
+        if (!$formation) {
+            $formation = new Formation();
+        }
+
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
@@ -53,11 +59,12 @@ class FormationController extends AbstractController
             $entityManager->persist($formation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_session');
+            return $this->redirectToRoute('app_formation');
         }
 
         return $this->render('formation/add.html.twig', [
-            'formAddFormation' => $form->createView() 
+            'formAddFormation' => $form->createView(),
+            'edit' => $formation->getId(),
         ]);
     }
 
@@ -84,5 +91,34 @@ class FormationController extends AbstractController
             'progressSessions' => $progressSessions,
         ]);
     }
+
+
+    #[Route('/removeFormation/{id}', name: 'remove_formation')]
+    public function removeFormation(ManagerRegistry $doctrine, FormationRepository $fr, Formation $formation): Response
+    {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
+
+        $entityManager = $doctrine->getManager();
+
+        $formationASupprimer = $fr->find($formation->getId());
+
+        $fr->remove($formationASupprimer);
+        /* flush() sauvegarde les changements effectués en base de données */
+        $entityManager->flush();
+
+
+        //Redirige vers Home
+        return $this->redirectToRoute(
+            'app_formation',
+        );
+
+    }    
 
 }

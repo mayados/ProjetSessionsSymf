@@ -31,6 +31,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
+    #[Route('/categorie/edit/{id}', name: 'edit_categorie')]
     #[Route('/categorie/add', name: 'add_categorie')]
     public function add(ManagerRegistry $doctrine, Categorie $categorie = null, Request $request): Response
     {
@@ -42,6 +43,10 @@ class CategorieController extends AbstractController
         //     return $this->redirectToRoute("app_login");
         // }
 
+        if (!$categorie) {
+            $categorie = new Categorie();
+        }
+
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
@@ -51,12 +56,45 @@ class CategorieController extends AbstractController
             $entityManager->persist($categorie);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_session');
+            // $this->addFlash('notice',
+            // 'La catégorie a été ajoutée');
+
+            return $this->redirectToRoute('app_categorie');
         }
 
         return $this->render('categorie/add.html.twig', [
-            'formAddCategorie' => $form->createView()
+            'formAddCategorie' => $form->createView(),
+            'edit' => $categorie->getId(),
         ]);
     }
+
+    #[Route('/removeCategorie/{id}', name: 'remove_categorie')]
+    public function removeStagiaire(ManagerRegistry $doctrine, CategorieRepository $cr, Categorie $categorie): Response
+    {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        // if($this->getUser()) {
+            
+        // } else {
+        //     return $this->redirectToRoute("app_login");
+        // }
+
+
+        $entityManager = $doctrine->getManager();
+
+        $categorieASupprimer = $cr->find($categorie->getId());
+
+        $cr->remove($categorieASupprimer);
+        /* flush() sauvegarde les changements effectués en base de données */
+        $entityManager->flush();
+
+
+        //Redirige vers Home
+        return $this->redirectToRoute(
+            'app_categorie',
+        );
+
+    }    
+
 
 }

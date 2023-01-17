@@ -59,7 +59,7 @@ class FormateurController extends AbstractController
 
     }    
 
-    
+    #[Route('/formateur/edit/{id}', name: 'edit_formateur')]
     #[Route('/formateur/add', name: 'add_formateur')]
     public function add(ManagerRegistry $doctrine, Formateur $formateur = null, Request $request): Response
     {
@@ -70,6 +70,12 @@ class FormateurController extends AbstractController
         // } else {
         //     return $this->redirectToRoute("app_login");
         // }
+
+        //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
+        // Si ca existe ça passe par les datas edit (voir plus bas)
+        if (!$formateur) {
+            $formateur = new Formateur();
+        }
 
         $form = $this->createForm(FormateurType::class, $formateur);
         $form->handleRequest($request);
@@ -84,7 +90,8 @@ class FormateurController extends AbstractController
         }
 
         return $this->render('formateur/add.html.twig', [
-            'formAddFormateur' => $form->createView() 
+            'formAddFormateur' => $form->createView(),
+            'edit' => $formateur->getId(),
         ]);
     }
 
