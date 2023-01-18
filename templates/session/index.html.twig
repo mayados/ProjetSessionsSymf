@@ -56,7 +56,7 @@
             <div class="element">
 
                 <h2>Sessions à venir</h2>
-
+                    {% if futureSessions | length > 0 %}
                 <table>
                     <tr>
                         <th>Formation</th>
@@ -67,25 +67,30 @@
                         <th>Actions</th>
                         <th>Statut</th>
                     </tr>
-                    {% for session in futureSessions %} 
-                        <tr>
-                            <td>{{ session.formation }}</td>
-                            <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
-                            <td>{{ session.dateDebut | date("d-m-Y") }}</td>
-                            <td>{{ session.dateFin | date("d-m-Y") }}</td> 
-                            <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>
-                                <a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a>
-                                <a href="{{ path('remove_session', {'id': session.id}) }}">Supprimer</a>
-                            </td>
-                            {% if session.stagiaires | length == session.nbPlaces %}
-                                <td class="complet">Complet</td>      
-                            {% else %}  
-                                <td class="ouvert">Ouvert</td>     
-                            {% endif %}       
-                        </tr>  
-                    {% endfor %}            
-                </table>                
+
+                        {% for session in futureSessions %} 
+                            <tr>
+                                <td>{{ session.formation }}</td>
+                                <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                                <td>{{ session.dateDebut | date("d-m-Y") }}</td>
+                                <td>{{ session.dateFin | date("d-m-Y") }}</td> 
+                                <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
+                                <td>
+                                    <a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a>
+                                    <a href="{{ path('remove_session', {'id': session.id}) }}">Supprimer</a>
+                                </td>
+                                {% if session.stagiaires | length == session.nbPlaces %}
+                                    <td class="complet">Complet</td>      
+                                {% else %}  
+                                    <td class="ouvert">Ouvert</td>     
+                                {% endif %}       
+                            </tr>  
+                        {% endfor %}    
+
+                </table>       
+                    {% else %}      
+                            <p>Aucune session à venir..</p>
+                    {% endif %}                         
             </div>
 
             <div class="element">
