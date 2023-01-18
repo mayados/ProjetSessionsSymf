@@ -103,3 +103,19 @@ que celui affiché grâce à la boucle (id du select trouvé grâce à l'inspect
 #programme_module{
     display: none;
 }
+
+.alert-success{
+    background-color: green;
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    color: white;
+    font-weight: bold;
+}
+
+.removealert{
+    display: none;
+}
