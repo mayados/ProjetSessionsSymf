@@ -10,10 +10,22 @@
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {# Ne pas oublier l'attribut defer, car nous sommes dans le
+            header du document, donc pour éviter que le script s'exécute avant
+            le chargement du document, on ajout defer #}
+            <script src="{{ asset('js/script.js') }}" defer></script>
         {% endblock %}
     </head>
     <body>
+        {% if app.user %}
+            {% if app.session.flashBag.has('success') %}
+                {% for msg in app.flashes('success') %}        
+                    <div class="alert-success">
+                        {{ msg }}
+                    </div>
+                {% endfor %}             
+            {% endif %}
+        {% endif %}
         <nav>
             <ul id="nav-items">
                 <li class="nav-item"><a href="{{ path('app_session') }}">Accueil</a></li>
