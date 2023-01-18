@@ -4,12 +4,23 @@
 
 {% block body %}
 
-    <h1> Ajouter un module </h1>
+    <div class="container-page">
+        <h1> Ajouter un module </h1>
 
-    {{ form_start(formAddModule) }}
-        {{ form_row(formAddModule.intitule) }}
-        {{ form_row(formAddModule.categorie) }}
-        {{ form_row(formAddModule.submit) }}
-    {{ form_end(formAddModule) }}
+        <div class="page-elements">
+            <div class="element">
+                <a href="{{ path('app_session') }}">Retour</a>                   
+            </div>
+            <div class="element">
+                {{ form_start(formAddModule) }}
+                    {{ form_row(formAddModule.intitule) }}
+                    {{ form_row(formAddModule.categorie) }}
+                    {{ form_row(formAddModule.submit) }}
+                {{ form_end(formAddModule) }}                      
+            </div>
+        </div>
+    </div>
+
+
 
 {% endblock %}
