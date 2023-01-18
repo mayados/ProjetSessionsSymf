@@ -107,6 +107,7 @@ class SessionController extends AbstractController
         foreach ($modulesNonProgrammes as $index => $module) {
             // dd($module->getIntitule());
             $programme = new Programme();
+            //On utilise le setter de l'entité Programme pour set le module courant et la session courante
             $programme->setModule($module);
             // dd($module->getIntitule());
             $programme->setSession($session);
@@ -163,6 +164,7 @@ class SessionController extends AbstractController
             'session' => $session,
             'stagiairesNonInscrits' => $stagiairesNonInscrits,
             'modulesNonProgrammes' => $modulesNonProgrammes,
+            //form est un tableau contenant chaque $index = chaque formulaire pour chaque module
             'formInfos' => $form
         ]);
     }
