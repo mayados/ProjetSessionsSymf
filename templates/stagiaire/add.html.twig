@@ -4,23 +4,30 @@
 
 {% block body %}
 
+    <div class="container-page">
+    {% if app.user %}
+        {% if edit %}
+            <h1> Editer le stagiaire </h1>
+        {% else %}
+            <h1> Ajouter un stagiaire </h1>
+        {% endif %}
 
-    {% if edit %}
-        <h1> Editer le stagiaire </h1>
+
+        <div class="page-elements">
+            {{ form_start(formAddStagiaire) }}
+                {{ form_row(formAddStagiaire.nom) }}
+                {{ form_row(formAddStagiaire.prenom) }}
+                {{ form_row(formAddStagiaire.sexe) }}
+                {{ form_row(formAddStagiaire.dateNaissance) }}
+                {{ form_row(formAddStagiaire.ville) }}
+                {{ form_row(formAddStagiaire.mail) }}
+                {{ form_row(formAddStagiaire.telephone) }}
+                {{ form_row(formAddStagiaire.submit) }}
+            {{ form_end(formAddStagiaire) }}                 
+        </div>
     {% else %}
-        <h1> Ajouter un stagiaire </h1>
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
     {% endif %}
-
-
-    {{ form_start(formAddStagiaire) }}
-        {{ form_row(formAddStagiaire.nom) }}
-        {{ form_row(formAddStagiaire.prenom) }}
-        {{ form_row(formAddStagiaire.sexe) }}
-        {{ form_row(formAddStagiaire.dateNaissance) }}
-        {{ form_row(formAddStagiaire.ville) }}
-        {{ form_row(formAddStagiaire.mail) }}
-        {{ form_row(formAddStagiaire.telephone) }}
-        {{ form_row(formAddStagiaire.submit) }}
-    {{ form_end(formAddStagiaire) }}
+    </div>
 
 {% endblock %}

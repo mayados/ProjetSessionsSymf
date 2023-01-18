@@ -4,21 +4,30 @@
 
 {% block body %}
 
-    {% if edit %}
-        <h1>Editer la session</h1>
+    <div class="container-page">
+    {% if app.user %}
+        {% if edit %}
+            <h1>Editer la session</h1>
+        {% else %}
+            <h1> Ajouter une session </h1>    
+        {% endif %}
+
+        <div class="page-elements">
+            {{ form_start(formAddSession) }}
+                {{ form_row(formAddSession.intitule) }}
+                {{ form_row(formAddSession.dateDebut) }}
+                {{ form_row(formAddSession.dateFin) }}
+                {{ form_row(formAddSession.nbPlaces) }}
+                {{ form_row(formAddSession.referent) }}
+                {{ form_row(formAddSession.formation) }}
+                {{ form_row(formAddSession.submit) }}       
+            {{ form_end(formAddSession) }}               
+        </div>
     {% else %}
-        <h1> Ajouter une session </h1>    
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
     {% endif %}
+    </div>
 
 
-    {{ form_start(formAddSession) }}
-        {{ form_row(formAddSession.intitule) }}
-        {{ form_row(formAddSession.dateDebut) }}
-        {{ form_row(formAddSession.dateFin) }}
-        {{ form_row(formAddSession.nbPlaces) }}
-        {{ form_row(formAddSession.referent) }}
-        {{ form_row(formAddSession.formation) }}
-        {{ form_row(formAddSession.submit) }}       
-    {{ form_end(formAddSession) }}
 
 {% endblock %}

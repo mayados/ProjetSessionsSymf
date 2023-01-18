@@ -4,17 +4,24 @@
 
 {% block body %}
 
+    <div class="container-page">
+    {% if app.user %}
+        {% if edit %}
+            <h1>Editer le formateur</h1>
+        {% else %}
+            <h1> Ajouter un formateur </h1>    
+        {% endif %}
 
-    {% if edit %}
-        <h1>Editer le formateur</h1>
+        <div class="page-elements">
+            {{ form_start(formAddFormateur) }}
+                {{ form_row(formAddFormateur.nom) }}
+                {{ form_row(formAddFormateur.prenom) }}
+                {{ form_row(formAddFormateur.submit) }}
+            {{ form_end(formAddFormateur) }}               
+        </div>
     {% else %}
-        <h1> Ajouter un formateur </h1>    
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
     {% endif %}
-
-    {{ form_start(formAddFormateur) }}
-        {{ form_row(formAddFormateur.nom) }}
-        {{ form_row(formAddFormateur.prenom) }}
-        {{ form_row(formAddFormateur.submit) }}
-    {{ form_end(formAddFormateur) }}
+    </div>
 
 {% endblock %}

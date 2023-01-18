@@ -4,17 +4,23 @@
 
 {% block body %}
 
+    <div class="container-page">
+    {% if app.user %}
+        {% if edit %}
+            <h1> Editer la formation </h1>
+        {% else %}
+            <h1> Ajouter une formation </h1>
+        {% endif %}
 
-    {% if edit %}
-        <h1> Editer la formation </h1>
+        <div class="page-elements">
+            {{ form_start(formAddFormation) }}
+                {{ form_row(formAddFormation.intitule) }}
+                {{ form_row(formAddFormation.submit) }}
+            {{ form_end(formAddFormation) }}                
+        </div>
     {% else %}
-        <h1> Ajouter une formation </h1>
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
     {% endif %}
-
-    {{ form_start(formAddFormation) }}
-        {{ form_row(formAddFormation.intitule) }}
-        {{ form_row(formAddFormation.submit) }}
-    {{ form_end(formAddFormation) }}
-
+    </div>
 
 {% endblock %}
