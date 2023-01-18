@@ -5,7 +5,6 @@
 {% block body %}
 
     <div class="container-page">
-    {% if app.user %}
         <h1> Détail Session {{ session }} </h1>
 
         {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter
@@ -127,7 +126,7 @@
                     <tr>
                         <td>{{ stagiaire.nom }}</td>
                         <td>{{ stagiaire.prenom }}</td>
-                        <td><a href="{{ path('remove_stagiaire', {'id': session.id,
+                        <td><a href="{{ path('remove_stagiaireSession', {'id': session.id,
                                 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
                         <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
                                 fiche stagiaire</a></td>
@@ -164,10 +163,7 @@
 
                 </table>                 
             </div>
-        </div>  
-    {% else %}
-        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
-    {% endif %}      
+        </div>   
     </div>
 
 {% endblock %}
