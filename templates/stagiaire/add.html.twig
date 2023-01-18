@@ -5,13 +5,13 @@
 {% block body %}
 
     <div class="container-page">
-    {% if app.user %}
         {% if edit %}
             <h1> Editer le stagiaire </h1>
         {% else %}
             <h1> Ajouter un stagiaire </h1>
         {% endif %}
 
+            <a href="{{ path('app_stagiaire') }}">Retour</a>                   
 
         <div class="page-elements">
             {{ form_start(formAddStagiaire) }}
@@ -25,9 +25,6 @@
                 {{ form_row(formAddStagiaire.submit) }}
             {{ form_end(formAddStagiaire) }}                 
         </div>
-    {% else %}
-        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
-    {% endif %}
     </div>
 
 {% endblock %}

@@ -5,12 +5,13 @@
 {% block body %}
 
     <div class="container-page">
-    {% if app.user %}
         {% if edit %}
             <h1>Editer la session</h1>
         {% else %}
             <h1> Ajouter une session </h1>    
         {% endif %}
+
+            <a href="{{ path('app_session') }}">Retour</a>                   
 
         <div class="page-elements">
             {{ form_start(formAddSession) }}
@@ -23,9 +24,6 @@
                 {{ form_row(formAddSession.submit) }}       
             {{ form_end(formAddSession) }}               
         </div>
-    {% else %}
-        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
-    {% endif %}
     </div>
 
 

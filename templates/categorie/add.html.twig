@@ -6,12 +6,13 @@
 
 
     <div class="container-page">
-    {% if app.user %}
         {% if edit %}
             <h1>Modifier la catégorie</h1>
         {% else %}
             <h1> Ajouter une catégorie </h1>  
         {% endif %}
+
+            <a href="{{ path('app_categorie') }}">Retour</a>                   
 
         <div class="page-elements">
             {{ form_start(formAddCategorie) }}
@@ -19,9 +20,6 @@
                 {{ form_row(formAddCategorie.submit) }}    
             {{ form_end(formAddCategorie) }}                 
         </div>
-    {% else %}
-        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
-    {% endif %}
     </div>
 
 {% endblock %}
