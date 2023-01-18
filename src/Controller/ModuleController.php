@@ -15,9 +15,17 @@ class ModuleController extends AbstractController
     #[Route('/module', name: 'app_module')]
     public function index(): Response
     {
-        return $this->render('module/index.html.twig', [
-            'controller_name' => 'ModuleController',
-        ]);
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        if($this->getUser()) {
+            
+            return $this->render('module/index.html.twig', [
+                'controller_name' => 'ModuleController',
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }
 
     #[Route('/module/add', name: 'add_module')]
@@ -25,27 +33,27 @@ class ModuleController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $form = $this->createForm(ModuleType::class, $module);
+            $form->handleRequest($request);
 
-        $form = $this->createForm(ModuleType::class, $module);
-        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+                $module = $form->getData();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($module);
+                $entityManager->flush();
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $module = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($module);
-            $entityManager->flush();
+                return $this->redirectToRoute('app_session');
+            }
 
-            return $this->redirectToRoute('app_session');
+            return $this->render('module/add.html.twig', [
+                'formAddModule' => $form->createView() 
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
         }
-
-        return $this->render('module/add.html.twig', [
-            'formAddModule' => $form->createView() 
-        ]);
     }
 
 }

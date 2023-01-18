@@ -20,17 +20,17 @@ class FormationController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $listeFormations = $fr->findAll();
 
-        $listeFormations = $fr->findAll();
+            return $this->render('formation/index.html.twig', [
+                'listeFormations' => $listeFormations,
+            ]);
 
-        return $this->render('formation/index.html.twig', [
-            'listeFormations' => $listeFormations,
-        ]);
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }
 
     #[Route('/formation/edit/{id}', name: 'edit_formation')]
@@ -39,33 +39,33 @@ class FormationController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            // Dans le cas où il n'y a pas de formation = qu'il n'y a pas d'id, on $formation est égal à une nouvelles instance de classe de Formation
+            if (!$formation) {
+                $formation = new Formation();
+            }
 
-        // Dans le cas où il n'y a pas de formation = qu'il n'y a pas d'id, on $formation est égal à une nouvelles instance de classe de Formation
-        if (!$formation) {
-            $formation = new Formation();
+            $form = $this->createForm(FormationType::class, $formation);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $formation = $form->getData();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($formation);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_formation');
+            }
+
+            return $this->render('formation/add.html.twig', [
+                'formAddFormation' => $form->createView(),
+                'edit' => $formation->getId(),
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
         }
-
-        $form = $this->createForm(FormationType::class, $formation);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $formation = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($formation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_formation');
-        }
-
-        return $this->render('formation/add.html.twig', [
-            'formAddFormation' => $form->createView(),
-            'edit' => $formation->getId(),
-        ]);
     }
 
     #[Route('/formation/{id}', name: 'show_formation')]
@@ -73,23 +73,23 @@ class FormationController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $formation = $fr->find($formation->getId());
+            $pastSessions = $sr->findPastSessionsByFormation($formation->getId());
+            $futureSessions = $sr->findFutureSessionsByFormation($formation->getId());
+            $progressSessions = $sr->findProgressSessionsByFormation($formation->getId());        
 
-        $formation = $fr->find($formation->getId());
-        $pastSessions = $sr->findPastSessionsByFormation($formation->getId());
-        $futureSessions = $sr->findFutureSessionsByFormation($formation->getId());
-        $progressSessions = $sr->findProgressSessionsByFormation($formation->getId());        
+            return $this->render('formation/show.html.twig', [
+                'formation' => $formation,
+                'pastSessions' => $pastSessions,
+                'futureSessions' => $futureSessions,
+                'progressSessions' => $progressSessions,
+            ]);
 
-        return $this->render('formation/show.html.twig', [
-            'formation' => $formation,
-            'pastSessions' => $pastSessions,
-            'futureSessions' => $futureSessions,
-            'progressSessions' => $progressSessions,
-        ]);
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }
 
 
@@ -98,27 +98,25 @@ class FormationController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $entityManager = $doctrine->getManager();
+
+            $formationASupprimer = $fr->find($formation->getId());
+
+            $fr->remove($formationASupprimer);
+            /* flush() sauvegarde les changements effectués en base de données */
+            $entityManager->flush();
 
 
-        $entityManager = $doctrine->getManager();
+            //Redirige vers Home
+            return $this->redirectToRoute(
+                'app_formation',
+            );
 
-        $formationASupprimer = $fr->find($formation->getId());
-
-        $fr->remove($formationASupprimer);
-        /* flush() sauvegarde les changements effectués en base de données */
-        $entityManager->flush();
-
-
-        //Redirige vers Home
-        return $this->redirectToRoute(
-            'app_formation',
-        );
-
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }    
 
 }

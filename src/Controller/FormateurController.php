@@ -18,17 +18,17 @@ class FormateurController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $listeFormateurs = $fr->findAll();
 
-        $listeFormateurs = $fr->findAll();
+            return $this->render('formateur/index.html.twig', [
+                'listeFormateurs' => $listeFormateurs,
+            ]);
 
-        return $this->render('formateur/index.html.twig', [
-            'listeFormateurs' => $listeFormateurs,
-        ]);
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }
 
     #[Route('/removeFormateur/{id}', name: 'remove_formateur')]
@@ -36,27 +36,25 @@ class FormateurController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $entityManager = $doctrine->getManager();
+
+            $formateurASupprimer = $fr->find($formateur->getId());
+
+            $fr->remove($formateurASupprimer);
+            /* flush() sauvegarde les changements effectués en base de données */
+            $entityManager->flush();
 
 
-        $entityManager = $doctrine->getManager();
+            //Redirige vers Home
+            return $this->redirectToRoute(
+                'app_formateur',
+            );
 
-        $formateurASupprimer = $fr->find($formateur->getId());
-
-        $fr->remove($formateurASupprimer);
-        /* flush() sauvegarde les changements effectués en base de données */
-        $entityManager->flush();
-
-
-        //Redirige vers Home
-        return $this->redirectToRoute(
-            'app_formateur',
-        );
-
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }    
 
     #[Route('/formateur/edit/{id}', name: 'edit_formateur')]
@@ -65,34 +63,34 @@ class FormateurController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
+            // Si ca existe ça passe par les datas edit (voir plus bas)
+            if (!$formateur) {
+                $formateur = new Formateur();
+            }
 
-        //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
-        // Si ca existe ça passe par les datas edit (voir plus bas)
-        if (!$formateur) {
-            $formateur = new Formateur();
+            $form = $this->createForm(FormateurType::class, $formateur);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $formateur = $form->getData();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($formateur);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_formateur');
+            }
+
+            return $this->render('formateur/add.html.twig', [
+                'formAddFormateur' => $form->createView(),
+                'edit' => $formateur->getId(),
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
         }
-
-        $form = $this->createForm(FormateurType::class, $formateur);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $formateur = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($formateur);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_formateur');
-        }
-
-        return $this->render('formateur/add.html.twig', [
-            'formAddFormateur' => $form->createView(),
-            'edit' => $formateur->getId(),
-        ]);
     }
 
 }

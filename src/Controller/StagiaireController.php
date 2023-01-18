@@ -19,17 +19,17 @@ class StagiaireController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
-            
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+        if($this->getUser()) {
+        
+            $stagiaires = $doctrine->getRepository(Stagiaire::class)->findAll();
 
-        $stagiaires = $doctrine->getRepository(Stagiaire::class)->findAll();
+            return $this->render('stagiaire/index.html.twig', [
+                'stagiaires' => $stagiaires,
+            ]);            
 
-        return $this->render('stagiaire/index.html.twig', [
-            'stagiaires' => $stagiaires,
-        ]);
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }
 
     #[Route('/stagiaires/add', name: 'add_stagiaire')]
@@ -38,33 +38,32 @@ class StagiaireController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            if(!$stagiaire){
+                $stagiaire = new Stagiaire();
+            }
 
-        if(!$stagiaire){
-            $stagiaire = new Stagiaire();
+            $form = $this->createForm(StagiaireFormType::class, $stagiaire);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $stagiaire = $form->getData();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($stagiaire);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_stagiaire');
+            }
+
+            return $this->render('stagiaire/add.html.twig', [
+                'formAddStagiaire' => $form->createView(),
+                'edit' => $stagiaire->getId(),
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
         }
-
-        $form = $this->createForm(StagiaireFormType::class, $stagiaire);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $stagiaire = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($stagiaire);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_stagiaire');
-        }
-
-        return $this->render('stagiaire/add.html.twig', [
-            'formAddStagiaire' => $form->createView(),
-            'edit' => $stagiaire->getId(),
-        ]);
-
     }
 
     #[Route('/removeStagiaire/{id}', name: 'remove_stagiaire')]
@@ -72,26 +71,26 @@ class StagiaireController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            $entityManager = $doctrine->getManager();
+
+            $stagiaireASupprimer = $sr->find($stagiaire->getId());
+
+            $sr->remove($stagiaireASupprimer);
+            /* flush() sauvegarde les changements effectués en base de données */
+            $entityManager->flush();
 
 
-        $entityManager = $doctrine->getManager();
-
-        $stagiaireASupprimer = $sr->find($stagiaire->getId());
-
-        $sr->remove($stagiaireASupprimer);
-        /* flush() sauvegarde les changements effectués en base de données */
-        $entityManager->flush();
+            //Redirige vers Home
+            return $this->redirectToRoute(
+                'app_stagiaire',
+            );
 
 
-        //Redirige vers Home
-        return $this->redirectToRoute(
-            'app_stagiaire',
-        );
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
 
     }    
 
@@ -101,15 +100,15 @@ class StagiaireController extends AbstractController
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
-        // if($this->getUser()) {
+        if($this->getUser()) {
             
-        // } else {
-        //     return $this->redirectToRoute("app_login");
-        // }
+            return $this->render('stagiaire/show.html.twig', [
+                'stagiaire' => $stagiaire,
+            ]);
 
-        return $this->render('stagiaire/show.html.twig', [
-            'stagiaire' => $stagiaire,
-        ]);
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }    
 
 }
