@@ -5,15 +5,13 @@
 {% block body %}
 
     <div class="container-page">
-    <h1> Détail Session {{ session }} </h1>
+    {% if app.user %}
+        <h1> Détail Session {{ session }} </h1>
 
-
-
-
-    {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter
+        {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter
         module</a> #}
 
-    {# {{ form(formAddProgramme) }} #}
+        {# {{ form(formAddProgramme) }} #}
 
         <div class="page-elements">
             <p><a href="{{ path('app_session') }}">Retour</a></p>       
@@ -166,7 +164,10 @@
 
                 </table>                 
             </div>
-        </div>        
+        </div>  
+    {% else %}
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+    {% endif %}      
     </div>
 
 {% endblock %}

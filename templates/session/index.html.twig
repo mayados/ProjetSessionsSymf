@@ -5,11 +5,14 @@
 {% block body %}
 
     <div class="container-page">
+    {% if app.user %}
         <h1> Accueil </h1>
 
-
-
         <div class="page-elements">
+
+            <div class="element">
+                <p>Bonjour {{ app.user.pseudo }}</p>                
+            </div>
 
             <div class="element">
                 <p><a href="{{ path('add_module') }}">Ajouter un module</a></p>
@@ -115,7 +118,9 @@
                 </table>                  
             </div>
         </div>
-  
+    {% else %}
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+    {% endif %}
     </div>
 
 

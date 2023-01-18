@@ -5,6 +5,7 @@
 {% block body %}
 
     <div class="container-page">
+    {% if app.user %}
         <h1>Liste des stagiaires</h1>
 
         <div class="page-elements">
@@ -28,9 +29,9 @@
                 {% endfor %}   
             </table>            
         </div>
-
-
-
+    {% else %}
+        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+    {% endif %}
  
     </div>
 
