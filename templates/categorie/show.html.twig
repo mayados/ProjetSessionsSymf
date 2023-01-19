@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail Session{% endblock %}
+
+{% block body %}
+
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.flashes('success') %}        
+            <div class="alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}             
+    {% endif %}
+
+    <div class="container-page">
+        <h1> Détail Catégorie {{ categorie }} </h1>
+
+        <div class="page-elements">
+            <p><a href="{{ path('app_categorie') }}">Retour</a></p>       
+
+            <div class="element">
+                <h2>Modules :</h2>
+
+                <table>
+                    <tr>
+                        <th>Intitule</th>
+                        <th>Actions</th>
+                    </tr>
+                    {# {{dump(formInfos)}} #}
+                    {% for module in categorie.modules %}
+                    <tr>
+
+                        <td>{{ module.intitule }}</td>
+                        <td>
+                            <a href="{{ path('delete_module', {'id': module.id,
+                            'idCategorie': categorie.id}) }}">Supprimer</a> 
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>            
+            </div>
+
+            <div class="element">
+                <p>{{ form(formAddModule) }}</p>
+            </div>
+        </div>   
+    </div>
+
+{% endblock %}
