@@ -136,6 +136,8 @@ class SessionController extends AbstractController
                     // $entityManager->persist($programme);
                     $entityManager->flush();
 
+                    $this->addFlash('success', 'Module ajouté avec succès');
+
                     return $this->redirectToRoute(
                         'show_session',
                         ['id' => $session->getId()]
@@ -232,6 +234,7 @@ class SessionController extends AbstractController
                 /* flush() sauvegarde les changements effectués en base de données */
                 $entityManager->flush();
 
+                $this->addFlash('success', 'Le stagiaire a été ajouté à la session');
 
                 //Redirige sur la session sur laquelle on se trouvait
                 //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)
@@ -264,6 +267,7 @@ class SessionController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le stagiaire est désincrit de la session');
 
             //Redirige sur la session sur laquelle on se trouvait
             //On a déjà l'objet session grâce à l'id envoyer dans le path + l'objet session déclaré en paramètre (= session précise)

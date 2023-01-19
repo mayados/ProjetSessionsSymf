@@ -40,6 +40,11 @@ class FormationController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         if($this->getUser()) {
+
+            $edit = false;
+            if($formation){
+                $edit = true;
+            }
             
             // Dans le cas où il n'y a pas de formation = qu'il n'y a pas d'id, on $formation est égal à une nouvelles instance de classe de Formation
             if (!$formation) {
@@ -54,6 +59,8 @@ class FormationController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($formation);
                 $entityManager->flush();
+
+                ($edit)?$this->addFlash('success', 'Formation modifiée'):$this->addFlash('success', 'Formation ajoutée');
 
                 return $this->redirectToRoute('app_formation');
             }
@@ -108,6 +115,7 @@ class FormationController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
+            $this->addFlash('success', 'Formation supprimée');
 
             //Redirige vers Home
             return $this->redirectToRoute(

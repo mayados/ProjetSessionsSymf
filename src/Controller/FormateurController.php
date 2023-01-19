@@ -52,7 +52,7 @@ class FormateurController extends AbstractController
             => pour chaque session concernée, on met le référent à null */
             foreach ($sessions as $session) {
 
-            $session->setReferent(Null);
+                $session->setReferent(Null);
 
             }
 
@@ -60,6 +60,7 @@ class FormateurController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
+            $this->addFlash('success', 'Formateur supprimé');
 
             //Redirige vers Home
             return $this->redirectToRoute(
@@ -78,6 +79,11 @@ class FormateurController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         if($this->getUser()) {
+
+            $edit = false;
+            if($formateur){
+                $edit = true;
+            }
             
             //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
             // Si ca existe ça passe par les datas edit (voir plus bas)
@@ -93,6 +99,8 @@ class FormateurController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($formateur);
                 $entityManager->flush();
+
+                ($edit)?$this->addFlash('success', 'Formateur modifié'):$this->addFlash('success', 'Formateur ajouté');
 
                 return $this->redirectToRoute('app_formateur');
             }
