@@ -77,6 +77,8 @@ class ProgrammeController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
+            $this->addFlash('success', 'Programme supprimé');
+
             return $this->redirectToRoute('show_session',
             ['id' => $idSession]);            
 

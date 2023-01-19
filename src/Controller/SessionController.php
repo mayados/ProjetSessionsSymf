@@ -53,6 +53,11 @@ class SessionController extends AbstractController
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         if($this->getUser()) {
 
+            $edit = false;
+            if($session){
+                $edit = true;
+            }
+
             //Si la session n'existe pas(= s'il n'y a pas d'id) on passe par add_session = form de création
             // Si ca existe ça passe par les datas edit (voir plus bas)
             if (!$session) {
@@ -67,6 +72,8 @@ class SessionController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($programme);
                 $entityManager->flush();
+
+                ($edit)?$this->addFlash('success', 'Session modifiée'):$this->addFlash('success', 'Session ajoutée');
 
                 return $this->redirectToRoute('app_session');
             }
@@ -190,7 +197,7 @@ class SessionController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
-
+            $this->addFlash('success', 'Session supprimée');
             //Redirige vers Home
             return $this->redirectToRoute(
                 'app_session',

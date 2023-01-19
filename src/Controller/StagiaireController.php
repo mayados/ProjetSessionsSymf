@@ -32,6 +32,7 @@ class StagiaireController extends AbstractController
         }
     }
 
+
     #[Route('/stagiaires/add', name: 'add_stagiaire')]
     #[Route('/stagiaires/edit/{id}', name: 'edit_stagiaire')]
     public function add(ManagerRegistry $doctrine, Stagiaire $stagiaire = null, Request $request): Response
@@ -39,6 +40,13 @@ class StagiaireController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         if($this->getUser()) {
+
+            /* On initialise une variable $edit qui va nous permettre d'ajouter un message
+            flash selon le cas  */
+            $edit = false;
+            if($stagiaire){
+                $edit = true;
+            }
             
             if(!$stagiaire){
                 $stagiaire = new Stagiaire();
@@ -52,6 +60,10 @@ class StagiaireController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($stagiaire);
                 $entityManager->flush();
+
+                /* Le message flash intervient après que l'objet Stagiaire soit créé, il faut
+                donc le mettre après le flush */                
+                ($edit)?$this->addFlash('success', 'Stagiaire modifié'):$this->addFlash('success', 'Stagiaire ajouté');
 
                 return $this->redirectToRoute('app_stagiaire');
             }
@@ -81,7 +93,7 @@ class StagiaireController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
-
+            $this->addFlash('success', 'Stagiaire supprimé');
             //Redirige vers Home
             return $this->redirectToRoute(
                 'app_stagiaire',
