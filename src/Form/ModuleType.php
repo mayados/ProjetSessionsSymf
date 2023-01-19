@@ -17,9 +17,10 @@ class ModuleType extends AbstractType
     {
         $builder
             ->add('intitule', TextType::class)
-            ->add('categorie', EntityType::class, [
-                'class' => Categorie::class
-            ])
+            /* Pas besoin de la catégorie car je la set directement depuis le CategorieController */
+            // ->add('categorie', EntityType::class, [
+            //     'class' => Categorie::class
+            // ])
             ->add('submit', SubmitType::class)
         ;
     }
