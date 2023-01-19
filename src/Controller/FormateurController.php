@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Entity\Formateur;
 use App\Form\FormateurType;
+use App\Repository\SessionRepository;
 use App\Repository\FormateurRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +34,7 @@ class FormateurController extends AbstractController
     }
 
     #[Route('/removeFormateur/{id}', name: 'remove_formateur')]
-    public function removeStagiaire(ManagerRegistry $doctrine, FormateurRepository $fr, Formateur $formateur): Response
+    public function removeFormateur(ManagerRegistry $doctrine, FormateurRepository $fr, Formateur $formateur, Session $session, SessionRepository $sr): Response
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
@@ -41,6 +43,18 @@ class FormateurController extends AbstractController
             $entityManager = $doctrine->getManager();
 
             $formateurASupprimer = $fr->find($formateur->getId());
+
+            /* On doit update le référent à Null pour les sessions dont ce formateur est le référent, 
+            sinon ça produit une erreur */
+            $sessions = $sr->findAll($formateur->getId());
+
+            /* Comme il y a plusieurs éléments nous parcourons chaque élément
+            => pour chaque session concernée, on met le référent à null */
+            foreach ($sessions as $session) {
+
+            $session->setReferent(Null);
+
+            }
 
             $fr->remove($formateurASupprimer);
             /* flush() sauvegarde les changements effectués en base de données */
