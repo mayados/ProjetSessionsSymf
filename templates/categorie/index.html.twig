@@ -4,21 +4,32 @@
 
 {% block body %}
 
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.flashes('success') %}        
+            <div class="alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}             
+    {% endif %}
+
     <div class="container-page">
     {% if app.user %}
         <h1>Liste des catégories</h1>
 
         <div class="page-elements">
+
             <a href="{{ path('add_categorie') }}">Ajouter une Catégorie</a>
 
             <table>
                 <tr>
                     <th>Intitule</th>
+                    <th>Nombre de modules</th>
                     <th>Actions</th>
                 </tr>
                 {% for categorie in listeCategories %}        
                 <tr>
-                    <td>{{ categorie }}</td>
+                    <td><a href="{{ path('show_categorie', {'id': categorie.id}) }}">{{ categorie }}</a></td>
+                    <td><p>{{ categorie.modules | length }}</p></td>
                     <td>
                         <a href="{{ path('edit_categorie', {'id': categorie.id}) }}">Edit</a>
                         <a href="{{ path('remove_categorie', {'id': categorie.id}) }}">Supprimer</a>
