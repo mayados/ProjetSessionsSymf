@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
+use App\Form\ModuleType;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
@@ -31,6 +33,52 @@ class CategorieController extends AbstractController
         }
     }
 
+    #[Route('/categorie/show/{id}', name: 'show_categorie')]
+    public function show(ManagerRegistry $doctrine, Module $module = null, Request $request, Categorie $categorie, CategorieRepository $cr): Response
+    {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        if($this->getUser()) {
+            
+           $categorie = $cr->find($categorie->getId());
+
+
+
+           /* Il faut mettre cette condition, sinon le module ne peut pas se créer */
+            if(!$module){
+                $module = new Module();
+            }
+
+            $module->setCategorie($categorie);             
+
+           $form = $this->createForm(ModuleType::class, $module);
+           $form->handleRequest($request);
+
+           if($form->isSubmitted() && $form->isValid()) {
+            
+               $module = $form->getData();
+               $entityManager = $doctrine->getManager();
+               $entityManager->persist($module);
+               $entityManager->flush();
+
+               $this->addFlash('success', 'Module créé avec succès');
+
+               return $this->redirectToRoute('app_categorie');
+           }
+
+            return $this->render('categorie/show.html.twig', [
+                'categorie' => $categorie,
+                'formAddModule' => $form->createView()
+
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
+    }
+
+    
+
     #[Route('/categorie/edit/{id}', name: 'edit_categorie')]
     #[Route('/categorie/add', name: 'add_categorie')]
     public function add(ManagerRegistry $doctrine, Categorie $categorie = null, Request $request): Response
@@ -38,6 +86,11 @@ class CategorieController extends AbstractController
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
         if($this->getUser()) {
+
+            $edit = false;
+            if($categorie){
+                $edit = true;
+            }
             
             if (!$categorie) {
                 $categorie = new Categorie();
@@ -52,8 +105,7 @@ class CategorieController extends AbstractController
                 $entityManager->persist($categorie);
                 $entityManager->flush();
 
-                // $this->addFlash('notice',
-                // 'La catégorie a été ajoutée');
+                ($edit)?$this->addFlash('success', 'Catégorie modifiée'):$this->addFlash('success', 'Catégorie ajoutée');
 
                 return $this->redirectToRoute('app_categorie');
             }
@@ -83,6 +135,7 @@ class CategorieController extends AbstractController
             /* flush() sauvegarde les changements effectués en base de données */
             $entityManager->flush();
 
+            $this->addFlash('success', 'Catégorie supprimée');
 
             //Redirige vers Home
             return $this->redirectToRoute(
