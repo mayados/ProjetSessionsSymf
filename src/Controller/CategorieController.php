@@ -63,7 +63,7 @@ class CategorieController extends AbstractController
 
                $this->addFlash('success', 'Module créé avec succès');
 
-               return $this->redirectToRoute('app_categorie');
+               return $this->redirectToRoute('show_categorie', ['id' => $categorie->getId()]);
            }
 
             return $this->render('categorie/show.html.twig', [
