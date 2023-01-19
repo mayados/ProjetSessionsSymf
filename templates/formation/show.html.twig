@@ -15,7 +15,7 @@
 
             <div class="element">
                 <h2>Sessions en cours</h2>
-
+                {% if progressSessions | length > 0 %}
                 <table>
                     <tr>
                         <th>Formation</th>
@@ -33,7 +33,10 @@
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td><p><a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a></p></td>
+                            <td>
+                                <a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a>
+                                <a href="{{ path('remove_session', {'id': session.id}) }}">Supprimer</a>
+                            </td>
                             {% if session.stagiaires | length == session.nbPlaces %}
                                 <td class="complet">Complet</td>      
                             {% else %}  
@@ -41,12 +44,15 @@
                             {% endif %}                     
                         </tr>
                     {% endfor %}            
-                </table>                
+                </table>     
+                {% else %} 
+                    <p>Pas de sessions en cours pour cette formation...</p>
+                {% endif %}
             </div>
 
             <div class="element">
                 <h2>Sessions à venir</h2>
-
+                {% if futureSessions | length > 0 %}
                 <table>
                     <tr>
                         <th>Formation</th>
@@ -64,7 +70,10 @@
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>Actions</td>
+                            <td>
+                                <a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a>
+                                <a href="{{ path('remove_session', {'id': session.id}) }}">Supprimer</a>
+                            </td>
                             {% if session.stagiaires | length == session.nbPlaces %}
                                 <td class="complet">Complet</td>      
                             {% else %}  
@@ -72,12 +81,15 @@
                             {% endif %}       
                         </tr>  
                     {% endfor %}            
-                </table>                
+                </table>    
+                {% else %} 
+                    <p>Pas de sessions futures prévues pour cette formation...</p>
+                {% endif %}
             </div>
 
             <div class="element">
                 <h2>Sessions passées</h2>
-
+                {% if pastSessions | length > 0 %}
                 <table>
                     <tr>
                         <th>Formation</th>
@@ -95,11 +107,17 @@
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>Actions</td>
+                            <td>
+                                <a href='{{ path('edit_session', {'id': session.id}) }}'>Edit</a>
+                                <a href="{{ path('remove_session', {'id': session.id}) }}">Supprimer</a>
+                            </td>
                             <td>x</td>                
                         </tr>
                     {% endfor %}            
-                </table>                 
+                </table>    
+                {% else %} 
+                    <p>Pas de sessions passées pour cette formation...</p>
+                {% endif %}
             </div>
         </div>
     </div>

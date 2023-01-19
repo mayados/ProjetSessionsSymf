@@ -43,7 +43,7 @@
 
             <div class="element">
                 <h2>Programme :</h2>
-
+                {% if session.programmes | length > 0 %}
                 <table>
                     <tr>
                         <th>Module</th>
@@ -62,12 +62,15 @@
                                 'idSession': session.id}) }}">Déprogrammer</a> </td>
                     </tr>
                     {% endfor %}
-                </table>            
+                </table>  
+                {% else %} 
+                    <p>Pas de programme pour le moment...</p>
+                {% endif %}
             </div>
 
             <div class="element">
                 <h2> Modules non programmés :</h2>
-
+                {% if formInfos | length > 0 %}
                 <table>
                     <tr>
                         <th>Module</th>
@@ -92,7 +95,10 @@
                     </tr>
                         {{ form_end(index) }}
                     {% endfor %} 
-                </table>            
+                </table> 
+                {% else %} 
+                    <p>Pas de modules non programmés</p>
+                {% endif %}
             </div>
 
 
@@ -146,7 +152,7 @@
 
             <div class="element">
                 <h3>STAGIAIRES NON INSCRITS</h3>
-
+                {% if stagiairesNonInscrits | length > 0 %}
                 <table>
                     <tr>
                         <th>Nom</th>
@@ -168,8 +174,10 @@
                                 fiche stagiaire</a></td>
                     </tr>
                     {% endfor %}
-
-                </table>                 
+                </table>        
+                {% else %} 
+                    <p>Pas de stagiaires non inscrits.</p>
+                {% endif %}
             </div>
         </div>   
     </div>

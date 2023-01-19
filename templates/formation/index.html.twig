@@ -20,6 +20,7 @@
         <div class="page-elements">
             <p><a href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
 
+            {% if listeFormations | length > 0 %}
             <table>
                 <tr>
                     <th>Formation</th>
@@ -36,7 +37,10 @@
                         </td>
                     </tr>
                 {% endfor %}            
-            </table>                    
+            </table>   
+            {% else %} 
+                <p>Pas de formations...</p>
+            {% endif %}
         </div>
     {% else %}
         <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>

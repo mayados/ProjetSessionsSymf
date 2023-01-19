@@ -30,7 +30,7 @@
 
             <div class="element">
                 <h2>Sessions en cours</h2>
-
+                {% if progressSessions | length > 0 %}
                 <table>
                     <tr>
                         <th>Formation</th>
@@ -59,7 +59,10 @@
                             {% endif %}                     
                         </tr>
                     {% endfor %}            
-                </table>                
+                </table>   
+                {% else %}   
+                    <p>Aucune session en cours..</p>
+                {% endif %}
             </div>
 
             <div class="element">
@@ -104,7 +107,7 @@
 
             <div class="element">
                 <h2>Sessions passées</h2>
-
+                {% if pastSessions | length > 0 %}
                 <table>
                     <tr>
                         <th>Formation</th>
@@ -129,7 +132,10 @@
                             <td>x</td>                
                         </tr>
                     {% endfor %}            
-                </table>                  
+                </table>   
+                {% else %}    
+                    <p>Pas de sessions passées..</p>
+                {% endif %}
             </div>
         </div>
     {% else %}

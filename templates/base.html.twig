@@ -25,7 +25,6 @@
                     </div>
                 {% endfor %}             
             {% endif %}
-        {% endif %}
         <nav>
             <ul id="nav-items">
                 <li class="nav-item"><a href="{{ path('app_session') }}">Accueil</a></li>
@@ -39,7 +38,9 @@
                 <li class="nav-item"><a href="{{ path('app_login') }}">Connexion</a></li>
                 {% endif %}
             </ul>
-        </nav>
+        </nav>            
+        {% endif %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

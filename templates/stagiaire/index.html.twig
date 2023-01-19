@@ -19,6 +19,7 @@
         <div class="page-elements">
             <a href="{{ path('add_stagiaire') }}">Ajouter un stagiaire</a>
 
+            {% if stagiaires | length > 0 %}
             <table>
                 <tr>
                     <th>Nom / Prénom</th>
@@ -35,7 +36,10 @@
                     </td>
                 </tr>
                 {% endfor %}   
-            </table>            
+            </table>  
+            {% else %} 
+                <p>Pas de stagiaires..</p>
+            {% endif %}
         </div>
     {% else %}
         <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>

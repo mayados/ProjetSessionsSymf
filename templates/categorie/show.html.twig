@@ -20,7 +20,7 @@
 
             <div class="element">
                 <h2>Modules :</h2>
-
+                {% if categorie.modules | length > 0 %}
                 <table>
                     <tr>
                         <th>Intitule</th>
@@ -37,11 +37,17 @@
                         </td>
                     </tr>
                     {% endfor %}
-                </table>            
+                </table>  
+                {% else %} 
+                    <p>Pas de modules pour cette catégorie..</p>
+                {% endif %}
             </div>
 
             <div class="element">
-                <p>{{ form(formAddModule) }}</p>
+                {{ form_start(formAddModule) }}
+                    {{ form_row(formAddModule.intitule) }}
+                    {{ form_row(formAddModule.submit) }}
+                {{ form_end(formAddModule) }}
             </div>
         </div>   
     </div>
