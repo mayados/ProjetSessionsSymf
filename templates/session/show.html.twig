@@ -4,6 +4,14 @@
 
 {% block body %}
 
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.flashes('success') %}        
+            <div class="alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}             
+    {% endif %}
+
     <div class="container-page">
         <h1> Détail Session {{ session }} </h1>
 
@@ -20,7 +28,7 @@
                 <ul>
                     {% if session.referent != NULL %}
                     <li>Formateur référent : {{ session.referent }}</li>
-                    {% else%}
+                    {% else %}
                     <li> Pas de formateur référent </li>
                     {% endif %}
 

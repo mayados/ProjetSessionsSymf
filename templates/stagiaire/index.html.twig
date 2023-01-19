@@ -4,6 +4,14 @@
 
 {% block body %}
 
+    {% if app.session.flashBag.has('success') %}
+        {% for msg in app.flashes('success') %}        
+            <div class="alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}             
+    {% endif %}
+
     <div class="container-page">
     {% if app.user %}
         <h1>Liste des stagiaires</h1>
