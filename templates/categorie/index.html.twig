@@ -19,7 +19,7 @@
         <div class="page-elements">
 
             <a href="{{ path('add_categorie') }}">Ajouter une Catégorie</a>
-
+            {% if listeCategories | length > 0 %}
             <table>
                 <tr>
                     <th>Intitule</th>
@@ -30,13 +30,16 @@
                 <tr>
                     <td><a href="{{ path('show_categorie', {'id': categorie.id}) }}">{{ categorie }}</a></td>
                     <td><p>{{ categorie.modules | length }}</p></td>
-                    <td>
+                    <td class="table-actions">
                         <a href="{{ path('edit_categorie', {'id': categorie.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="{{ path('remove_categorie', {'id': categorie.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>
                 {% endfor %}        
-            </table>            
+            </table>  
+            {% else %} 
+                <p class="no-data">Pas de catégories..</p>
+            {% endif %}
         </div>
     {% else %}
         <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>

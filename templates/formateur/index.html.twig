@@ -18,7 +18,7 @@
 
         <div class="page-elements">
             <a href="{{ path('add_formateur') }}">Ajouter un formateur</a>
-
+            {% if listeFormateurs | length > 0 %}
             <table>
                 <tr>
                     <th>Nom / Pénom</th>
@@ -27,13 +27,16 @@
                 {% for formateur in listeFormateurs %}
                 <tr>
                     <td>{{ formateur }}</td>
-                    <td>
+                    <td class="table-actions">
                         <a href="{{ path('edit_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>                        
                         <a href="{{ path('remove_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>
                 {% endfor %}
-            </table>                  
+            </table>   
+            {% else %}  
+                <p class="no-data">Pas de formateurs..</p>
+            {% endif %}
         </div>
     {% else %}
         <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
