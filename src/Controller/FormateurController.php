@@ -115,4 +115,20 @@ class FormateurController extends AbstractController
         }
     }
 
+    #[Route('/formateur/{id}', name: 'show_formateur')]
+    public function show(Formateur $formateur): Response
+    {
+
+        //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
+        if($this->getUser()) {
+            
+            return $this->render('formateur/show.html.twig', [
+                'formateur' => $formateur,
+            ]);
+
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
+    }   
+
 }
