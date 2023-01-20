@@ -16,7 +16,9 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('intitule', TextType::class)
+            ->add('intitule', TextType::class,[
+                'label' => false,
+            ])
             /* Pas besoin de la catégorie car je la set directement depuis le CategorieController */
             // ->add('categorie', EntityType::class, [
             //     'class' => Categorie::class

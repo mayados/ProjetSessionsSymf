@@ -17,22 +17,33 @@ class StagiaireFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
+            ->add('nom', TextType::class,[
+                'label' => false,
+            ])
+            ->add('prenom', TextType::class,[
+                'label' => false,
+            ])
             ->add('sexe', ChoiceType::class, [
                 'choices' => [
                     'Homme' => "homme",
                     'femme' => "femme",
                 ],
-
+                    'label' => false,
             ])
             ->add('dateNaissance', DateType::class, [
                 // Pour avoir un mini calendrier à l'affichage
                 'widget' => 'single_text',
+                'label' =>  'false',
             ])
-            ->add('ville', TextType::class)
-            ->add('mail', TextType::class)
-            ->add('telephone', TextType::class)
+            ->add('ville', TextType::class,[
+                'label' => false,
+            ])
+            ->add('mail', TextType::class,[
+                'label' => false,
+            ])
+            ->add('telephone', TextType::class,[
+                'label' => false,
+            ])
             ->add('submit', SubmitType::class)
         ;
     }
