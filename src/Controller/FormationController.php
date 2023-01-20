@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Entity\Formation;
+use App\Form\SessionType;
 use App\Form\FormationType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\SessionRepository;
@@ -76,7 +78,7 @@ class FormationController extends AbstractController
     }
 
     #[Route('/formation/{id}', name: 'show_formation')]
-    public function show(Formation $formation, SessionRepository $sr, FormationRepository $fr): Response
+    public function show(ManagerRegistry $doctrine, Request $request, Formation $formation, SessionRepository $sr, FormationRepository $fr): Response
     {
 
         //On vérifie s'il y a un user (comme ça pas de modif possible autrement)
@@ -87,11 +89,34 @@ class FormationController extends AbstractController
             $futureSessions = $sr->findFutureSessionsByFormation($formation->getId());
             $progressSessions = $sr->findProgressSessionsByFormation($formation->getId());        
 
+
+
+                 $session = new Session();
+
+ 
+             $session->setFormation($formation);             
+
+            $form = $this->createForm(SessionType::class, $session);
+            $form->handleRequest($request);
+ 
+            if($form->isSubmitted() && $form->isValid()) {
+             
+                $session = $form->getData();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($session);
+                $entityManager->flush();
+ 
+                $this->addFlash('success', 'Module créé avec succès');
+ 
+                return $this->redirectToRoute('show_formation', ['id' => $formation->getId()]);
+            }
+
             return $this->render('formation/show.html.twig', [
                 'formation' => $formation,
                 'pastSessions' => $pastSessions,
                 'futureSessions' => $futureSessions,
                 'progressSessions' => $progressSessions,
+                'formAddSession' => $form->createView()
             ]);
 
         } else {
