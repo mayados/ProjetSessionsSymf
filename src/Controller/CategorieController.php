@@ -42,12 +42,8 @@ class CategorieController extends AbstractController
             
            $categorie = $cr->find($categorie->getId());
 
-
-
-           /* Il faut mettre cette condition, sinon le module ne peut pas se créer */
-            if(!$module){
-                $module = new Module();
-            }
+            /* On veut créer un nouveau module, on va donc créer une nouvelle instance de classe de Module */
+            $module = new Module();
 
             $module->setCategorie($categorie);             
 
