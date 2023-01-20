@@ -34,9 +34,9 @@ class SessionType extends AbstractType
                 'placeholder' => '...',
                 'required' => false,
             ])
-            ->add('formation', EntityType::class, [
-                'class' => Formation::class,
-            ])
+            // ->add('formation', EntityType::class, [
+            //     'class' => Formation::class,
+            // ])
             ->add('submit', SubmitType::class)
         ;
     }
