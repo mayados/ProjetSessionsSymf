@@ -10,12 +10,38 @@
         <div class="page-elements">
 
             <div class="element">
-                <p><a href="{{ path('app_formation') }}">Retour</a></p>                
+                <a class="retour-link" href="{{ path('app_formation') }}">Retour</a>                
             </div>
 
             <div class="element">
                 <p>Ajouter une session à la formation :</p>
-                {{ form(formAddSession) }}
+                {{ form_start(formAddSession) }}
+                <div class="formulaire">
+                    <div class="form-element">
+                        <label>Intitule :</label>
+                        {{ form_row(formAddSession.intitule) }}
+                    </div>
+                    <div class="form-element">
+                        <label>Date de début :</label>
+                        {{ form_row(formAddSession.dateDebut) }}
+                    </div>
+                    <div class="form-element">
+                        <label>Date de fin :</label>
+                        {{ form_row(formAddSession.dateFin) }}
+                    </div>
+                    <div class="form-element">
+                        <label>Nombre de places :</label>
+                        {{ form_row(formAddSession.nbPlaces) }}
+                    </div>
+                    <div class="form-element">
+                        <label>Référent :</label>
+                        {{ form_row(formAddSession.referent) }}
+                    </div>
+                    <div class="form-element">
+                        {{ form_row(formAddSession.submit) }} 
+                    </div>                
+                </div>
+                {{ form_end(formAddSession) }}
             </div>
 
             <div class="element">

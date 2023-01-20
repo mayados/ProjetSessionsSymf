@@ -11,19 +11,50 @@
             <h1> Ajouter un stagiaire </h1>
         {% endif %}
 
-            <a href="{{ path('app_stagiaire') }}">Retour</a>                   
+                 
 
         <div class="page-elements">
-            {{ form_start(formAddStagiaire) }}
-                {{ form_row(formAddStagiaire.nom) }}
-                {{ form_row(formAddStagiaire.prenom) }}
-                {{ form_row(formAddStagiaire.sexe) }}
-                {{ form_row(formAddStagiaire.dateNaissance) }}
-                {{ form_row(formAddStagiaire.ville) }}
-                {{ form_row(formAddStagiaire.mail) }}
-                {{ form_row(formAddStagiaire.telephone) }}
-                {{ form_row(formAddStagiaire.submit) }}
-            {{ form_end(formAddStagiaire) }}                 
+
+            <a class="retour-link" href="{{ path('app_stagiaire') }}">Retour</a>  
+            
+            <div class="element">
+                {{ form_start(formAddStagiaire) }}
+                <div class="formulaire">
+                    <div class="form-element">
+                        <label>Nom :</label>
+                        <p>{{ form_row(formAddStagiaire.nom) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Prenom :</label>
+                        <p>{{ form_row(formAddStagiaire.prenom) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Sexe :</label>
+                        <p>{{ form_row(formAddStagiaire.sexe) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Date de Naissance :</label>
+                        <p>{{ form_row(formAddStagiaire.dateNaissance) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Ville :</label>
+                        <p>{{ form_row(formAddStagiaire.ville) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Mail :</label>
+                        <p>{{ form_row(formAddStagiaire.mail) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Téléphone :</label>
+                        <p>{{ form_row(formAddStagiaire.telephone) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <p>{{ form_row(formAddStagiaire.submit) }}</p>
+                    </div>                
+                </div>
+                {{ form_end(formAddStagiaire) }}                  
+            </div>
+               
         </div>
     </div>
 

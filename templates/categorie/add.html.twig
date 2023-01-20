@@ -11,14 +11,25 @@
         {% else %}
             <h1> Ajouter une catégorie </h1>  
         {% endif %}
-
-            <a href="{{ path('app_categorie') }}">Retour</a>                   
+   
 
         <div class="page-elements">
-            {{ form_start(formAddCategorie) }}
-                {{ form_row(formAddCategorie.intitule) }}
-                {{ form_row(formAddCategorie.submit) }}    
-            {{ form_end(formAddCategorie) }}                 
+
+            <a class="retour-link" href="{{ path('app_categorie') }}">Retour</a>             
+
+            <div class="element">
+                {{ form_start(formAddCategorie) }}
+                <div class="formulaire">
+                    <div class="form-element">
+                        <label>Intitulé :</label>
+                        <p>{{ form_row(formAddCategorie.intitule) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <p>{{ form_row(formAddCategorie.submit) }} </p>
+                    </div>                    
+                </div>
+                {{ form_end(formAddCategorie) }}                    
+            </div>
         </div>
     </div>
 

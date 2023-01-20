@@ -13,10 +13,25 @@
         {% endif %}
 
         <div class="page-elements">
-            {{ form_start(formAddFormation) }}
-                {{ form_row(formAddFormation.intitule) }}
-                {{ form_row(formAddFormation.submit) }}
-            {{ form_end(formAddFormation) }}                
+
+            <div class="element">
+                <a class="retour-link" href="{{ path('app_formation') }}">Retour</a>                
+            </div>
+
+
+                {{ form_start(formAddFormation) }}
+            <div class="formulaire">                
+                    <div class="form-element">
+                        <label>Intitule :</label>
+                        <p>{{ form_row(formAddFormation.intitule) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <p>{{ form_row(formAddFormation.submit) }}</p>
+                    </div>
+            </div>                    
+                {{ form_end(formAddFormation) }}                   
+
+             
         </div>
     {% else %}
         <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>

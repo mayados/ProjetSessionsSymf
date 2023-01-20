@@ -11,14 +11,30 @@
             <h1> Ajouter un formateur </h1>    
         {% endif %}
 
-            <a href="{{ path('app_formateur') }}">Retour</a>                   
+                   
 
         <div class="page-elements">
-            {{ form_start(formAddFormateur) }}
-                {{ form_row(formAddFormateur.nom) }}
-                {{ form_row(formAddFormateur.prenom) }}
-                {{ form_row(formAddFormateur.submit) }}
-            {{ form_end(formAddFormateur) }}               
+
+            <a class="retour-link" href="{{ path('app_formateur') }}">Retour</a>
+
+            <div class="element">
+                {{ form_start(formAddFormateur) }}
+                <div class="formulaire">
+                    <div class="form-element">
+                        <label>Nom :</label>
+                        <p>{{ form_row(formAddFormateur.nom) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <label>Prénom :</label>
+                        <p>{{ form_row(formAddFormateur.prenom) }}</p>
+                    </div>
+                    <div class="form-element">
+                        <p>{{ form_row(formAddFormateur.submit) }}</p>
+                    </div>
+                </div>
+                {{ form_end(formAddFormateur) }}                  
+            </div>
+             
         </div>
     </div>
 
