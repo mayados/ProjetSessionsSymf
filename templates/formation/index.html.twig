@@ -32,8 +32,8 @@
                         <td><a href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
                         <td>{{ formation.sessions | length }}</td>
                         <td>
-                            <a href="{{ path('edit_formation', {'id': formation.id}) }}">Edit</a>
-                            <a href="{{ path('remove_formation', {'id': formation.id}) }}">Supprimer</a>
+                            <a href="{{ path('edit_formation', {'id': formation.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="{{ path('remove_formation', {'id': formation.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                         </td>
                     </tr>
                 {% endfor %}            
