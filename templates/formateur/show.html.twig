@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail formateur{% endblock %}
+
+{% block body %}
+
+    <div class="container-page">
+        <h1>Fiche formateur</h1>
+
+        <div class="page-elements">
+
+            <div class="element">
+                <a class="retour-link" href="{{ path('app_formateur') }}">Retour</a>                
+            </div>
+
+            <div class="element">
+                <h3>{{ formateur.prenom  }}  {{ formateur.nom }}</h3>           
+            </div>
+
+            <div class="element">
+                <h3>Inscrit comme formateur référent pour :</h3>
+
+                {% if (formateur.sessions | length) > 0 %}
+                <table>
+                    <tr>
+                        <th>Intitule</th>
+                        <th>Formation</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Inscrits</th>
+                        <th>Statut</th>
+                    </tr>
+                        {% for session in formateur.sessions %}
+                    <tr>
+                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                            <td class="formation-title">{{ session.formation }}</td>
+                            <td>{{ session.dateDebut | date('d-m-Y') }}</td>
+                            <td>{{ session.dateFin | date('d-m-Y') }}</td>
+                            <td>{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
+                            {% if session.stagiaires | length == session.nbPlaces %}
+                            <td class="complet">Complet</td>      
+                            {% else %}  
+                            <td class="ouvert">Ouvert</td>     
+                            {% endif %}        
+                        {% endfor %}           
+                    </tr>
+            
+                </table>
+                {% else %}
+                    <p class="no-data">N'est pas référent de session...</p>  
+                {% endif %}                    
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
