@@ -40,8 +40,8 @@
                     </tr>
                         {% for session in stagiaire.sessions %}
                     <tr>
-                            <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
-                            <td>{{ session.formation }}</td>
+                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                            <td class="formation-title">{{ session.formation }}</td>
                             <td>{{ session.dateDebut | date('d-m-Y') }}</td>
                             <td>{{ session.dateFin | date('d-m-Y') }}</td>
                             <td>{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
@@ -56,7 +56,7 @@
             
                 </table>
                 {% else %}
-                    <p>Pas de sessions prévues...</p>  
+                    <p class="no-data">Pas de sessions prévues...</p>  
                 {% endif %}                    
             </div>
         </div>

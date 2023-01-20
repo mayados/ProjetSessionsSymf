@@ -64,7 +64,7 @@
                     {% endfor %}
                 </table>  
                 {% else %} 
-                    <p>Pas de programme pour le moment...</p>
+                    <p class="no-data">Pas de programme pour le moment...</p>
                 {% endif %}
             </div>
 
@@ -97,7 +97,7 @@
                     {% endfor %} 
                 </table> 
                 {% else %} 
-                    <p>Pas de modules non programmés</p>
+                    <p class="no-data">Pas de modules non programmés</p>
                 {% endif %}
             </div>
 
@@ -124,10 +124,10 @@
             </table> #}
 
             <div class="element">
-                <h3>STAGIAIRES</h3>
+                <h2>STAGIAIRES</h2>
 
                 {% if session.stagiaires | length == 0 %}
-                <p>Pas de stagiaires inscrits</p>
+                <p class="no-data">Pas de stagiaires inscrits</p>
                 {% else %}
                 <table>
                     <tr>
@@ -151,7 +151,7 @@
             </div>
 
             <div class="element">
-                <h3>STAGIAIRES NON INSCRITS</h3>
+                <h2>STAGIAIRES NON INSCRITS</h2>
                 {% if stagiairesNonInscrits | length > 0 %}
                 <table>
                     <tr>
@@ -176,7 +176,7 @@
                     {% endfor %}
                 </table>        
                 {% else %} 
-                    <p>Pas de stagiaires non inscrits.</p>
+                    <p class="no-data">Pas de stagiaires non inscrits.</p>
                 {% endif %}
             </div>
         </div>   

@@ -34,11 +34,11 @@
                     {% for session in progressSessions %}   
                         <tr>
                             <td>{{ session.formation }}</td>
-                            <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>
+                            <td class="table-actions">
                                 <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
@@ -51,7 +51,7 @@
                     {% endfor %}            
                 </table>     
                 {% else %} 
-                    <p>Pas de sessions en cours pour cette formation...</p>
+                    <p class="no-data">Pas de sessions en cours pour cette formation...</p>
                 {% endif %}
             </div>
 
@@ -71,11 +71,11 @@
                     {% for session in futureSessions %} 
                         <tr>
                             <td>{{ session.formation }}</td>
-                            <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>
+                            <td class="table-actions">
                                 <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
@@ -88,7 +88,7 @@
                     {% endfor %}            
                 </table>    
                 {% else %} 
-                    <p>Pas de sessions futures prévues pour cette formation...</p>
+                    <p class="no-data">Pas de sessions futures prévues pour cette formation...</p>
                 {% endif %}
             </div>
 
@@ -108,11 +108,11 @@
                     {% for session in pastSessions %}   
                         <tr>
                             <td>{{ session.formation }}</td>
-                            <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
                             <td>{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td>{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td>
+                            <td class="table-actions">
                                 <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
@@ -121,7 +121,7 @@
                     {% endfor %}            
                 </table>    
                 {% else %} 
-                    <p>Pas de sessions passées pour cette formation...</p>
+                    <p class="no-data">Pas de sessions passées pour cette formation...</p>
                 {% endif %}
             </div>
         </div>

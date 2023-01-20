@@ -30,7 +30,7 @@
                 <tr>
                     <td>{{ stagiaire }}</td>
                     <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a> </td>
-                    <td>
+                    <td class="table-actions">
                         <a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="{{ path('remove_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
@@ -38,7 +38,7 @@
                 {% endfor %}   
             </table>  
             {% else %} 
-                <p>Pas de stagiaires..</p>
+                <p class="no-data">Pas de stagiaires..</p>
             {% endif %}
         </div>
     {% else %}
