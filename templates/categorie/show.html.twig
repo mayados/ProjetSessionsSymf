@@ -16,7 +16,7 @@
         <h1> Détail Catégorie {{ categorie }} </h1>
 
         <div class="page-elements">
-            <p><a href="{{ path('app_categorie') }}">Retour</a></p>       
+            <a class="retour-link" href="{{ path('app_categorie') }}">Retour</a>   
 
             <div class="element">
                 <h2>Modules :</h2>
@@ -33,7 +33,7 @@
                         <td>{{ module.intitule }}</td>
                         <td>
                             <a href="{{ path('delete_module', {'id': module.id,
-                            'idCategorie': categorie.id}) }}">Supprimer</a> 
+                            'idCategorie': categorie.id}) }}"><i class="fa-regular fa-trash-can"></i></a> 
                         </td>
                     </tr>
                     {% endfor %}
@@ -45,8 +45,15 @@
 
             <div class="element">
                 {{ form_start(formAddModule) }}
-                    {{ form_row(formAddModule.intitule) }}
-                    {{ form_row(formAddModule.submit) }}
+                <div class="formulaire">
+                    <div class="form-element">
+                        <label>Intitulé :</label>
+                        {{ form_row(formAddModule.intitule) }}
+                    </div>
+                    <div class="form-element">
+                        {{ form_row(formAddModule.submit) }}
+                    </div>               
+                </div>
                 {{ form_end(formAddModule) }}
             </div>
         </div>   

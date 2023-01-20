@@ -21,9 +21,9 @@
         {# {{ form(formAddProgramme) }} #}
 
         <div class="page-elements">
-            <p><a href="{{ path('app_session') }}">Retour</a></p>       
+            <a class="retour-link" href="{{ path('app_session') }}">Retour</a>       
             
-            <div class="element">
+            <div class="element, recap">
                 <h2>Récapitulatif :</h2>
                 <ul>
                     {% if session.referent != NULL %}
