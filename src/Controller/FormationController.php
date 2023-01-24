@@ -106,7 +106,7 @@ class FormationController extends AbstractController
                 $entityManager->persist($session);
                 $entityManager->flush();
  
-                $this->addFlash('success', 'Module créé avec succès');
+                $this->addFlash('success', 'Session créée avec succès');
  
                 return $this->redirectToRoute('show_formation', ['id' => $formation->getId()]);
             }
