@@ -45,7 +45,7 @@
                             <td>{{ session.dateDebut | date('d-m-Y') }}</td>
                             <td>{{ session.dateFin | date('d-m-Y') }}</td>
                             <td>{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
-                            <td><a href="{{ path('remove_stagiaire', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
+                            <td><a href="{{ path('remove_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
                             {% if session.stagiaires | length == session.nbPlaces %}
                             <td class="complet">Complet</td>      
                             {% else %}  
