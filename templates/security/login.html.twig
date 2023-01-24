@@ -4,62 +4,61 @@
 
 {% block body %}
 
-    <div id="login">
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+    <div class="container-page">
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
-
-            <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
-
-            <div class="page-elements">
-                <div class="element">
-                    <div class="formulaire">
-                        <div class="form-element">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>                               
-                        </div>
-                        <div class="form-element">
-                            <label for="inputPassword">Password</label>
-                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>                                
-                        </div>
-                        <div class="form-element">
-                            <button class="btn btn-lg btn-primary" type="submit">
-                                Sign in
-                            </button>                                 
-                        </div>
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
                     </div>
-                  
-                </div>
+                {% endif %}
 
-                <input type="hidden" name="_csrf_token"
-                    value="{{ csrf_token('authenticate') }}"
-                >
+                <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
 
-                {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
-                        </label>
+                <div class="page-elements">
+                    <div class="element">
+                        <div class="formulaire formulaire-ext">
+                            <div class="form-element form-element-ext">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>                               
+                            </div>
+                            <div class="form-element form-element-ext">
+                                <label for="inputPassword">Mot de passe</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>                                
+                            </div>
+                            <div class="form-element form-element-ext">
+                                <button class="btn btn-lg btn-primary" type="submit">
+                                    Se connecter
+                                </button>                                 
+                            </div>
+                        </div>
+                    
                     </div>
-                #}
+
+                    <input type="hidden" name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
 
 
-                <div class="element">
-                    <p>Ou <a href="{{ path('app_register') }}">Inscrivez-vous</a></p>
+                    <div class="element">
+                        <p id="inscription">Ou <a href="{{ path('app_register') }}">Inscrivez-vous</a></p>
+                    </div>
                 </div>
-            </div>
-        </form>        
+            </form>        
     </div>
-
 
 {% endblock %}
