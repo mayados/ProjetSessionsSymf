@@ -17,7 +17,7 @@
         <h1>Liste des formateurs</h1>
 
         <div class="page-elements">
-            <a href="{{ path('add_formateur') }}">Ajouter un formateur</a>
+            <a class="add-link" href="{{ path('add_formateur') }}">Ajouter un formateur</a>
             {% if listeFormateurs | length > 0 %}
             <table>
                 <tr>
@@ -26,7 +26,7 @@
                 </tr>
                 {% for formateur in listeFormateurs %}
                 <tr>
-                    <td><a href="{{ path('show_formateur', {'id': formateur.id}) }}">{{ formateur }}</a></td>
+                    <td><a class="intitule-link" href="{{ path('show_formateur', {'id': formateur.id}) }}">{{ formateur }}</a></td>
                     <td class="table-actions">
                         <a href="{{ path('edit_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>                        
                         <a href="{{ path('remove_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-trash-can"></i></a>

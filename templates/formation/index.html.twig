@@ -18,7 +18,7 @@
         <h1>Liste des formations</h1>        
 
         <div class="page-elements">
-            <p><a href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
+            <p><a class="add-link" href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
 
             {% if listeFormations | length > 0 %}
             <table>

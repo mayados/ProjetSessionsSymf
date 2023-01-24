@@ -21,7 +21,7 @@
         {# {{ form(formAddProgramme) }} #}
 
         <div class="page-elements">
-            <a class="retour-link" href="{{ path('app_session') }}">Retour</a>       
+            <a class="retour-link" href="{{ path('app_session') }}"><i class="fa-solid fa-circle-left"></i></a>       
             
             <div class="element, recap">
                 <h2>Récapitulatif :</h2>
@@ -58,7 +58,7 @@
                         <td>{{ programme.module }}</td>
                         <td>{{ programme.duree }} jours</td>
                         <td>{{ programme.module.categorie }}</td>
-                        <td><a href="{{ path('delete_programme', {'id': programme.id,
+                        <td><a class="action-link" href="{{ path('delete_programme', {'id': programme.id,
                                 'idSession': session.id}) }}">Déprogrammer</a> </td>
                     </tr>
                     {% endfor %}
@@ -90,8 +90,8 @@
                         {{ form_start(index) }}    
                         {# On récupère le nom de la catégorie de la même façon qu'auparavant #}
                         <td>{{ index.vars.data.module.categorie.intitule }}</td>                      
-                        <td>{{ form_row(index.duree) }} </td>
-                        <td>{{ form_row(index.submit) }}</td>
+                        <td id="duree">{{ form_row(index.duree) }} </td>
+                        <td id="action">{{ form_row(index.submit) }}</td>
                     </tr>
                         {{ form_end(index) }}
                     {% endfor %} 
@@ -140,9 +140,9 @@
                     <tr>
                         <td>{{ stagiaire.nom }}</td>
                         <td>{{ stagiaire.prenom }}</td>
-                        <td><a href="{{ path('remove_stagiaireSession', {'id': session.id,
+                        <td><a class="action-link" href="{{ path('remove_stagiaireSession', {'id': session.id,
                                 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
-                        <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
+                        <td><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
                                 fiche stagiaire</a></td>
                     </tr>
                     {% endfor %}
@@ -165,12 +165,12 @@
                         <td>{{ stagiaire.nom }}</td>
                         <td>{{ stagiaire.prenom }}</td>
                         {% if session.stagiaires | length <session.nbPlaces %}
-                        <td><a href="{{ path('add_stagiaireSession', {'id': session.id,
+                        <td><a class="action-link" href="{{ path('add_stagiaireSession', {'id': session.id,
                                 'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>
                         {% else %}
                         <td>x</td>
                         {% endif %}
-                        <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
+                        <td><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
                                 fiche stagiaire</a></td>
                     </tr>
                     {% endfor %}
