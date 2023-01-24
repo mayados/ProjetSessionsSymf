@@ -11,17 +11,34 @@
         <h1>Inscrivez-vous</h1>
 
         <div class="page-elements">
-            
-            {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.pseudo) }}
-                {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
-                }) }}
-                {{ form_row(registrationForm.agreeTerms) }}
+            <div class="element">
+                {{ form_start(registrationForm) }}
+                <div class="formulaire">
+                    <div class="form-element">
+                        <label>Email :</label>
+                        {{ form_row(registrationForm.email) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Pseudo :</label>
+                        {{ form_row(registrationForm.pseudo) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Mot de passe :</label>
+                        {{ form_row(registrationForm.plainPassword, {
+                            label: 'Password'
+                        }) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Agree terms :</label>
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    </div>
+                    <div class="form-element">
+                        <button type="submit" class="btn">Register</button>                        
+                    </div>
+                </div>
 
-                <button type="submit" class="btn">Register</button>
-            {{ form_end(registrationForm) }}               
+                {{ form_end(registrationForm) }}                      
+            </div>
         </div>
     </div>
 
