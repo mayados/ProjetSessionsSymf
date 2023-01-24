@@ -24,14 +24,14 @@
                 <table>
                     <tr>
                         <th>Intitule</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                     </tr>
                     {# {{dump(formInfos)}} #}
                     {% for module in categorie.modules %}
                     <tr>
 
-                        <td>{{ module.intitule }}</td>
-                        <td>
+                        <td data-label="Intitule">{{ module.intitule }}</td>
+                        <td data-label="Action">
                             <a href="{{ path('delete_module', {'id': module.id,
                             'idCategorie': categorie.id}) }}"><i class="fa-regular fa-trash-can"></i></a> 
                         </td>

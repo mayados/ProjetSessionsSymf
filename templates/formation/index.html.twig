@@ -29,9 +29,9 @@
                 </tr>
                 {% for formation in listeFormations %}   
                     <tr>
-                        <td><a class="formation-title" href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
-                        <td>{{ formation.sessions | length }}</td>
-                        <td class="table-actions">
+                        <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
+                        <td data-label="Nombre de sessions">{{ formation.sessions | length }}</td>
+                        <td data-label="Actions" class="table-actions">
                             <a href="{{ path('edit_formation', {'id': formation.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
                             <a href="{{ path('remove_formation', {'id': formation.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                         </td>

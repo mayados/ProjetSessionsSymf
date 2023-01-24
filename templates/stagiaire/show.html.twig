@@ -40,16 +40,16 @@
                     </tr>
                         {% for session in stagiaire.sessions %}
                     <tr>
-                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
-                            <td class="formation-title">{{ session.formation }}</td>
-                            <td>{{ session.dateDebut | date('d-m-Y') }}</td>
-                            <td>{{ session.dateFin | date('d-m-Y') }}</td>
-                            <td>{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
-                            <td><a href="{{ path('remove_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
+                            <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                            <td data-label="Formation" class="formation-title">{{ session.formation }}</td>
+                            <td data-label="Date de début">{{ session.dateDebut | date('d-m-Y') }}</td>
+                            <td data-label="Date de fin">{{ session.dateFin | date('d-m-Y') }}</td>
+                            <td data-label="Inscrits">{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
+                            <td data-label="Action"><a href="{{ path('remove_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
                             {% if session.stagiaires | length == session.nbPlaces %}
-                            <td class="complet">Complet</td>      
+                            <td data-label="Statut" class="complet">Complet</td>      
                             {% else %}  
-                            <td class="ouvert">Ouvert</td>     
+                            <td data-label="Statut" class="ouvert">Ouvert</td>     
                             {% endif %}        
                         {% endfor %}           
                     </tr>
