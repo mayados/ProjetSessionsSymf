@@ -18,8 +18,12 @@ class ProgrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('duree', TextType::class,[
-                'label' => false
+            ->add('duree', IntegerType::class,[
+                'label' => false,
+                // Pour que l'utilisateur saisisse un nombre positif supérieur à 0
+                'attr' => [
+                    'min' => 1
+                ]
             ])
             ->add('module', EntityType::class,[
                 'class' => Module::class,
