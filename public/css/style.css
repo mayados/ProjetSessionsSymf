@@ -229,3 +229,15 @@ que celui affiché grâce à la boucle (id du select trouvé grâce à l'inspect
 
 
                         /*********** HOVER  **********/
+
+nav #nav-items .nav-item a:hover{
+    color: gray;
+}
+
+table tr:hover{
+    background-color: rgb(95, 95, 95);
+}
+
+.table-actions i:hover{
+    color: rgb(177, 177, 177);
+}
