@@ -17,7 +17,7 @@
             <script src="{{ asset('js/script.js') }}" defer></script>
         {% endblock %}
     </head>
-    <body>
+    <header>
         {% if app.user %}
             {% if app.session.flashBag.has('success') %}
                 {% for msg in app.flashes('success') %}        
@@ -39,10 +39,14 @@
                 <li class="nav-item"><a href="{{ path('app_login') }}">Connexion</a></li>
                 {% endif %}
             </ul>
+            <button class="burger">
+                <span class="bar-burger"></span>
+            </button>               
         </nav>  
-        <button class="burger">
-            <span class="bar-burger"></span>
-        </button>          
+         
+    </header>
+    <body>
+      
         {% endif %}
 
         {% block body %}{% endblock %}
