@@ -83,10 +83,6 @@ table .ouvert{
 
             /*********** COMMON CLASSES ************/
 
-/*Le menu burger est désactivé de base*/
-.burger{
-    display: none;
-}
 
 .container-page{
     padding-top: 8vh;
@@ -245,6 +241,11 @@ nav #nav-items{
 
 nav #nav-items .nav-item a{
     color: white;
+}
+
+/*Le menu burger est désactivé de base*/
+.burger{
+    display: none;
 }
 
 
@@ -425,7 +426,6 @@ table tr:hover{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* gap: 10px; */
     }
 
     table th {
@@ -440,7 +440,6 @@ table tr:hover{
       }
       
       table tr {
-        /* border-bottom: 3px solid #ddd; */
         display: block;
         margin-bottom: .625em;
       }
@@ -453,10 +452,6 @@ table tr:hover{
       }
       
       table td::before {
-        /*
-        * aria-label has no advantage, it won't be read inside a table
-        content: attr(aria-label);
-        */
         content: attr(data-label);
         float: left;
         font-weight: bold;
@@ -479,6 +474,29 @@ table tr:hover{
 
 @media screen and (max-width: 600px) {
 
+    header{
+        position: relative;
+    }
+
+    nav{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #nav-items{
+        position: absolute;
+        transform: translateY(-250px);
+        flex-direction: column;
+        margin-top: 0;
+        /* Pour que l'icône de la home ne soit pas collée à l'icône */
+        padding-top: 60px;
+        padding-bottom: 60px;
+        top: 0;
+        height: 0;
+    }
+
     /* Menu burger */
 
     .burger {
@@ -489,8 +507,6 @@ table tr:hover{
         border: none;
         background: transparent;
         cursor: pointer;
-        border: 2px solid yellow;
-        margin: 0 auto;
     }
 
     /* .bar-burger correspond au span de .burger */
@@ -499,7 +515,7 @@ table tr:hover{
         width: 45px;
         height: 4px;
         border-radius: 3px;
-        background: black;
+        background: rgb(255, 255, 255);
         transition: all .5s ease-in-out;
 
     }
@@ -511,7 +527,7 @@ table tr:hover{
         height: 4px;
         position: absolute;
         left: 0;
-        background: black;
+        background: rgb(255, 255, 255);
         border-radius: 3px;
         transition: all .5s ease-in-out;
     }
@@ -525,25 +541,21 @@ table tr:hover{
         transform: translateY(12px)
     }
 
-    #nav-items{
-        position: absolute;
-        transform: translateY(-250px);
-        flex-direction: column;
-    }
+
 
     /* Afficher les éléments du menu grâce à .show-nav créée dans le code js */
+
     .show-nav #nav-items{
-        /* margin-top: 15%; */
         background-color: gray;
         width: 100vw;
         height: 100vh;
         /* On remet les éléments à leur place */
         transform: translateX(0);
         transition: 2s;
+        font-size: 1.6rem;
     }
 
     .show-nav .burger{
-        transform: translateY(180px);
         transition: 2s;
     }
 
@@ -555,10 +567,12 @@ table tr:hover{
     /*Ici, pour le before et after, on dit comment les barres du haut et du bas de l'icone du menu burger vont se comporter lorsque la class show-nav est activée (=quand on a cliqué pour ouvrir le menu)*/
     .show-nav .bar-burger::before {
         transform: rotate(45deg);
+        background: black;
     }
 
     .show-nav .bar-burger::after {
         transform: rotate(-45deg);
+        background: black;
     }
 
 
@@ -628,7 +642,7 @@ table tr:hover{
     table{
         width: 92vw;
         min-height: 100px;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         background-color: rgb(255, 255, 255, 0);
     }
 
@@ -636,8 +650,6 @@ table tr:hover{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* gap: 10px; */
-        /* background-color: rgb(62, 121, 145, 0.5); */
     }
 
     table th {
@@ -652,7 +664,6 @@ table tr:hover{
       }
       
       table tr {
-        /* border-bottom: 3px solid #ddd; */
         display: block;
         margin-bottom: .625em;
       }
@@ -665,18 +676,24 @@ table tr:hover{
       }
 
       table td::before {
-        /*
-        * aria-label has no advantage, it won't be read inside a table
-        content: attr(aria-label);
-        */
         content: attr(data-label);
         float: left;
         font-weight: bold;
         text-transform: uppercase;
+        font-size: 0.7rem;
       }
 
       table i{
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+      }
+
+      table .session-title{
+        font-size: 0.9rem;
+      }
+
+      .form-element-ext input,
+      .form-element .pass input{
+          padding-left: 5px;
       }
 
 }
