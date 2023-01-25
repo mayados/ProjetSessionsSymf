@@ -14,7 +14,7 @@
             </div>
 
             <div class="element">
-                <p>Ajouter une session à la formation :</p>
+                <p id="ajoutSession">Ajouter une session à la formation :</p>
                 {{ form_start(formAddSession) }}
                 <div class="formulaire">
                     <div class="form-element">
@@ -86,7 +86,7 @@
                 {% if futureSessions | length > 0 %}
                 <table>
                     <tr>
-                        <th>Formation</th>
+                        {# <th>Formation</th> #}
                         <th>Intitule</th>
                         <th>Date de début</th>
                         <th>Date de fin</th>
@@ -96,19 +96,19 @@
                     </tr>
                     {% for session in futureSessions %} 
                         <tr>
-                            <td>{{ session.formation }}</td>
-                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
-                            <td>{{ session.dateDebut | date("d-m-Y") }}</td>
-                            <td>{{ session.dateFin | date("d-m-Y") }}</td> 
-                            <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td class="table-actions">
+                            {# <td>{{ session.formation }}</td> #}
+                            <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td data-label="Date de début">{{ session.dateDebut | date("d-m-Y") }}</td>
+                            <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
+                            <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
+                            <td data-label="Actions" class="table-actions">
                                 <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
                             {% if session.stagiaires | length == session.nbPlaces %}
-                                <td class="complet">Complet</td>      
+                                <td data-label="Statut" class="complet">Complet</td>      
                             {% else %}  
-                                <td class="ouvert">Ouvert</td>     
+                                <td data-label="Statut" class="ouvert">Ouvert</td>     
                             {% endif %}       
                         </tr>  
                     {% endfor %}            
@@ -123,7 +123,7 @@
                 {% if pastSessions | length > 0 %}
                 <table>
                     <tr>
-                        <th>Formation</th>
+                        {# <th>Formation</th> #}
                         <th>Intitule</th>
                         <th>Date de début</th>
                         <th>Date de fin</th>
@@ -133,16 +133,16 @@
                     </tr>
                     {% for session in pastSessions %}   
                         <tr>
-                            <td>{{ session.formation }}</td>
-                            <td><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
-                            <td>{{ session.dateDebut | date("d-m-Y") }}</td>
-                            <td>{{ session.dateFin | date("d-m-Y") }}</td> 
-                            <td> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
-                            <td class="table-actions">
+                            {# <td>{{ session.formation }}</td> #}
+                            <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td data-label="Date de début">{{ session.dateDebut | date("d-m-Y") }}</td>
+                            <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
+                            <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
+                            <td data-label="Actions" class="table-actions">
                                 <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
-                            <td>x</td>                
+                            <td data-label="Statut">x</td>                
                         </tr>
                     {% endfor %}            
                 </table>    
