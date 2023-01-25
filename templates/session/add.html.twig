@@ -11,18 +11,45 @@
             <h1> Ajouter une session </h1>    
         {% endif %}
 
-            <a class="retour-link" href="{{ path('app_session') }}">Retour</a>                   
+              
 
         <div class="page-elements">
-            {{ form_start(formAddSession) }}
-                {{ form_row(formAddSession.intitule) }}
-                {{ form_row(formAddSession.dateDebut) }}
-                {{ form_row(formAddSession.dateFin) }}
-                {{ form_row(formAddSession.nbPlaces) }}
-                {{ form_row(formAddSession.referent) }}
-                {# {{ form_row(formAddSession.formation) }} #}
-                {{ form_row(formAddSession.submit) }}       
-            {{ form_end(formAddSession) }}               
+
+            <a class="retour-link" href="{{ path('app_session') }}"><i class="fa-solid fa-circle-left"></i></a>   
+            
+            <div class="element">
+             
+                {{ form_start(formAddSession) }}
+                <div class="formulaire">
+
+                    <div class="form-element">
+                        <label>Intitule</label>                        
+                        {{ form_row(formAddSession.intitule) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Date de début</label>                        
+                        {{ form_row(formAddSession.dateDebut) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Date de fin</label>                        
+                        {{ form_row(formAddSession.dateFin) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Nombre de places</label>                        
+                        {{ form_row(formAddSession.nbPlaces) }}                        
+                    </div>
+                    <div class="form-element">
+                        <label>Référent</label>                        
+                        {{ form_row(formAddSession.referent) }}                        
+                    </div>
+                    <div class="form-element">
+                        {{ form_row(formAddSession.submit) }}                          
+                    </div>
+                    {# {{ form_row(formAddSession.formation) }} #}
+                      
+                </div>
+                {{ form_end(formAddSession) }}                   
+            </div>
         </div>
     </div>
 
