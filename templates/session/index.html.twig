@@ -29,8 +29,8 @@
                 {% if progressSessions | length > 0 %}
                 <table>
                     <tr>
+                        <th>Session</th>                        
                         <th>Formation</th>
-                        <th>Session</th>
                         <th>Date de début</th>
                         <th>Date de fin</th>
                         <th>Inscrits</th>
@@ -39,8 +39,8 @@
                     </tr>
                     {% for session in progressSessions %}   
                         <tr>
-                            <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': session.formation.id}) }}">{{ session.formation }}</a></td>
                             <td data-label="Session"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': session.formation.id}) }}">{{ session.formation }}</a></td>
                             <td data-label="Date de début">{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
@@ -67,8 +67,8 @@
                     {% if futureSessions | length > 0 %}
                 <table>
                     <tr>
+                        <th>Session</th>                        
                         <th>Formation</th>
-                        <th>Session</th>
                         <th>Date de début</th>
                         <th>Date de fin</th>
                         <th>Inscrits</th>
@@ -78,8 +78,8 @@
 
                         {% for session in futureSessions %} 
                             <tr>
-                                <td data-label="Formation"><a class="formation-title" href={{ path('show_formation', {'id': session.formation.id}) }}"">{{ session.formation }}</a></td>
                                 <td data-label="Session"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                                <td data-label="Formation"><a class="formation-title" href={{ path('show_formation', {'id': session.formation.id}) }}"">{{ session.formation }}</a></td>
                                 <td data-label="Date de début">{{ session.dateDebut | date("d-m-Y") }}</td>
                                 <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
                                 <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
@@ -106,8 +106,8 @@
                 {% if pastSessions | length > 0 %}
                 <table>
                     <tr>
+                        <th>Session</th>                        
                         <th>Formation</th>
-                        <th>Session</th>
                         <th>Date de début</th>
                         <th>Date de fin</th>
                         <th>Inscrits</th>
@@ -116,8 +116,8 @@
                     </tr>
                     {% for session in pastSessions %}   
                         <tr>
-                            <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': session.formation.id}) }}">{{ session.formation }}</a></td>
                             <td data-label="Session"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a> </td>
+                            <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': session.formation.id}) }}">{{ session.formation }}</a></td>
                             <td data-label="Date de début">{{ session.dateDebut | date("d-m-Y") }}</td>
                             <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
                             <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
