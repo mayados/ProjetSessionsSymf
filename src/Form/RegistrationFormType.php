@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
                 //Indique que le champ ne sera pas stocké en bdd. En effet, il doit d'abord être hashé avant d'être stocké, ce ,'est donc pas cette version claire qui est stockée
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match',
+                'invalid_message' => 'Les mots de passe doivent être identiques',
                 'options' => ['attr' => ['class' => 'password_field']],
                 'required' => true,
                 'first_options' => ['label' => 'Mot de passe :'],
