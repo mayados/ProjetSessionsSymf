@@ -36,3 +36,13 @@ for(let i = 0; i < messages.length; i++){
 }
 
 
+function displayBurgerMenu(){
+    const menuNav = document.querySelector('#menu-navigation');
+    const burger = document.querySelector('.burger');
+
+    burger.addEventListener('click', (event) =>{
+        menuNav.classList.toggle('show-nav');
+    });
+}
+
+displayBurgerMenu();
