@@ -83,6 +83,11 @@ table .ouvert{
 
             /*********** COMMON CLASSES ************/
 
+/*Le menu burger est désactivé de base*/
+.burger{
+    display: none;
+}
+
 .container-page{
     padding-top: 8vh;
     min-height: 100vh;
@@ -412,6 +417,10 @@ table tr:hover{
         font-size: 1.5rem;
     }
 
+    table{
+        background-color: rgb(255, 255, 255, 0);
+    }
+
     table tbody{
         display: flex;
         flex-direction: column;
@@ -431,13 +440,13 @@ table tr:hover{
       }
       
       table tr {
-        border-bottom: 3px solid #ddd;
+        /* border-bottom: 3px solid #ddd; */
         display: block;
         margin-bottom: .625em;
       }
       
       table td {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid rgb(221, 221, 221, 0.5);
         display: block;
         font-size: .8em;
         text-align: right;
@@ -454,12 +463,104 @@ table tr:hover{
         text-transform: uppercase;
       }
 
+      table i{
+        font-size: 1.2rem;
+      }
+
+      .table-actions{
+        flex-direction: row;
+        gap: 50px;
+      }
+
 }
 
 
 /*Mobile*/
 
 @media screen and (max-width: 600px) {
+
+    /* Menu burger */
+
+    .burger {
+        display: block;
+        position: relative;
+        width: 45px;
+        height: 45px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        border: 2px solid yellow;
+        margin: 0 auto;
+    }
+
+    /* .bar-burger correspond au span de .burger */
+    .bar-burger {
+        display: block;
+        width: 45px;
+        height: 4px;
+        border-radius: 3px;
+        background: black;
+        transition: all .5s ease-in-out;
+
+    }
+
+    .bar-burger::before,
+    .bar-burger::after {
+        content: "";
+        width: 45px;
+        height: 4px;
+        position: absolute;
+        left: 0;
+        background: black;
+        border-radius: 3px;
+        transition: all .5s ease-in-out;
+    }
+
+    /*On indique à combien de pixels se trouvent les barres du dessous et du dessus, par rapport à la barre centrale*/
+    .bar-burger::before {
+        transform: translateY(-12px)
+    }
+
+    .bar-burger::after {
+        transform: translateY(12px)
+    }
+
+    #nav-items{
+        position: absolute;
+        transform: translateY(-250px);
+        flex-direction: column;
+    }
+
+    /* Afficher les éléments du menu grâce à .show-nav créée dans le code js */
+    .show-nav #nav-items{
+        /* margin-top: 15%; */
+        background-color: gray;
+        width: 100vw;
+        height: 100vh;
+        /* On remet les éléments à leur place */
+        transform: translateX(0);
+        transition: 2s;
+    }
+
+    .show-nav .burger{
+        transform: translateY(180px);
+        transition: 2s;
+    }
+
+    /* On veut afficher une croix quand le menu burger est ouvert (et ainsi enlever la barre du milieu)*/
+    .show-nav .bar-burger {
+        width: 0;
+    }
+
+    /*Ici, pour le before et after, on dit comment les barres du haut et du bas de l'icone du menu burger vont se comporter lorsque la class show-nav est activée (=quand on a cliqué pour ouvrir le menu)*/
+    .show-nav .bar-burger::before {
+        transform: rotate(45deg);
+    }
+
+    .show-nav .bar-burger::after {
+        transform: rotate(-45deg);
+    }
+
 
     h2{
         text-align: center;
@@ -481,17 +582,6 @@ table tr:hover{
         font-size: 1.3rem;
         font-style: italic;
     }
-
-    table{
-        width: 92vw;
-        min-height: 100px;
-        font-size: 1.2rem;
-    }
-
-
-    /* table th{
-        font-size: 1rem;
-    } */
 
     .formulaire-ext{
         min-height: 20vh;
@@ -535,11 +625,19 @@ table tr:hover{
         font-size: 1.5rem;
     }
 
+    table{
+        width: 92vw;
+        min-height: 100px;
+        font-size: 1.2rem;
+        background-color: rgb(255, 255, 255, 0);
+    }
+
     table tbody{
         display: flex;
         flex-direction: column;
         justify-content: center;
         /* gap: 10px; */
+        /* background-color: rgb(62, 121, 145, 0.5); */
     }
 
     table th {
@@ -554,18 +652,18 @@ table tr:hover{
       }
       
       table tr {
-        border-bottom: 3px solid #ddd;
+        /* border-bottom: 3px solid #ddd; */
         display: block;
         margin-bottom: .625em;
       }
       
       table td {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid rgb(221, 221, 221, 0.5);
         display: block;
         font-size: .8em;
         text-align: right;
       }
-      
+
       table td::before {
         /*
         * aria-label has no advantage, it won't be read inside a table
@@ -575,6 +673,10 @@ table tr:hover{
         float: left;
         font-weight: bold;
         text-transform: uppercase;
+      }
+
+      table i{
+        font-size: 1.3rem;
       }
 
 }
