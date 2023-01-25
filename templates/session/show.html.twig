@@ -23,7 +23,7 @@
         <div class="page-elements">
             <a class="retour-link" href="{{ path('app_session') }}"><i class="fa-solid fa-circle-left"></i></a>       
             
-            <div class="element, recap">
+            <div class="element recap">
                 <h2>Récapitulatif :</h2>
                 <ul>
                     {% if session.referent != NULL %}
@@ -55,10 +55,10 @@
                     {% for programme in session.programmes %}
                     <tr>
 
-                        <td>{{ programme.module }}</td>
-                        <td>{{ programme.duree }} jours</td>
-                        <td>{{ programme.module.categorie }}</td>
-                        <td><a class="action-link" href="{{ path('delete_programme', {'id': programme.id,
+                        <td class="noDataLabel">{{ programme.module }}</td>
+                        <td class="noDataLabel">{{ programme.duree }} jours</td>
+                        <td class="noDataLabel">{{ programme.module.categorie }}</td>
+                        <td class="noDataLabel"><a class="action-link" href="{{ path('delete_programme', {'id': programme.id,
                                 'idSession': session.id}) }}">Déprogrammer</a> </td>
                     </tr>
                     {% endfor %}
@@ -86,12 +86,12 @@
                         {# <td>{{ index.module.vars.data.intitule }} </td> #}
                         {# Avant le début du formulaire, on récupère le module qui se trouve dans 
                             index grâce à la boucle foreach de sessionController, en faisant un dump de index et en cherchant les datas que l'on souhaite #}
-                        <td>{{ index.vars.data.module.intitule }}</td>
+                        <td class="noDataLabel">{{ index.vars.data.module.intitule }}</td>
                         {{ form_start(index) }}    
                         {# On récupère le nom de la catégorie de la même façon qu'auparavant #}
-                        <td>{{ index.vars.data.module.categorie.intitule }}</td>                      
-                        <td id="duree">{{ form_row(index.duree) }} </td>
-                        <td id="action">{{ form_row(index.submit) }}</td>
+                        <td class="noDataLabel">{{ index.vars.data.module.categorie.intitule }}</td>                      
+                        <td id="duree" class="noDataLabel">{{ form_row(index.duree) }} </td>
+                        <td id="action" class="noDataLabel">{{ form_row(index.submit) }}</td>
                     </tr>
                         {{ form_end(index) }}
                     {% endfor %} 
@@ -138,11 +138,11 @@
                     </tr>
                     {% for stagiaire in session.stagiaires %}
                     <tr>
-                        <td>{{ stagiaire.nom }}</td>
-                        <td>{{ stagiaire.prenom }}</td>
-                        <td><a class="action-link" href="{{ path('remove_stagiaireSession', {'id': session.id,
+                        <td class="noDataLabel">{{ stagiaire.nom }}</td>
+                        <td class="noDataLabel">{{ stagiaire.prenom }}</td>
+                        <td class="noDataLabel"><a class="action-link" href="{{ path('remove_stagiaireSession', {'id': session.id,
                                 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
-                        <td><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
+                        <td class="noDataLabel"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
                                 fiche stagiaire</a></td>
                     </tr>
                     {% endfor %}
@@ -162,15 +162,15 @@
                     </tr>
                     {% for stagiaire in stagiairesNonInscrits %}
                     <tr>
-                        <td>{{ stagiaire.nom }}</td>
-                        <td>{{ stagiaire.prenom }}</td>
+                        <td class="noDataLabel">{{ stagiaire.nom }}</td>
+                        <td class="noDataLabel">{{ stagiaire.prenom }}</td>
                         {% if session.stagiaires | length <session.nbPlaces %}
-                        <td><a class="action-link" href="{{ path('add_stagiaireSession', {'id': session.id,
+                        <td class="noDataLabel"><a class="action-link" href="{{ path('add_stagiaireSession', {'id': session.id,
                                 'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>
                         {% else %}
-                        <td>x</td>
+                        <td class="noDataLabel">x</td>
                         {% endif %}
-                        <td><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
+                        <td class="noDataLabel"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
                                 fiche stagiaire</a></td>
                     </tr>
                     {% endfor %}
