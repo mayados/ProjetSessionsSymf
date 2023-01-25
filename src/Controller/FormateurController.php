@@ -44,9 +44,12 @@ class FormateurController extends AbstractController
 
             $formateurASupprimer = $fr->find($formateur->getId());
 
-            /* On doit update le référent à Null pour les sessions dont ce formateur est le référent, 
-            sinon ça produit une erreur */
-            $sessions = $sr->findAll($formateur->getId());
+            // Je cherche la collection d'objet sessions du formateur trouvé précédement
+            $sessions = $formateurASupprimer->getSessions();
+
+            // dd($sessions);
+
+
 
             /* Comme il y a plusieurs éléments nous parcourons chaque élément
             => pour chaque session concernée, on met le référent à null */
