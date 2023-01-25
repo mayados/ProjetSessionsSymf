@@ -26,7 +26,7 @@
                     </div>
                 {% endfor %}             
             {% endif %}
-        <nav>
+        <nav id="menu-navigation">
             <ul id="nav-items">
                 <li class="nav-item"><a href="{{ path('app_session') }}"><i class="fa-solid fa-house"></i></a></li>
                 <li class="nav-item"><a href="{{ path('app_formation') }}">Formations</a></li>
@@ -39,7 +39,10 @@
                 <li class="nav-item"><a href="{{ path('app_login') }}">Connexion</a></li>
                 {% endif %}
             </ul>
-        </nav>            
+        </nav>  
+        <button class="burger">
+            <span class="bar-burger"></span>
+        </button>          
         {% endif %}
 
         {% block body %}{% endblock %}
