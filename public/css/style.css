@@ -83,6 +83,14 @@ table .ouvert{
 
             /*********** COMMON CLASSES ************/
 
+.verifier-mail-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 8vh;
+    min-height: 100vh;
+    background-color: rgb(62, 121, 145);
+}
 
 .container-page{
     padding-top: 8vh;
