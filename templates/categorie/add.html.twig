@@ -4,33 +4,38 @@
 
 {% block body %}
 
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            {% if edit %}
+                <h1>Modifier la catégorie</h1>
+            {% else %}
+                <h1> Ajouter une catégorie </h1>  
+            {% endif %}
+    
 
-    <div class="container-page">
-        {% if edit %}
-            <h1>Modifier la catégorie</h1>
-        {% else %}
-            <h1> Ajouter une catégorie </h1>  
-        {% endif %}
-   
+            <div class="page-elements">
 
-        <div class="page-elements">
+                <a class="retour-link" href="{{ path('app_categorie') }}"><i class="fa-solid fa-circle-left"></i></a>             
 
-            <a class="retour-link" href="{{ path('app_categorie') }}"><i class="fa-solid fa-circle-left"></i></a>             
-
-            <div class="element">
-                {{ form_start(formAddCategorie) }}
-                <div class="formulaire">
-                    <div class="form-element">
-                        <label>Intitulé :</label>
-                        <p>{{ form_row(formAddCategorie.intitule) }}</p>
+                <div class="element">
+                    {{ form_start(formAddCategorie) }}
+                    <div class="formulaire">
+                        <div class="form-element">
+                            <label>Intitulé :</label>
+                            <p>{{ form_row(formAddCategorie.intitule) }}</p>
+                        </div>
+                        <div class="form-element">
+                            <p>{{ form_row(formAddCategorie.submit) }} </p>
+                        </div>                    
                     </div>
-                    <div class="form-element">
-                        <p>{{ form_row(formAddCategorie.submit) }} </p>
-                    </div>                    
+                    {{ form_end(formAddCategorie) }}                    
                 </div>
-                {{ form_end(formAddCategorie) }}                    
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}

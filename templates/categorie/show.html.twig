@@ -12,51 +12,58 @@
         {% endfor %}             
     {% endif %}
 
-    <div class="container-page">
-        <h1> Détail Catégorie {{ categorie }} </h1>
 
-        <div class="page-elements">
-            <a class="retour-link" href="{{ path('app_categorie') }}"><i class="fa-solid fa-circle-left"></i></a>   
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            <h1> Détail Catégorie {{ categorie }} </h1>
 
-            <div class="element">
-                <h2>Modules :</h2>
-                {% if categorie.modules | length > 0 %}
-                <table>
-                    <tr>
-                        <th>Intitule</th>
-                        <th>Action</th>
-                    </tr>
-                    {# {{dump(formInfos)}} #}
-                    {% for module in categorie.modules %}
-                    <tr>
+            <div class="page-elements">
+                <a class="retour-link" href="{{ path('app_categorie') }}"><i class="fa-solid fa-circle-left"></i></a>   
 
-                        <td data-label="Intitule">{{ module.intitule }}</td>
-                        <td data-label="Action">
-                            <a href="{{ path('delete_module', {'id': module.id,
-                            'idCategorie': categorie.id}) }}"><i class="fa-regular fa-trash-can"></i></a> 
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>  
-                {% else %} 
-                    <p class="no-data">Pas de modules pour cette catégorie..</p>
-                {% endif %}
-            </div>
+                <div class="element">
+                    <h2>Modules :</h2>
+                    {% if categorie.modules | length > 0 %}
+                    <table>
+                        <tr>
+                            <th>Intitule</th>
+                            <th>Action</th>
+                        </tr>
+                        {# {{dump(formInfos)}} #}
+                        {% for module in categorie.modules %}
+                        <tr>
 
-            <div class="element">
-                {{ form_start(formAddModule) }}
-                <div class="formulaire">
-                    <div class="form-element">
-                        <label>Intitulé :</label>
-                        {{ form_row(formAddModule.intitule) }}
-                    </div>
-                    <div class="form-element">
-                        {{ form_row(formAddModule.submit) }}
-                    </div>               
+                            <td data-label="Intitule">{{ module.intitule }}</td>
+                            <td data-label="Action">
+                                <a href="{{ path('delete_module', {'id': module.id,
+                                'idCategorie': categorie.id}) }}"><i class="fa-regular fa-trash-can"></i></a> 
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>  
+                    {% else %} 
+                        <p class="no-data">Pas de modules pour cette catégorie..</p>
+                    {% endif %}
                 </div>
-                {{ form_end(formAddModule) }}
-            </div>
-        </div>   
-    </div>
+
+                <div class="element">
+                    {{ form_start(formAddModule) }}
+                    <div class="formulaire">
+                        <div class="form-element">
+                            <label>Intitulé :</label>
+                            {{ form_row(formAddModule.intitule) }}
+                        </div>
+                        <div class="form-element">
+                            {{ form_row(formAddModule.submit) }}
+                        </div>               
+                    </div>
+                    {{ form_end(formAddModule) }}
+                </div>
+            </div>   
+        </div>
+    {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}

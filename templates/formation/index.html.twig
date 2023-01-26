@@ -12,40 +12,46 @@
         {% endfor %}             
     {% endif %}
 
-    <div class="container-page">
-    {% if app.user %}
+    {% if app.user.isVerified %}
+        <div class="container-page">
+        {% if app.user %}
 
-        <h1>Liste des formations</h1>        
+            <h1>Liste des formations</h1>        
 
-        <div class="page-elements">
-            <p><a class="add-link" href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
+            <div class="page-elements">
+                <p><a class="add-link" href="{{ path('add_formation') }}">Ajouter une Formation</a></p>
 
-            {% if listeFormations | length > 0 %}
-            <table>
-                <tr>
-                    <th>Formation</th>
-                    <th>Nombre de sessions</th>
-                    <th>Actions</th>
-                </tr>
-                {% for formation in listeFormations %}   
+                {% if listeFormations | length > 0 %}
+                <table>
                     <tr>
-                        <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
-                        <td data-label="Nombre de sessions">{{ formation.sessions | length }}</td>
-                        <td data-label="Actions" class="table-actions">
-                            <a href="{{ path('edit_formation', {'id': formation.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="{{ path('remove_formation', {'id': formation.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
-                        </td>
+                        <th>Formation</th>
+                        <th>Nombre de sessions</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}            
-            </table>   
-            {% else %} 
-                <p class="no-data">Pas de formations...</p>
-            {% endif %}
+                    {% for formation in listeFormations %}   
+                        <tr>
+                            <td data-label="Formation"><a class="formation-title" href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a></td>
+                            <td data-label="Nombre de sessions">{{ formation.sessions | length }}</td>
+                            <td data-label="Actions" class="table-actions">
+                                <a href="{{ path('edit_formation', {'id': formation.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="{{ path('remove_formation', {'id': formation.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}            
+                </table>   
+                {% else %} 
+                    <p class="no-data">Pas de formations...</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+        {% endif %}
+
         </div>
     {% else %}
-        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
     {% endif %}
-
-    </div>
 
 {% endblock %}

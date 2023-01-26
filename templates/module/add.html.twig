@@ -4,23 +4,27 @@
 
 {% block body %}
 
-    <div class="container-page">
-        <h1> Ajouter un module </h1>
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            <h1> Ajouter un module </h1>
 
-        <div class="page-elements">
-            <div class="element">
-                <a class="retour-link" href="{{ path('app_session') }}">Retour</a>                   
-            </div>
-            <div class="element">
-                {{ form_start(formAddModule) }}
-                    {{ form_row(formAddModule.intitule) }}
-                    {{ form_row(formAddModule.categorie) }}
-                    {{ form_row(formAddModule.submit) }}
-                {{ form_end(formAddModule) }}                      
+            <div class="page-elements">
+                <div class="element">
+                    <a class="retour-link" href="{{ path('app_session') }}">Retour</a>                   
+                </div>
+                <div class="element">
+                    {{ form_start(formAddModule) }}
+                        {{ form_row(formAddModule.intitule) }}
+                        {{ form_row(formAddModule.categorie) }}
+                        {{ form_row(formAddModule.submit) }}
+                    {{ form_end(formAddModule) }}                      
+                </div>
             </div>
         </div>
-    </div>
-
-
+    {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}

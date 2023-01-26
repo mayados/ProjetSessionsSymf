@@ -4,38 +4,44 @@
 
 {% block body %}
 
-    <div class="container-page">
-    {% if app.user %}
-        {% if edit %}
-            <h1> Editer la formation </h1>
-        {% else %}
-            <h1> Ajouter une formation </h1>
-        {% endif %}
+    {% if app.user.isVerified %}
+        <div class="container-page">
+        {% if app.user %}
+            {% if edit %}
+                <h1> Editer la formation </h1>
+            {% else %}
+                <h1> Ajouter une formation </h1>
+            {% endif %}
 
-        <div class="page-elements">
+            <div class="page-elements">
 
-            <div class="element">
-                <a class="retour-link" href="{{ path('app_formation') }}"><i class="fa-solid fa-circle-left"></i></a>                
+                <div class="element">
+                    <a class="retour-link" href="{{ path('app_formation') }}"><i class="fa-solid fa-circle-left"></i></a>                
+                </div>
+
+
+                    {{ form_start(formAddFormation) }}
+                <div class="formulaire">                
+                        <div class="form-element">
+                            <label>Intitule :</label>
+                            <p>{{ form_row(formAddFormation.intitule) }}</p>
+                        </div>
+                        <div class="form-element">
+                            <p>{{ form_row(formAddFormation.submit) }}</p>
+                        </div>
+                </div>                    
+                    {{ form_end(formAddFormation) }}                   
+
+                
             </div>
-
-
-                {{ form_start(formAddFormation) }}
-            <div class="formulaire">                
-                    <div class="form-element">
-                        <label>Intitule :</label>
-                        <p>{{ form_row(formAddFormation.intitule) }}</p>
-                    </div>
-                    <div class="form-element">
-                        <p>{{ form_row(formAddFormation.submit) }}</p>
-                    </div>
-            </div>                    
-                {{ form_end(formAddFormation) }}                   
-
-             
+        {% else %}
+            <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+        {% endif %}
         </div>
     {% else %}
-        <p>Merci de bien vouloir vous connecter pour accéder au contenu</p>
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
     {% endif %}
-    </div>
 
 {% endblock %}

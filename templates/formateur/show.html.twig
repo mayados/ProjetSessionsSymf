@@ -4,54 +4,61 @@
 
 {% block body %}
 
-    <div class="container-page">
-        <h1>Fiche formateur</h1>
 
-        <div class="page-elements">
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            <h1>Fiche formateur</h1>
 
-            <div class="element">
-                <a class="retour-link" href="{{ path('app_formateur') }}"><i class="fa-solid fa-circle-left"></i></a>                
-            </div>
+            <div class="page-elements">
 
-            <div class="element">
-                <h3>{{ formateur.prenom  }}  {{ formateur.nom }}</h3>           
-            </div>
+                <div class="element">
+                    <a class="retour-link" href="{{ path('app_formateur') }}"><i class="fa-solid fa-circle-left"></i></a>                
+                </div>
 
-            <div class="element">
-                <h3>Inscrit comme formateur référent pour :</h3>
+                <div class="element">
+                    <h3>{{ formateur.prenom  }}  {{ formateur.nom }}</h3>           
+                </div>
 
-                {% if (formateur.sessions | length) > 0 %}
-                <table>
-                    <tr>
-                        <th>Intitule</th>
-                        <th>Formation</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Inscrits</th>
-                        <th>Statut</th>
-                    </tr>
-                        {% for session in formateur.sessions %}
-                    <tr>
-                            <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
-                            <td data-label="Formation" class="formation-title">{{ session.formation }}</td>
-                            <td data-label="Date de début">{{ session.dateDebut | date('d-m-Y') }}</td>
-                            <td data-label="Date de fin">{{ session.dateFin | date('d-m-Y') }}</td>
-                            <td data-label="Inscrits">{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
-                            {% if session.stagiaires | length == session.nbPlaces %}
-                            <td data-label="Statut" class="complet">Complet</td>      
-                            {% else %}  
-                            <td data-label="Statut" class="ouvert">Ouvert</td>     
-                            {% endif %}        
-                        {% endfor %}           
-                    </tr>
-            
-                </table>
-                {% else %}
-                    <p class="no-data">N'est pas référent de session...</p>  
-                {% endif %}                    
+                <div class="element">
+                    <h3>Inscrit comme formateur référent pour :</h3>
+
+                    {% if (formateur.sessions | length) > 0 %}
+                    <table>
+                        <tr>
+                            <th>Intitule</th>
+                            <th>Formation</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Inscrits</th>
+                            <th>Statut</th>
+                        </tr>
+                            {% for session in formateur.sessions %}
+                        <tr>
+                                <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                                <td data-label="Formation" class="formation-title">{{ session.formation }}</td>
+                                <td data-label="Date de début">{{ session.dateDebut | date('d-m-Y') }}</td>
+                                <td data-label="Date de fin">{{ session.dateFin | date('d-m-Y') }}</td>
+                                <td data-label="Inscrits">{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
+                                {% if session.stagiaires | length == session.nbPlaces %}
+                                <td data-label="Statut" class="complet">Complet</td>      
+                                {% else %}  
+                                <td data-label="Statut" class="ouvert">Ouvert</td>     
+                                {% endif %}        
+                            {% endfor %}           
+                        </tr>
+                
+                    </table>
+                    {% else %}
+                        <p class="no-data">N'est pas référent de session...</p>  
+                    {% endif %}                    
+                </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}
 

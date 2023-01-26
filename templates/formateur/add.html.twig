@@ -4,38 +4,45 @@
 
 {% block body %}
 
-    <div class="container-page">
-        {% if edit %}
-            <h1>Editer le formateur</h1>
-        {% else %}
-            <h1> Ajouter un formateur </h1>    
-        {% endif %}
 
-                   
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            {% if edit %}
+                <h1>Editer le formateur</h1>
+            {% else %}
+                <h1> Ajouter un formateur </h1>    
+            {% endif %}
 
-        <div class="page-elements">
+                    
 
-            <a class="retour-link" href="{{ path('app_formateur') }}"><i class="fa-solid fa-circle-left"></i></a>
+            <div class="page-elements">
 
-            <div class="element">
-                {{ form_start(formAddFormateur) }}
-                <div class="formulaire">
-                    <div class="form-element">
-                        <label>Nom :</label>
-                        <p>{{ form_row(formAddFormateur.nom) }}</p>
+                <a class="retour-link" href="{{ path('app_formateur') }}"><i class="fa-solid fa-circle-left"></i></a>
+
+                <div class="element">
+                    {{ form_start(formAddFormateur) }}
+                    <div class="formulaire">
+                        <div class="form-element">
+                            <label>Nom :</label>
+                            <p>{{ form_row(formAddFormateur.nom) }}</p>
+                        </div>
+                        <div class="form-element">
+                            <label>Prénom :</label>
+                            <p>{{ form_row(formAddFormateur.prenom) }}</p>
+                        </div>
+                        <div class="form-element">
+                            <p>{{ form_row(formAddFormateur.submit) }}</p>
+                        </div>
                     </div>
-                    <div class="form-element">
-                        <label>Prénom :</label>
-                        <p>{{ form_row(formAddFormateur.prenom) }}</p>
-                    </div>
-                    <div class="form-element">
-                        <p>{{ form_row(formAddFormateur.submit) }}</p>
-                    </div>
+                    {{ form_end(formAddFormateur) }}                  
                 </div>
-                {{ form_end(formAddFormateur) }}                  
+                
             </div>
-             
         </div>
-    </div>
+    {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}
