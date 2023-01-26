@@ -17,7 +17,9 @@ class CategorieType extends AbstractType
             ->add('intitule', TextType::class,[
                 'label' => false,
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer',
+            ])
         ;
     }
 

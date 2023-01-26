@@ -20,7 +20,9 @@ class FormateurType extends AbstractType
             ->add('prenom', TextType::class,[
                 'label' => false,
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class,[
+                'label' => 'Envoyer'
+            ])
         ;
     }
 

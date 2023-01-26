@@ -44,7 +44,9 @@ class StagiaireFormType extends AbstractType
             ->add('telephone', TextType::class,[
                 'label' => false,
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer'
+            ])
         ;
     }
 

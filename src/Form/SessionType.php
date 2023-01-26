@@ -44,7 +44,9 @@ class SessionType extends AbstractType
             // ->add('formation', EntityType::class, [
             //     'class' => Formation::class,
             // ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class,[
+                'label' => 'Envoyer',
+            ])
         ;
     }
 
