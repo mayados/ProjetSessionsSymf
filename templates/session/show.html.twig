@@ -12,174 +12,180 @@
         {% endfor %}             
     {% endif %}
 
-    <div class="container-page">
-        <h1> Détail Session {{ session }} </h1>
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            <h1> Détail Session {{ session }} </h1>
 
-        {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter
-        module</a> #}
+            {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter
+            module</a> #}
 
-        {# {{ form(formAddProgramme) }} #}
+            {# {{ form(formAddProgramme) }} #}
 
-        <div class="page-elements">
-            <a class="retour-link" href="{{ path('app_session') }}"><i class="fa-solid fa-circle-left"></i></a>       
-            
-            <div class="element recap">
-                <h2>Récapitulatif :</h2>
-                <ul>
-                    {% if session.referent != NULL %}
-                    <li>Formateur référent : {{ session.referent }}</li>
-                    {% else %}
-                    <li> Pas de formateur référent </li>
-                    {% endif %}
-
-                    <li>Date de début : {{ session.dateDebut | date("d-m-Y") }}</li>
-                    <li>Date de fin : {{ session.dateFin | date("d-m-Y") }}</li>
-                    <li>Nombre de places : {{ session.nbPlaces }}</li>
-                    <li>Places disponibles : {{ session.nbPlaces - session.stagiaires | length
-                        }}</li>
-                    <li>Nombre de modules : {{ session.programmes | length }} </li>
-                </ul>            
-            </div>
-
-            <div class="element">
-                <h2>Programme :</h2>
-                {% if session.programmes | length > 0 %}
-                <table>
-                    <tr>
-                        <th>Module</th>
-                        <th>Durée (jours)</th>
-                        <th>Catégorie</th>
-                        <th>Action</th>
-                    </tr>
-                    {# {{dump(formInfos)}} #}
-                    {% for programme in session.programmes %}
-                    <tr>
-
-                        <td class="noDataLabel">{{ programme.module }}</td>
-                        <td class="noDataLabel">{{ programme.duree }} jours</td>
-                        <td class="noDataLabel">{{ programme.module.categorie }}</td>
-                        <td class="noDataLabel"><a class="action-link" href="{{ path('delete_programme', {'id': programme.id,
-                                'idSession': session.id}) }}">Déprogrammer</a> </td>
-                    </tr>
-                    {% endfor %}
-                </table>  
-                {% else %} 
-                    <p class="no-data">Pas de programme pour le moment...</p>
-                {% endif %}
-            </div>
-
-            <div class="element">
-                <h2> Modules non programmés :</h2>
-                {% if formInfos | length > 0 %}
-                <table>
-                    <tr>
-                        <th>Module</th>
-                        <th>Catégorie</th>
-                        <th>Durée (jours)</th>
-                        <th>Action</th>
-                    </tr>
-                    {# On boucle déjà sur les modules non programmés dans le controller, 
-                        donc essayer d'avoir un module->getIntitule et autres infos pour qu'elles
-                        soient toutes ensemble #}
-                    {% for index in formInfos %}
-                    <tr>
-                        {# <td>{{ index.module.vars.data.intitule }} </td> #}
-                        {# Avant le début du formulaire, on récupère le module qui se trouve dans 
-                            index grâce à la boucle foreach de sessionController, en faisant un dump de index et en cherchant les datas que l'on souhaite #}
-                        <td class="noDataLabel">{{ index.vars.data.module.intitule }}</td>
-                        {{ form_start(index) }}    
-                        {# On récupère le nom de la catégorie de la même façon qu'auparavant #}
-                        <td class="noDataLabel">{{ index.vars.data.module.categorie.intitule }}</td>                      
-                        <td id="duree" class="noDataLabel">{{ form_row(index.duree) }} </td>
-                        <td id="action" class="noDataLabel">{{ form_row(index.submit) }}</td>
-                    </tr>
-                        {{ form_end(index) }}
-                    {% endfor %} 
-                </table> 
-                {% else %} 
-                    <p class="no-data">Pas de modules non programmés</p>
-                {% endif %}
-            </div>
-
-
-            {# <table>
-                <tr>
-                    <th>Module</th>
-                    <th>Catégorie</th>
-                    <th>Durée (jours)</th>
-                    <th>Action</th>
-                </tr>
-                {% for module in modulesNonProgrammes %} 
-                <tr>
-
-                    <td>{{ module.intitule }}</td>
-                    <td>{{ module.categorie }}</td>
-
-                    <td></td>
-
-                    <td><a href="#"></a> </td>
-                </tr> 
-                {% endfor %}
-
-            </table> #}
-
-            <div class="element">
-                <h2>STAGIAIRES</h2>
-
-                {% if session.stagiaires | length == 0 %}
-                <p class="no-data">Pas de stagiaires inscrits</p>
-                {% else %}
-                <table>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Action</th>
-                        <th>Fiche</th>
-                    </tr>
-                    {% for stagiaire in session.stagiaires %}
-                    <tr>
-                        <td class="noDataLabel">{{ stagiaire.nom }}</td>
-                        <td class="noDataLabel">{{ stagiaire.prenom }}</td>
-                        <td class="noDataLabel"><a class="action-link" href="{{ path('remove_stagiaireSession', {'id': session.id,
-                                'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
-                        <td class="noDataLabel"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
-                                fiche stagiaire</a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-                {% endif %}            
-            </div>
-
-            <div class="element">
-                <h2>STAGIAIRES NON INSCRITS</h2>
-                {% if stagiairesNonInscrits | length > 0 %}
-                <table>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Action</th>
-                        <th>Fiche</th>
-                    </tr>
-                    {% for stagiaire in stagiairesNonInscrits %}
-                    <tr>
-                        <td class="noDataLabel">{{ stagiaire.nom }}</td>
-                        <td class="noDataLabel">{{ stagiaire.prenom }}</td>
-                        {% if session.stagiaires | length <session.nbPlaces %}
-                        <td class="noDataLabel"><a class="action-link" href="{{ path('add_stagiaireSession', {'id': session.id,
-                                'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>
+            <div class="page-elements">
+                <a class="retour-link" href="{{ path('app_session') }}"><i class="fa-solid fa-circle-left"></i></a>       
+                
+                <div class="element recap">
+                    <h2>Récapitulatif :</h2>
+                    <ul>
+                        {% if session.referent != NULL %}
+                        <li>Formateur référent : {{ session.referent }}</li>
                         {% else %}
-                        <td class="noDataLabel">x</td>
+                        <li> Pas de formateur référent </li>
                         {% endif %}
-                        <td class="noDataLabel"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
-                                fiche stagiaire</a></td>
+
+                        <li>Date de début : {{ session.dateDebut | date("d-m-Y") }}</li>
+                        <li>Date de fin : {{ session.dateFin | date("d-m-Y") }}</li>
+                        <li>Nombre de places : {{ session.nbPlaces }}</li>
+                        <li>Places disponibles : {{ session.nbPlaces - session.stagiaires | length
+                            }}</li>
+                        <li>Nombre de modules : {{ session.programmes | length }} </li>
+                    </ul>            
+                </div>
+
+                <div class="element">
+                    <h2>Programme :</h2>
+                    {% if session.programmes | length > 0 %}
+                    <table>
+                        <tr>
+                            <th>Module</th>
+                            <th>Durée (jours)</th>
+                            <th>Catégorie</th>
+                            <th>Action</th>
+                        </tr>
+                        {# {{dump(formInfos)}} #}
+                        {% for programme in session.programmes %}
+                        <tr>
+
+                            <td class="noDataLabel">{{ programme.module }}</td>
+                            <td class="noDataLabel">{{ programme.duree }} jours</td>
+                            <td class="noDataLabel">{{ programme.module.categorie }}</td>
+                            <td class="noDataLabel"><a class="action-link" href="{{ path('delete_programme', {'id': programme.id,
+                                    'idSession': session.id}) }}">Déprogrammer</a> </td>
+                        </tr>
+                        {% endfor %}
+                    </table>  
+                    {% else %} 
+                        <p class="no-data">Pas de programme pour le moment...</p>
+                    {% endif %}
+                </div>
+
+                <div class="element">
+                    <h2> Modules non programmés :</h2>
+                    {% if formInfos | length > 0 %}
+                    <table>
+                        <tr>
+                            <th>Module</th>
+                            <th>Catégorie</th>
+                            <th>Durée (jours)</th>
+                            <th>Action</th>
+                        </tr>
+                        {# On boucle déjà sur les modules non programmés dans le controller, 
+                            donc essayer d'avoir un module->getIntitule et autres infos pour qu'elles
+                            soient toutes ensemble #}
+                        {% for index in formInfos %}
+                        <tr>
+                            {# <td>{{ index.module.vars.data.intitule }} </td> #}
+                            {# Avant le début du formulaire, on récupère le module qui se trouve dans 
+                                index grâce à la boucle foreach de sessionController, en faisant un dump de index et en cherchant les datas que l'on souhaite #}
+                            <td class="noDataLabel">{{ index.vars.data.module.intitule }}</td>
+                            {{ form_start(index) }}    
+                            {# On récupère le nom de la catégorie de la même façon qu'auparavant #}
+                            <td class="noDataLabel">{{ index.vars.data.module.categorie.intitule }}</td>                      
+                            <td id="duree" class="noDataLabel">{{ form_row(index.duree) }} </td>
+                            <td id="action" class="noDataLabel">{{ form_row(index.submit) }}</td>
+                        </tr>
+                            {{ form_end(index) }}
+                        {% endfor %} 
+                    </table> 
+                    {% else %} 
+                        <p class="no-data">Pas de modules non programmés</p>
+                    {% endif %}
+                </div>
+
+
+                {# <table>
+                    <tr>
+                        <th>Module</th>
+                        <th>Catégorie</th>
+                        <th>Durée (jours)</th>
+                        <th>Action</th>
                     </tr>
+                    {% for module in modulesNonProgrammes %} 
+                    <tr>
+
+                        <td>{{ module.intitule }}</td>
+                        <td>{{ module.categorie }}</td>
+
+                        <td></td>
+
+                        <td><a href="#"></a> </td>
+                    </tr> 
                     {% endfor %}
-                </table>        
-                {% else %} 
-                    <p class="no-data">Pas de stagiaires non inscrits.</p>
-                {% endif %}
-            </div>
-        </div>   
-    </div>
+
+                </table> #}
+
+                <div class="element">
+                    <h2>STAGIAIRES</h2>
+
+                    {% if session.stagiaires | length == 0 %}
+                    <p class="no-data">Pas de stagiaires inscrits</p>
+                    {% else %}
+                    <table>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Action</th>
+                            <th>Fiche</th>
+                        </tr>
+                        {% for stagiaire in session.stagiaires %}
+                        <tr>
+                            <td class="noDataLabel">{{ stagiaire.nom }}</td>
+                            <td class="noDataLabel">{{ stagiaire.prenom }}</td>
+                            <td class="noDataLabel"><a class="action-link" href="{{ path('remove_stagiaireSession', {'id': session.id,
+                                    'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
+                            <td class="noDataLabel"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
+                                    fiche stagiaire</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}            
+                </div>
+
+                <div class="element">
+                    <h2>STAGIAIRES NON INSCRITS</h2>
+                    {% if stagiairesNonInscrits | length > 0 %}
+                    <table>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Action</th>
+                            <th>Fiche</th>
+                        </tr>
+                        {% for stagiaire in stagiairesNonInscrits %}
+                        <tr>
+                            <td class="noDataLabel">{{ stagiaire.nom }}</td>
+                            <td class="noDataLabel">{{ stagiaire.prenom }}</td>
+                            {% if session.stagiaires | length <session.nbPlaces %}
+                            <td class="noDataLabel"><a class="action-link" href="{{ path('add_stagiaireSession', {'id': session.id,
+                                    'idStagiaire': stagiaire.id}) }}">Inscrire</a></td>
+                            {% else %}
+                            <td class="noDataLabel">x</td>
+                            {% endif %}
+                            <td class="noDataLabel"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Voir
+                                    fiche stagiaire</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>        
+                    {% else %} 
+                        <p class="no-data">Pas de stagiaires non inscrits.</p>
+                    {% endif %}
+                </div>
+            </div>   
+        </div>
+    {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}

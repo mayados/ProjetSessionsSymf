@@ -19,7 +19,7 @@
         {% endblock %}
     </head>
     <header>
-        {% if app.user %}
+    {% if app.user and app.user.isVerified %}
             {% if app.session.flashBag.has('success') %}
                 {% for msg in app.flashes('success') %}        
                     <div class="alert-success">
@@ -44,11 +44,12 @@
                 <span class="bar-burger"></span>
             </button>               
         </nav>  
-         
+    {% endif %}            
     </header>
+ 
     <body>
       
-        {% endif %}
+
 
         {% block body %}{% endblock %}
     </body>

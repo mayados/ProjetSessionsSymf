@@ -4,63 +4,69 @@
 
 {% block body %}
 
-    <div class="container-page">
-        <h1>Fiche stagiaire</h1>
+    {% if app.user.isVerified %}
+        <div class="container-page">
+            <h1>Fiche stagiaire</h1>
 
-        <div class="page-elements">
+            <div class="page-elements">
 
-            <div class="element">
-                <a class="retour-link" href="{{ path('app_stagiaire') }}"><i class="fa-solid fa-circle-left"></i></a>                
-            </div>
+                <div class="element">
+                    <a class="retour-link" href="{{ path('app_stagiaire') }}"><i class="fa-solid fa-circle-left"></i></a>                
+                </div>
 
-            <div class="element recap">
-                <h3>{{ stagiaire.prenom  }}  {{ stagiaire.nom }}</h3>
-                <ul>
-                    <li>Sexe : {{ stagiaire.sexe }}</li>
-                    <li>Date de naissance : {{ stagiaire.dateNaissance | date('d-m-Y') }}  ({{ stagiaire.age }} ans)</li>
-                    <li>Ville : {{ stagiaire.ville }}</li>
-                    <li>Courriel : {{ stagiaire.mail }}</li>
-                    <li>Téléphone : {{ stagiaire.telephone }}</li>
-                </ul>                
-            </div>
+                <div class="element recap">
+                    <h3>{{ stagiaire.prenom  }}  {{ stagiaire.nom }}</h3>
+                    <ul>
+                        <li>Sexe : {{ stagiaire.sexe }}</li>
+                        <li>Date de naissance : {{ stagiaire.dateNaissance | date('d-m-Y') }}  ({{ stagiaire.age }} ans)</li>
+                        <li>Ville : {{ stagiaire.ville }}</li>
+                        <li>Courriel : {{ stagiaire.mail }}</li>
+                        <li>Téléphone : {{ stagiaire.telephone }}</li>
+                    </ul>                
+                </div>
 
-            <div class="element">
-                <h3>Sessions Prévues</h3>
+                <div class="element">
+                    <h3>Sessions Prévues</h3>
 
-                {% if (stagiaire.sessions | length) > 0 %}
-                <table>
-                    <tr>
-                        <th>Intitule</th>
-                        <th>Formation</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Inscrits</th>
-                        <th>Action</th>
-                        <th>Statut</th>
-                    </tr>
-                        {% for session in stagiaire.sessions %}
-                    <tr>
-                            <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
-                            <td data-label="Formation" class="formation-title">{{ session.formation }}</td>
-                            <td data-label="Date de début">{{ session.dateDebut | date('d-m-Y') }}</td>
-                            <td data-label="Date de fin">{{ session.dateFin | date('d-m-Y') }}</td>
-                            <td data-label="Inscrits">{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
-                            <td data-label="Action"><a href="{{ path('remove_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
-                            {% if session.stagiaires | length == session.nbPlaces %}
-                            <td data-label="Statut" class="complet">Complet</td>      
-                            {% else %}  
-                            <td data-label="Statut" class="ouvert">Ouvert</td>     
-                            {% endif %}        
-                        {% endfor %}           
-                    </tr>
-            
-                </table>
-                {% else %}
-                    <p class="no-data">Pas de sessions prévues...</p>  
-                {% endif %}                    
+                    {% if (stagiaire.sessions | length) > 0 %}
+                    <table>
+                        <tr>
+                            <th>Intitule</th>
+                            <th>Formation</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Inscrits</th>
+                            <th>Action</th>
+                            <th>Statut</th>
+                        </tr>
+                            {% for session in stagiaire.sessions %}
+                        <tr>
+                                <td data-label="Intitule"><a class="session-title" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                                <td data-label="Formation" class="formation-title">{{ session.formation }}</td>
+                                <td data-label="Date de début">{{ session.dateDebut | date('d-m-Y') }}</td>
+                                <td data-label="Date de fin">{{ session.dateFin | date('d-m-Y') }}</td>
+                                <td data-label="Inscrits">{{ (session.stagiaires | length) }} / {{ session.nbPlaces }}  </td>
+                                <td data-label="Action"><a href="{{ path('remove_stagiaireSession', {'id': session.id, 'idStagiaire': stagiaire.id}) }}">Désinscrire</a></td>
+                                {% if session.stagiaires | length == session.nbPlaces %}
+                                <td data-label="Statut" class="complet">Complet</td>      
+                                {% else %}  
+                                <td data-label="Statut" class="ouvert">Ouvert</td>     
+                                {% endif %}        
+                            {% endfor %}           
+                        </tr>
+                
+                    </table>
+                    {% else %}
+                        <p class="no-data">Pas de sessions prévues...</p>  
+                    {% endif %}                    
+                </div>
             </div>
         </div>
-    </div>
+        {% else %}
+        <div class="verifier-mail-page">
+            <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
+        </div>
+    {% endif %}
 
 {% endblock %}
 
