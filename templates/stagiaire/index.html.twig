@@ -30,7 +30,7 @@
                     {% for stagiaire in stagiaires %}
                     <tr>
                         <td data-label="Nom / prénom">{{ stagiaire }}</td>
-                        <td data-label="Détails"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a> </td>
+                        <td data-label="Détails"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-eye"></i></a> </td>
                         <td data-label="Actions" class="table-actions">
                             <div class="action-icons">
                                 <a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
@@ -54,7 +54,5 @@
             <h2>Merci de bien vouloir vérifier vos mails pour accéder au contenu</h2>        
         </div>
     {% endif %}
-
-
 
 {% endblock %}
