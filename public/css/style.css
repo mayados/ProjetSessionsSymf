@@ -51,12 +51,15 @@ table th, table td{
 }
 
 table th{
-    height: 50px;
+    height: 60px;
+    font-style: italic;
 }
 
 table td{
     text-align: center;
     padding: 10px;
+    min-height: 80px;
+    font-size: 1.2rem;
 }
 
 table th{
@@ -113,11 +116,13 @@ table .ouvert{
 }
 
 .formation-title{
-    color: rgb(213, 212, 212);
+    color: white;
 }
 
 .add-link{
-    color: white;
+    color: rgb(207, 193, 161);    
+    font-size: 1.3rem;
+    font-style: italic;
 }
 
 .session-title{
@@ -136,13 +141,23 @@ table .intitule-link{
     height: 100%;
 }
 
-.table-actions i{
-    color: white;
+.table-actions i,
+table .action-link i{
+    color: rgb(209, 191, 121);
 }
 
 table .action-link{
-    color: rgb(199, 199, 199);
+    color: rgb(62, 121, 145);
+    text-shadow: 1px 1px 2px black;
 }
+
+.table-actions .action-icons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 50%;
+    font-size: 1.2rem;
+  }
 
 .no-data{
     text-align: center;
@@ -596,39 +611,39 @@ table tr:hover{
         font-size: 1.1rem;
     }
 
-      .formulaire-ext{
-        min-height: 25vh;
-        width: 80vw;
-      }
+    .formulaire-ext{
+    min-height: 25vh;
+    width: 80vw;
+    }
 
-      .form-element-ext{
-        gap: 5px;
-      }
+    .form-element-ext{
+    gap: 5px;
+    }
 
-      .form-element .pass{
-        width: 100%;
-      }
+    .form-element .pass{
+    width: 100%;
+    }
 
-      .form-element #registration_form_agreeTerms,
-      .form-element #registration_form_pseudo,
-      .form-element #registration_form_email,
-      .form-element #registration_form_plainPassword_first,
-      .form-element #registration_form_plainPassword_second{
+.form-element #registration_form_agreeTerms,
+    .form-element #registration_form_pseudo,
+    .form-element #registration_form_email,
+    .form-element #registration_form_plainPassword_first,
+    .form-element #registration_form_plainPassword_second{
         height: 30px;
-      }
+    }
 
       /* Cibler les élements du form register */
-      .form-element-ext div ,
-      .form-element div{
+    .form-element-ext div ,
+    .form-element div{
           width: 100%;
-      }
+    }
 
       /* Cibler les éléments du login register */
-      .form-element-ext ,
-      .form-element {
+    .form-element-ext ,
+    .form-element {
           padding-left: 5px;
           width: 500px;
-      }
+    }
 
       .recap{
         width: 90vw;
@@ -882,6 +897,14 @@ table tr:hover{
 
       .noDataLabel{
         text-align: center;
+      }
+
+      .noDataLabel:first-child{
+        font-size: 1.3rem;
+        font-weight: bold;
+        font-style: italic;
+        color: rgb(207, 193, 161);
+        text-shadow: 2px 2px 3px black;
       }
 
       #duree {
