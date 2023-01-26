@@ -16,11 +16,6 @@
         <div class="container-page">
             <h1> Détail Session {{ session }} </h1>
 
-            {# <a href="{{ path('add_programme', {'idSession': session.id}) }}">Ajouter
-            module</a> #}
-
-            {# {{ form(formAddProgramme) }} #}
-
             <div class="page-elements">
                 <a class="retour-link" href="{{ path('app_session') }}"><i class="fa-solid fa-circle-left"></i></a>       
                 
@@ -101,28 +96,6 @@
                         <p class="no-data">Pas de modules non programmés</p>
                     {% endif %}
                 </div>
-
-
-                {# <table>
-                    <tr>
-                        <th>Module</th>
-                        <th>Catégorie</th>
-                        <th>Durée (jours)</th>
-                        <th>Action</th>
-                    </tr>
-                    {% for module in modulesNonProgrammes %} 
-                    <tr>
-
-                        <td>{{ module.intitule }}</td>
-                        <td>{{ module.categorie }}</td>
-
-                        <td></td>
-
-                        <td><a href="#"></a> </td>
-                    </tr> 
-                    {% endfor %}
-
-                </table> #}
 
                 <div class="element">
                     <h2>STAGIAIRES</h2>

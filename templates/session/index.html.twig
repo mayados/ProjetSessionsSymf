@@ -16,10 +16,6 @@
     
             <h1> Accueil </h1>
 
-            {# {{ dump(app.user.isVerified) }} #}
-
-            {# {{ dump(app.session) }} #}
-
             <div class="page-elements">
 
                 <div class="element">
@@ -47,8 +43,10 @@
                                 <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
                                 <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
                                 <td data-label="Actions" class="table-actions">
-                                    <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                                    <div class="action-icons">
+                                        <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>                                    
+                                    </div>
                                 </td>
                                 {% if session.stagiaires | length == session.nbPlaces %}
                                     <td data-label="Statut" class="complet">Complet</td>      
@@ -86,8 +84,10 @@
                                     <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
                                     <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
                                     <td data-label="Actions" class="table-actions">
-                                        <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
-                                        <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                                        <div class="action-icons">
+                                            <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
+                                            <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                                        </div>
                                     </td>
                                     {% if session.stagiaires | length == session.nbPlaces %}
                                         <td data-label="Statut" class="complet">Complet</td>      
@@ -124,8 +124,10 @@
                                 <td data-label="Date de fin">{{ session.dateFin | date("d-m-Y") }}</td> 
                                 <td data-label="Inscrits"> {{ session.stagiaires | length }} / {{ session.nbPlaces }}</td>
                                 <td data-label="Actions" class="table-actions">
-                                    <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                                    <div class="action-icons">
+                                        <a href='{{ path('edit_session', {'id': session.id}) }}'><i class="fa-regular fa-pen-to-square"></i></a>
+                                        <a href="{{ path('remove_session', {'id': session.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                                    </div>
                                 </td>
                                 <td data-label="Statut">x</td>                
                             </tr>
