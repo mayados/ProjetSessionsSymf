@@ -32,8 +32,10 @@
                         <td data-label="Nom / prénom">{{ stagiaire }}</td>
                         <td data-label="Détails"><a class="action-link" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">Détails</a> </td>
                         <td data-label="Actions" class="table-actions">
-                            <a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="{{ path('remove_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                            <div class="action-icons">
+                                <a href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="{{ path('remove_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}   

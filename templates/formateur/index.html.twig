@@ -30,8 +30,10 @@
                     <tr>
                         <td data-label="Nom / prénom"><a class="intitule-link" href="{{ path('show_formateur', {'id': formateur.id}) }}">{{ formateur }}</a></td>
                         <td data-label="Actions" class="table-actions">
-                            <a href="{{ path('edit_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>                        
-                            <a href="{{ path('remove_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                            <div class="action-icons">
+                                <a href="{{ path('edit_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>                        
+                                <a href="{{ path('remove_formateur', {'id': formateur.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
