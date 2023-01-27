@@ -46,3 +46,15 @@ function displayBurgerMenu(){
 }
 
 displayBurgerMenu();
+
+                        /* DARK MODE */
+
+function changeMode(){
+    /* On sélectionne d'abord le body, comme il contient tous les éléments */
+    var element = document.body;
+    /* On fait basculer la classe du body à dark mode lorsque onclick est détecté sur le bouton
+    En CSS, on a juste à ajouter .dark-mode devant l'élément ciblé à l'intérieur du body pour afficher un certain style quand
+    le dark mode est activé */
+    element.classList.toggle("dark-mode");
+
+}
