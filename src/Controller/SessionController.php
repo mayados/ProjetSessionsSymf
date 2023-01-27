@@ -19,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SessionController extends AbstractController
 {
-    #[Route('/home', name: 'app_session')]
+    #[Route('/', name: 'app_session')]
     public function index(SessionRepository $sr): Response
     {
 
@@ -144,30 +144,6 @@ class SessionController extends AbstractController
                     );
                 }
             }
-            //dd($form);
-            // die;
-
-
-            // $form = $this->createForm(ProgrammeType::class, $programme);
-            // $form->handleRequest($request);
-
-
-            // if ($form->isSubmitted() && $form->isValid()) {
-            //     $programme = $form->getData();
-            //     // var_dump($form->get('duree')->getData());die;
-            //     $entityManager = $doctrine->getManager();
-            //     $session = $entityManager->getRepository(Session::class)->find($id);
-            //     /* On utilise la méthode créée de base dans Session grâce au ManyToMany */
-            //     $session->addProgramme($programme);
-            //     $entityManager->persist($programme);
-            //     // $entityManager->persist($programme);
-            //     $entityManager->flush();
-
-            //     return $this->redirectToRoute(
-            //         'show_session',
-            //         ['id' => $session->getId()]
-            //     );
-            // }
 
             return $this->render('session/show.html.twig', [
                 'session' => $session,
