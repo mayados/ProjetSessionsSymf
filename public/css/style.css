@@ -6,6 +6,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    --blanc: white;
+    --noir: black;
+    --jaune: rgb(209, 191, 121);
+    --bleu: rgb(62, 121, 145);
+    --grisTransparent: rgb(255, 255, 255, 0.2);
+    --gris: gray;
+}
+
 a{
     text-decoration: none;
 }
@@ -17,16 +26,19 @@ li{
 h1{
     text-align: center;
     padding: 15px 0px 15px 0px;
-    color: white;
-    text-shadow: 2px 1px 2px black;
+    text-shadow: 2px 1px 2px var(--noir);
 }
 
 h2{
     text-align: center;
     padding: 15px 0px 15px 0px;
-    color: white;
-    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    text-shadow: 1px 1px 1px var(--noir);
     font-size: 1.6rem;
+}
+
+h1,
+h2{
+    color: var(--blanc);
 }
 
 #hello{
@@ -40,7 +52,7 @@ h2{
                 /*************TABLE************/
 
 table{
-    background-color: gray;
+    background-color: var(--gris);
     width: 80vw;
     min-height: 100px;
     color: white;
@@ -63,7 +75,7 @@ table td{
 }
 
 table th{
-    background-color: rgb(29, 29, 29);
+    background-color: var(--noir);
     font-size: 1.2rem;
 }
 
@@ -91,13 +103,13 @@ table .ouvert{
     align-items: center;
     padding-top: 8vh;
     min-height: 100vh;
-    background-color: rgb(62, 121, 145);
+    background-color: var(--bleu);
 }
 
 .container-page{
     padding-top: 8vh;
     min-height: 100vh;
-    background-color: rgb(62, 121, 145);
+    background-color: var(--bleu);
 }
 
 .page-elements,
@@ -109,31 +121,31 @@ table .ouvert{
 }
 
 .page-elements{
-    /* background-color: yellow; */
     gap: 50px;
     min-height: 30vh;
     padding-bottom: 50px;
 }
 
 .formation-title{
-    color: white;
+    color: var(--blanc);
 }
 
 .add-link{
-    color: rgb(207, 193, 161);    
+    /* color: rgb(207, 193, 161);     */
+    color: var(--jaune);
     font-size: 1.3rem;
     font-style: italic;
 }
 
 .session-title{
-    color: rgb(250, 250, 250);
+    color: var(--blanc);
     font-size: 1rem;
     font-weight: bold;
     font-style: oblique;
 }
 
 table .intitule-link{
-    color: white;
+    color: var(--blanc);
 }
 
 .table-actions{
@@ -143,12 +155,12 @@ table .intitule-link{
 
 .table-actions i,
 table .action-link i{
-    color: rgb(209, 191, 121);
+    color: var(--jaune);
 }
 
 table .action-link{
-    color: rgb(62, 121, 145);
-    text-shadow: 1px 1px 2px black;
+    color: var(--bleu);
+    text-shadow: 1px 1px 2px var(--noir);
 }
 
 .table-actions .action-icons{
@@ -165,7 +177,7 @@ table .action-link{
 
 .retour-link{
     text-align: center;
-    color: white;
+    color: var(--blanc);
     font-size: 1.4rem;
 }
 
@@ -179,8 +191,46 @@ table .action-link{
     min-height: 3vh;
     min-width: 30vw;
     padding: 10px;
-    background-color: rgb(255, 255, 255, 0.2);
+    background-color: var(--grisTransparent);
     border-radius: 5px;
+}
+
+.formulaire-ext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    min-height: 30vh;
+}
+
+.form-element-ext{
+    width: 70%;
+}
+
+.form-element-ext label,
+.pass div .required{
+    font-size: 1.5rem;
+}
+
+.form-element #registration_form_agreeTerms,
+.form-element #registration_form_pseudo,
+.form-element #registration_form_email,
+.form-element #registration_form_plainPassword_first,
+.form-element #registration_form_plainPassword_second,
+.form-element-ext input{
+  height: 30px;
+}
+
+.form-element-ext input{
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-element-ext button{
+    font-size: 1.2rem;
 }
 
 .form-element{
@@ -233,7 +283,7 @@ table .action-link{
     justify-content: center;
     align-items: center;
     height: 5vh;
-    color: white;
+    color: var(--blanc);
     font-weight: bold;
 }
 
@@ -249,7 +299,8 @@ table .action-link{
                     /* NAVIGATION MENU */
 
 nav{
-    background-color: rgb(39, 39, 39);
+    /* background-color: rgb(39, 39, 39); */
+    background-color: var(--noir);
     height: 8vh;
     position: fixed;
     top: 0;
@@ -266,7 +317,7 @@ nav #nav-items{
 }
 
 nav #nav-items .nav-item a{
-    color: white;
+    color: var(--blanc);
 }
 
 /*Le menu burger est désactivé de base*/
@@ -323,7 +374,7 @@ que celui affiché grâce à la boucle (id du select trouvé grâce à l'inspect
 #inscription a,
 #connexion,
 #connexion a{
-    color: white;
+    color: var(--blanc);
     font-style: oblique;
 }
 
@@ -332,13 +383,18 @@ que celui affiché grâce à la boucle (id du select trouvé grâce à l'inspect
     border-bottom: 1px solid orange;    
 }
 
+#inscription,
+#connexion{
+    font-size: 1.5rem;
+}
+
                         /*********** SHOW FORMATION ***************/
 #ajoutSession{
     text-align: center;
     padding-bottom: 5px;
     font-size: 1.3rem;
     font-style: italic;
-    color: white;
+    color: var(--blanc);
 }
 
 
@@ -346,7 +402,7 @@ que celui affiché grâce à la boucle (id du select trouvé grâce à l'inspect
                         /*********** HOVER  **********/
 
 nav #nav-items .nav-item a:hover{
-    color: rgb(62, 121, 145);
+    color: var(--bleu);
 }
 
 table tr:hover{
@@ -358,7 +414,7 @@ table tr:hover{
 }
 
 .form-element button:hover{
-    background-color: rgb(62, 121, 145);
+    background-color: var(--bleu);
     color: white;
     cursor: pointer;
     transition: transform 0.2s;
@@ -416,81 +472,6 @@ table tr:hover{
 
     table th{
         font-size: 1rem;
-    }
-
-    .formulaire-ext,
-    .pass,
-    .formulaire{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;        
-    }
-
-    .formulaire-ext{
-        min-height: 20vh;
-        min-width: 50vw;
-    }
-    
-    .form-element-ext{
-        font-size: 1.6rem;
-    }
-
-    .form-element-ext input,
-    .form-element .pass input{
-        width: 400px;
-        height: 2rem;
-        border-radius: 5px;
-        border: none;
-        font-size: 1.3rem;
-        padding: 3px 0px 3px 0px;
-    }
-    
-     .pass{
-        gap: 20px;
-    }
-    
-    .form-element-ext button{
-        padding: 10px;
-        font-size: 1.2rem;
-    }
-
-    .form-element-ext{
-        gap: 5px;
-      }
-
-      .form-element #registration_form_agreeTerms,
-      .form-element #registration_form_pseudo,
-      .form-element #registration_form_email,
-      .form-element #registration_form_plainPassword_first,
-      .form-element #registration_form_plainPassword_second{
-        height: 25px;
-      }
-
-      .form-element-ext input,
-      .form-element .pass input{
-          padding-left: 5px;
-      }
-
-      .formulaire .form-element label{
-        font-size: 1.6rem;
-      }
-
-      .formulaire .form-element div input,
-      .formulaire .form-element div select,
-      .formulaire #session_submit,
-      .formulaire #stagiaire_form_submit,
-      .formulaire #formateur_submit,
-      .formulaire #categorie_submit{
-        height: 40px;
-        font-size: 1.3rem;
-        padding: 0px 10px 0px 10px;
-    }
-
-    #inscription,
-    #connexion,
-    .pass{
-        font-size: 1.5rem;
     }
 
     table{
@@ -562,7 +543,7 @@ table tr:hover{
 
       .noDataLabel:first-child{
         font-weight: bold;
-        text-shadow: 1px 1px 2px black;
+        text-shadow: 1px 1px 2px var(--noir);
       }
 
       .noDataLabel{
@@ -587,14 +568,71 @@ table tr:hover{
         width: 100%;
       }
 
-      .form-element-ext{
-        gap: 5px;
-      }
+    .recap{
+        width: 90vw;
+        height: 300px;
+    }
 
+    .recap ul li{
+        font-size: 1.4rem;
+    }
+
+
+            /****** FORMULAIRES ********/
+
+    .formulaire .form-element div input,
+    .formulaire .form-element div select,
+    .formulaire #session_submit,
+    .formulaire #stagiaire_form_submit,
+    .formulaire #formateur_submit,
+    .formulaire #categorie_submit{
+        height: 40px;
+        font-size: 1.3rem;
+        padding: 0px 10px 0px 10px;
+    }
+
+    .form-element-ext ,
+    .form-element {
+          padding-left: 5px;
+          width: 500px;
+    }
+
+    .formulaire-ext,
+    .pass,
+    .formulaire{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;        
+    }
+
+    .form-element-ext input,
+    .form-element .pass input{
+        width: 400px;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        font-size: 2.3rem;
+        padding: 3px 0px 3px 0px;
+    }
+
+    .form-element-ext input,
+    .form-element .pass input{
+        padding-left: 5px;
+    }
+
+    .formulaire .form-element label
+    {
+        font-size: 1.6rem;
+    }
       
     .formulaire{
         min-height: 20vh;
         width: 90vw;
+    }
+
+    .formulaire .form-element{
+        font-size: 1.3rem;
     }
 
     .formulaire .form-element input{
@@ -602,13 +640,36 @@ table tr:hover{
         font-size: 1.2rem;
     }
 
-    .formulaire .form-element{
-        font-size: 1.3rem;
-    }
-
     .formulaire .form-element button{
         width: 100px;
         font-size: 1.1rem;
+    }
+
+    /******* CIBLAGE FORMULAIRES DE LOGIN && REGISTER *******/   
+    
+    .formulaire-ext{
+        min-height: 20vh;
+        width: 60vw;
+    }
+
+    .formulaire .form-element-ext label,
+     .pass div .required{
+        font-size: 2rem;
+    }
+    
+    .form-element-ext{
+        gap: 5px;        
+    }
+
+    .form-element-ext button{
+        padding: 10px;
+        font-size: 1.2rem;
+    }
+
+    #inscription,
+    #connexion,
+    .pass{
+        font-size: 1.6rem;
     }
 
     .formulaire-ext{
@@ -620,40 +681,31 @@ table tr:hover{
     gap: 5px;
     }
 
-    .form-element .pass{
-    width: 100%;
-    }
-
-.form-element #registration_form_agreeTerms,
-    .form-element #registration_form_pseudo,
-    .form-element #registration_form_email,
-    .form-element #registration_form_plainPassword_first,
-    .form-element #registration_form_plainPassword_second{
-        height: 30px;
-    }
-
       /* Cibler les élements du form register */
     .form-element-ext div ,
     .form-element div{
           width: 100%;
     }
 
-      /* Cibler les éléments du login register */
-    .form-element-ext ,
-    .form-element {
-          padding-left: 5px;
-          width: 500px;
-    }
+    .form-element #registration_form_agreeTerms,
+    .form-element #registration_form_pseudo,
+    .form-element #registration_form_email,
+    .form-element #registration_form_plainPassword_first,
+    .form-element #registration_form_plainPassword_second{
+        height: 30px;
+    }    
 
-      .recap{
-        width: 90vw;
-        height: 300px;
-    }
+    .form-element .pass{
+        width: 100%;
+        gap: 20px;    
+    }    
 
-    .recap ul li{
-        font-size: 1.4rem;
-    }
+    /* Eléments de login form */
 
+    #inputEmail.form-control,
+    #inputPassword.form-control{
+        height: 2.5rem;
+    }
       
 
 }
@@ -711,7 +763,7 @@ table tr:hover{
         width: 45px;
         height: 4px;
         border-radius: 3px;
-        background: rgb(255, 255, 255);
+        background: var(--blanc);
         transition: all .5s ease-in-out;
 
     }
@@ -723,7 +775,7 @@ table tr:hover{
         height: 4px;
         position: absolute;
         left: 0;
-        background: rgb(255, 255, 255);
+        background: var(--blanc);
         border-radius: 3px;
         transition: all .5s ease-in-out;
     }
@@ -740,7 +792,7 @@ table tr:hover{
     /* Afficher les éléments du menu grâce à .show-nav créée dans le code js */
 
     .show-nav #nav-items{
-        background-color: gray;
+        background-color: var(--gris);
         width: 100vw;
         height: 100vh;
         /* On remet les éléments à leur place */
@@ -766,7 +818,7 @@ table tr:hover{
 
     .show-nav .bar-burger::after {
         transform: rotate(-45deg);
-        background: black;
+        background: var(--noir);
     }
 
     h1{
@@ -777,7 +829,7 @@ table tr:hover{
         text-align: center;
         padding: 15px 0px 15px 0px;
         color: white;
-        text-shadow: 1px 1px 1px rgb(0, 0, 0);
+        text-shadow: 1px 1px 1px var(--noir);
         font-size: 1.6rem;
     }
 
@@ -904,7 +956,7 @@ table tr:hover{
         font-weight: bold;
         font-style: italic;
         color: rgb(207, 193, 161);
-        text-shadow: 2px 2px 3px black;
+        text-shadow: 2px 2px 3px var(--noir);
       }
 
       #duree {
