@@ -49,12 +49,39 @@ displayBurgerMenu();
 
                         /* DARK MODE */
 
+/*De base, s'il n'y a rien stocké dans le localStorage, on dit que la clé "mode" correspond à la string "light" = on arrive
+directement sur le light mode */ 
+const mode = localStorage.getItem('mode');
+if(!mode){
+    localStorage.setItem("mode","light");
+}
+
+// Quand l'évènement onClick a lieu, cette fonction est executée
 function changeMode(){
+//On regarde ce qui est stocké dans le localStorage
+const currentMode = localStorage.getItem("mode");
+// Si on est sur le mode "light", on passe à "dark" et inversement
+const newMode = currentMode === "dark" ? "light" : "dark";
+
     /* On sélectionne d'abord le body, comme il contient tous les éléments */
     var element = document.body;
     /* On fait basculer la classe du body à dark mode lorsque onclick est détecté sur le bouton
     En CSS, on a juste à ajouter .dark-mode devant l'élément ciblé à l'intérieur du body pour afficher un certain style quand
     le dark mode est activé */
-    element.classList.toggle("dark-mode");
+    element.classList.toggle("dark-mode");       
+    
+// Mise à jour du localStorage avec la variable newMode qui détecte dans quel mode on est
+localStorage.setItem("mode",newMode);    
 
+}   
+// console.log(localStorage);
+
+// En sortie de la fonction, si le mode du localStorage est "dark", on bascule sur la classe dark-mode (css) et on la laisse
+if(localStorage.getItem("mode")=="dark"){
+    document.body.classList.toggle("dark-mode");
+    // console.log("dark mode activé");
+    // Si on est sur le light mode...
 }
+// else{
+//     console.log("light mode");
+// }
